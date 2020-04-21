@@ -85,17 +85,17 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
 
 We used a number of helper functions while developing this site. You here's a list of what was made, and how to use them. You can find all the helper functions in full detail in `/styles.js`.
 
-### Flexbox
+- **Flexbox**
 
-If you're unfamiliar with Flexbox, you can find a full overview [here](https://css-tricks.com/snippets/css/a-guide-to-flexbox/). All options outlined in the Flexbox helper options rely on the standard styles used in Flexbox.
+  If you're unfamiliar with Flexbox, you can find a full overview [here](https://css-tricks.com/snippets/css/a-guide-to-flexbox/). All options outlined in the Flexbox helper options rely on the standard styles used in Flexbox.
 
-#### Content Position
+        * **Content Position**
 
-Use `javascript ${setFlex()}` to set content position within a div.
+            Use `javascript ${setFlex()}` to set content position within a div.
 
-**Options**
+        * **Options**
 
-```
-X: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
-Y: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
-```
+            ```
+            X: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+            Y: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+            ```
