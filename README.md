@@ -93,7 +93,7 @@ We used a number of helper functions while developing this site. You here's a li
 
           Use `javascript ${setFlex()}` to set content position within a div.
 
-  * **Options**
+    _Options_
 
         ```
         X: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
