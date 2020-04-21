@@ -1,41 +1,26 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's hello-world++ starter
-</h1>
+# MXC Blog - built in Gatsby
 
-Kick off your project with this hello-world boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+This is the MXC blog, built with Gastby, and designed to be easy to work with and maintain. This blog uses Strapi for content management.
 
-This updated hello-world starter includes plugins that I use continually, with some modifications to have jest testing enabled out of the box.
+This ReadMe needs to be updated with the following:
 
-This starter includes:
+- [ ] Update file structure to include new folders, with Jest integration
 
-- Gatsby React Helmet
-- Gatsby Plugin Sitemap
-- Gatsby Source Filesystem
-- Gatsby Prefetch Google Fonts
-- Gatsby Transformer sharp
-- Gatsby SaSS
-- Gatsby Styled Components
+## Building your Test Environment
 
-As well as the modifications for Jest testing outlined in [Gatsby Unit Testing](https://www.gatsbyjs.org/docs/unit-testing/).
+1. **Clone this Repo and install NPM**
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+Clone this repository with:
 
-## 🚀 Quick start
+```shell
+git clone git@github.com:stahldom/mxc-blog.git
+```
 
-1.  **Create a Gatsby site.**
+Then install npm:
 
-    Use the Gatsby CLI to create a new site, specifying the hello-world starter.
-
-    ```shell
-    # create a new Gatsby site using the hello-world starter
-    gatsby new my-hello-world-starter https://github.com/gatsbyjs/gatsby-starter-hello-world
-    ```
+```shell
+npm install
+```
 
 1.  **Start developing.**
 
@@ -96,18 +81,21 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
 
 12. **`README.md`**: A text file containing useful reference information about your project.
 
-## 🎓 Learning Gatsby
+## Styled Component Helper Functions
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+We used a number of helper functions while developing this site. You here's a list of what was made, and how to use them. You can find all the helper functions in full detail in `/styles.js`.
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+### Flexbox
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+If you're unfamiliar with Flexbox, you can find a full overview [here](https://css-tricks.com/snippets/css/a-guide-to-flexbox/). All options outlined in the Flexbox helper options rely on the standard styles used in Flexbox.
 
-## 💫 Deploy
+#### Content Position
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-hello-world)
+Use `javascript ${setFlex()}` to set content position within a div.
 
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-hello-world)
+**Options**
 
-<!-- AUTO-GENERATED-CONTENT:END -->
+```
+X: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+Y: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+```
