@@ -99,3 +99,28 @@ We used a number of helper functions while developing this site. You here's a li
         X: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
         Y: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
         ```
+
+- **Media Query**
+
+          Use `javascript ${media.tablet``} to set your media queries. The Tablet option can be replaced with one of the following options. The words correspond with the pixel number listed.
+              * phone: 320
+              * smallTablet: 481
+              * portraitTablet: 641
+              * tablet: 961
+              * laptop: 1025
+              * desktop: 1281
+
+- **setRem**
+  Convert pixels to Rem with setRem.
+
+            Use `javascript ${setRem(60)}` with 60 being the number of pixel. If you leave it empty, it will default at 16 pixels, making it 1 rem.
+
+- **Letter Spacing**
+  Set the CSS `letter-spacing` using Pixels that will be automatically converted to rem.
+
+            Use `javascript ${setLetterSpacing(60)}` with 60 being the number of pixel. If you leave it empty, it will default to 2 pixels.
+
+- **Set a Border**
+  Create a border around an item. This use the CSS `border` element.
+
+          Use `javascript ${setBorder()}` to create a border around an element with `2px black solid` as your defaults. You can customize these using `width="5",color="white",style="solid"`

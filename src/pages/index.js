@@ -1,3 +1,8 @@
 import React from "react"
+import Row from "../components/Globals/Row"
 
-export default () => <div>Hello world!</div>
+export default () => (
+  <div>
+    <Row />
+  </div>
+)
