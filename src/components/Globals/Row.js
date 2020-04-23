@@ -1,6 +1,6 @@
 import React from "react"
 import Section from "../Globals/Section"
-import Title from "../globals/Title"
+import Title from "../Globals/Title"
 import { PrimaryBtn } from "../Globals/Button"
 import { Link } from "gatsby"
 import {

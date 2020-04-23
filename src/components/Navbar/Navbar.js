@@ -10,8 +10,8 @@ import {
 } from "./Navbar.styled"
 import { Link } from "gatsby"
 import { FaBars } from "react-icons/fa"
-import links from "../constants/Links"
-import styles from "./navbar.module.css"
+import links from "../Constants/Links"
+import styles from "./Navbar.module.css"
 
 const getLogo = graphql`
   {

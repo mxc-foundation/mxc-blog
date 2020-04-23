@@ -1,29 +1,21 @@
 import styled from "styled-components"
-import { media } from "../../styles"
+import { media, setColor } from "../../styles"
 
 export const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
   padding: 0.5rem 0.5rem 0.5rem;
   flex-wrap: wrap;
-  background-color: ${props => props.theme.navbarColor};
-  color: ${props => props.theme.textColor};
-  .show {
-    height: 100vh !important;
-    transition: all 0.3s linear;
-  }
-
-  .hide {
-    display: none;
-    transition: all 0.3 linear;
-  }
+  background-color: ${setColor.navbar};
+  color: ${setColor.mainWhite};
+  
   a {
     text-decoration: none;
     color: white;
   }
   a:hover {
     text-decoration: none;
-    color: ${props => props.theme.secondaryColor};
+  color: ${setColor.secondaryColor};
   }
   ${media.tablet`flex-direction:row;`};
 `
@@ -66,7 +58,7 @@ export const NavRight = styled.div`
 `
 
 export const MobileMenu = styled.button`
-  color: ${props => props.theme.primaryColor};
+  color: ${setColor.primaryColor};
   background-color: transparent;
   margin-top: 1rem;
   border: none;
