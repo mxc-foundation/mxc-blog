@@ -1,8 +1,8 @@
 import React from "react"
 import Section from "../Globals/Section"
 import Title from "../globals/Title"
-import aboutImg from "../../images/imageBtn.png"
 import { PrimaryBtn } from "../Globals/Button"
+import { Link } from "gatsby"
 import {
   setRem,
   setBorder,
@@ -11,19 +11,63 @@ import {
   media,
 } from "../../styles"
 import styled from "styled-components"
-import Image from "../Globals/Image"
+import DisplayImage from "../Globals/DisplayImage"
 
-const Row = () => {
+const Row = ({ text, heading, image, slug }) => {
   return (
     <Section>
       <AboutCenter>
-        <Image />
-        <Title title="about us" />
+        <Link to={slug}>
+          <DisplayImage className="img" img={image} />
+        </Link>
+        <div className="info">
+          <Title title={heading} />
+          <p>{text}</p>
+          <PrimaryBtn as={Link} to={slug}>
+            Read More
+          </PrimaryBtn>
+        </div>
       </AboutCenter>
     </Section>
   )
 }
 
-const AboutCenter = styled.div``
+const AboutCenter = styled.div`
+  .img,
+  .info {
+    padding: ${setRem(30)};
+  }
+  .img {
+    display: block;
+    ${setBorder({ width: setRem(6), color: setColor.primaryColor })}
+  }
+  .info {
+    p {
+      ${setLetterSpacing()}
+    }
+  }
+  width: 90vw;
+  margin: 0 auto;
+
+  ${media.laptop`
+  width: 100vw;
+  max-width: ${setRem(1170)};
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-column-gap: ${setRem(32)};
+  .img {
+    align-self: center;
+  }
+  .info {
+    p {
+      width: 80%;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+  ]
+  `}
+`
 
 export default Row

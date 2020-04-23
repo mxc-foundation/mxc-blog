@@ -15,7 +15,7 @@ const getImage = graphql`
   }
 `
 
-const Image = ({ className, img }) => {
+const DisplayImage = ({ className, img, width }) => {
   const data = useStaticQuery(getImage)
 
   return (
@@ -26,6 +26,6 @@ const Image = ({ className, img }) => {
   )
 }
 
-export default styled(Image)`
-  width: 400px;
+export default styled(DisplayImage)`
+  width: ${props => props.width};
 `
