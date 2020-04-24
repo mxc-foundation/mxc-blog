@@ -1,18 +1,17 @@
-import React from 'react'
-import Navbar from './Navbar/Navbar'
-import Footer from './Footer/Footer'
-import { GlobalStyles } from './Global.styled'
+import React from "react"
+import Navbar from "./Navbar/Navbar"
+import Footer from "./Footer/Footer"
+import Globals from "./GlobalStyles"
 
-const Layout = ({children}) => {
-    return (
-        <div>
-            <GlobalStyles>
-            <Navbar />
-            {children}
-            <Footer />
-            </GlobalStyles>
-        </div>
-    )
+const Layout = ({ children }) => {
+  return (
+    <div>
+      <Globals />
+      <Navbar />
+      {children}
+      <Footer />
+    </div>
+  )
 }
 
 export default Layout

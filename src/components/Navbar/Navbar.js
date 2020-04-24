@@ -7,11 +7,13 @@ import {
   StyledMenu,
   MenuItem,
   Logo,
+  Grid,
+  NavRight,
 } from "./Navbar.styled"
-import { Link } from "gatsby"
 import { FaBars } from "react-icons/fa"
 import links from "../Constants/Links"
 import styles from "./Navbar.module.css"
+import { PrimaryBtn } from "../Globals/Button"
 
 const getLogo = graphql`
   {
@@ -33,24 +35,25 @@ const Navbar = () => {
   }
 
   return (
-    <StyledNav>
-      <Logo>
-        <Link to="/">
-          <Image fixed={data.logo.childImageSharp.fixed} />
-        </Link>
-      </Logo>
-      <MobileMenu type="button" onClick={toggleNav}>
-        <FaBars />
-      </MobileMenu>
-      <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
-        {links.map((item, index) => {
-          return (
-            <MenuItem key={index}>
-              <Link to={item.path}>{item.text}</Link>
-            </MenuItem>
-          )
-        })}
-        {/* <NavRight>
+    <Grid>
+      <StyledNav>
+        <Logo>
+          <a href="https://www.mxc.org">
+            <Image fixed={data.logo.childImageSharp.fixed} />
+          </a>
+        </Logo>
+        <MobileMenu type="button" onClick={toggleNav}>
+          <FaBars />
+        </MobileMenu>
+        <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
+          {links.map((item, index) => {
+            return (
+              <MenuItem key={index}>
+                <a href={item.path}>{item.text}</a>
+              </MenuItem>
+            )
+          })}
+          {/* <NavRight>
 					{socialIcons.map((item, index) => {
 						return (
 							<a key={index} href={item.url} target="_blank" rel="noopener noreferrer">
@@ -59,8 +62,14 @@ const Navbar = () => {
 						);
 					})}
 				</NavRight> */}
-      </StyledMenu>
-    </StyledNav>
+        </StyledMenu>
+      </StyledNav>
+      <NavRight>
+        <PrimaryBtn />
+        <PrimaryBtn />
+        <PrimaryBtn />
+      </NavRight>
+    </Grid>
   )
 }
 

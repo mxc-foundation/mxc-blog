@@ -1,22 +1,22 @@
 export default [
   {
-    path: "/",
+    path: "https://www.mxc.org/",
     text: "Home",
   },
   {
-    path: "/token",
+    path: "https://www.mxc.org/token",
     text: "Token",
   },
   {
-    path: "/supernode",
+    path: "https://www.mxc.org/supernode",
     text: "Supernode",
   },
   {
-    path: "/blog",
+    path: "https://www.mxc.org/blog",
     text: "Blog",
   },
   {
-    path: "/about",
+    path: "https://www.mxc.org/about",
     text: "About",
   },
 ]

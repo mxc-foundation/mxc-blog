@@ -1,21 +1,28 @@
 import styled from "styled-components"
 import { media, setColor } from "../../styles"
 
+export const Grid = styled.div`
+  color: ${setColor.mainWhite};
+  background-color: ${setColor.navbar};
+  ${media.tablet`  display: grid;
+  grid-template-columns: 4fr 2fr;
+  
+  `}
+`
+
 export const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
   padding: 0.5rem 0.5rem 0.5rem;
   flex-wrap: wrap;
-  background-color: ${setColor.navbar};
-  color: ${setColor.mainWhite};
-  
+
   a {
     text-decoration: none;
     color: white;
   }
   a:hover {
     text-decoration: none;
-  color: ${setColor.secondaryColor};
+    color: ${setColor.secondaryColor};
   }
   ${media.tablet`flex-direction:row;`};
 `
@@ -50,11 +57,12 @@ export const MenuItem = styled.li`
 `
 
 export const NavRight = styled.div`
-  flex: 2;
-  justify-content: right;
-  text-align: right;
-  padding-right: 1rem;
-  order: 99;
+  display: none;
+  ${media.tablet`
+    display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  `}
 `
 
 export const MobileMenu = styled.button`

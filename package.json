@@ -11,7 +11,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "jest"
+    "test": "jest",
+    "dev": "GATSBY_CONCURRENT_DOWNLOAD=1 gatsby develop"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.7",
@@ -26,6 +27,7 @@
     "gatsby-plugin-sitemap": "^2.3.5",
     "gatsby-plugin-styled-components": "^3.2.3",
     "gatsby-source-filesystem": "^2.2.4",
+    "gatsby-source-strapi": "0.0.12",
     "gatsby-transformer-sharp": "^2.4.6",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
