@@ -12,7 +12,6 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
-  console.log(data)
 
   data.allStrapiPosts.nodes.forEach(node => {
     createPage({

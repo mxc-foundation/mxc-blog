@@ -2,7 +2,9 @@ import React from "react"
 import { graphql } from "gatsby"
 
 const Post_Template = ({ data }) => {
-  return <div>{data.posts.nodes.Title}</div>
+  console.log(data)
+
+  return <div>dummy data template</div>
 }
 export const query = graphql`
   {
