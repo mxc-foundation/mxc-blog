@@ -15,7 +15,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   data.allStrapiPosts.nodes.forEach(node => {
     createPage({
-      path: `blog${node.slug}`,
+      path: node.slug,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
         slug: node.slug,
