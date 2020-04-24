@@ -1,10 +1,11 @@
 import React from "react"
 import { graphql } from "gatsby"
+import Layout from "../Layout"
 
 const Post_Template = ({ data }) => {
   console.log(data)
 
-  return <div>dummy data template</div>
+  return <Layout>dummy data template</Layout>
 }
 export const query = graphql`
   {
