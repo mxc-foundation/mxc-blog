@@ -8,18 +8,34 @@ exports.createPages = async ({ graphql, actions }) => {
       allStrapiPosts {
         nodes {
           slug
+          Translations {
+            Language
+            slug
+          }
         }
       }
     }
   `)
 
   data.allStrapiPosts.nodes.forEach(node => {
+    console.log(node)
     createPage({
-      path: `blog${node.slug}`,
+      path: `${node.slug}`,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
         slug: node.slug,
       },
+    })
+    node.Translations.forEach(translation => {
+      console.log(translation)
+
+      createPage({
+        path: `${translation.Language}/${translation.slug}`,
+        component: path.resolve("./src/components/Templates/Post-Template.js"),
+        context: {
+          slug: node.slug,
+        },
+      })
     })
   })
 }
