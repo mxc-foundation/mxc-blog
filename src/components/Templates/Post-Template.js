@@ -1,20 +1,26 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../Layout"
 import Image from "gatsby-image"
 import {
   Content,
-  Meta,
   Author,
-  AuthorText,
   FeaturedImage,
   Grid,
-  Name,
   Date,
-  AuthorPicture,
+  Meta,
+  Category,
+  Bottom,
+  Tag,
+  Tags,
+  Left,
 } from "./Post-Template.styled"
+import Line from '../Globals/Line'
+import {setColor} from '../../styles'
+import Video from '../Globals/Video'
 
 const Post_Template = ({ data }) => {
+  console.log(data);
   return (
     <Layout>
       <Grid>
@@ -23,25 +29,41 @@ const Post_Template = ({ data }) => {
           <FeaturedImage>
             <Image fluid={data.post.Featured_Image.childImageSharp.fluid} />
           </FeaturedImage>
-          <h1>{data.post.Title}</h1>
+        
+            <Video url={data.post.Video}/>
+          
           <Meta>
-            <Author>
-              <AuthorPicture>Picture</AuthorPicture>
-              <AuthorText>
-                <Name>{data.post.Author.Name}</Name>
-                <Date>{data.post.Date}</Date>
-              </AuthorText>
-            </Author>
-            <div>Social Icons</div>
+          <Category><Link to={`/categories/${data.post.category.slug}`}>{data.post.category.Category}</Link></Category>
+          <Date>{data.post.Date}</Date>
           </Meta>
+          <h1>{data.post.Title}</h1>
           <h4>{data.post.Meta_Description}</h4>
-          <div>{data.post.Content}</div>
+          <Content>{data.post.Content}</Content>
+          <Line color={setColor.lightGrey}/>
+          <Bottom>
+            <Left>
+          <Author>
+            <Link to={data.post.Author.slug}>
+            {data.post.Author.Name}
+            </Link>
+          </Author>
+          </Left>
+          <Tags>
+            {data.post.tags.map((item, index) => {
+            return (
+              <Tag key={index}>
+                <Link to={`/tags/${item.slug}`}>{item.tag}</Link>
+              </Tag>
+            )
+          })}</Tags>
+          </Bottom>
         </div>
         <div></div>
       </Grid>
     </Layout>
   )
 }
+
 
 export const query = graphql`
   query($slug: String!) {
@@ -50,9 +72,18 @@ export const query = graphql`
       Content
       Meta_Description
       Date(formatString: "MMMM DD, YYYY")
-      Category
+      Video
+      category {
+        Category
+        slug
+      }
       Author {
         Name
+        slug
+      }
+      tags {
+        slug
+        tag
       }
       Featured_Image {
         childImageSharp {
