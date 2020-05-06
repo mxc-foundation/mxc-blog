@@ -4,7 +4,7 @@ export const setColor = {
   primaryColor: "#af9a7d",
   secondaryColor: "#00FFd9",
   mainWhite: "#fff",
-  mainBlack: "#222",
+  mainBlack: "#333",
   mainGrey: "#ccc",
   lightGrey: "#ebeff2",
   navbar: "#050319",

@@ -1,9 +1,10 @@
 import React from "react"
-import Row from "./Globals/Row"
+import FeaturedPost from "./Globals/FeaturedPost"
 import { setColor, setRem, setFont } from "../styles"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
 import Line from './Globals/Line'
+import Categories from './Categories'
 
 const getPosts = graphql`
   {
@@ -35,8 +36,6 @@ const Posts = () => {
     allStrapiPosts: { nodes: posts },
   } = useStaticQuery(getPosts)
 
-  console.log(posts)
-
   return (
     <Grid>
       <div />
@@ -44,10 +43,11 @@ const Posts = () => {
         <Title>
         <h1>Blog</h1>
         </Title>
+        <Categories />
         {posts.map(item => {
           return (
             <div>
-            <Row
+            <FeaturedPost
               key={item.id}
               heading={item.Title}
               text={item.Meta_Description}
@@ -82,11 +82,12 @@ const FeaturedRow = styled.div`
     margin: 20px 0;
     ${setFont}
     font-size: ${setRem(38)};
+    color: ${setColor.mainBlack};
   }
 `
 
 const Title = styled.div`
-border-top: 3px solid black; 
+border-top: 3px solid ${setColor.mainBlack}; 
 width: 5vw;
 margin-top: ${setRem(80)};
 
