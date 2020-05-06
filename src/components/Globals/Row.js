@@ -39,7 +39,7 @@ const AboutCenter = styled.div`
   }
   .img {
     display: block;
-    ${setBorder({ width: setRem(6), color: setColor.primaryColor })}
+    ${setBorder({ width: setRem(0), color: setColor.primaryColor })}
   }
   .info {
     p {
@@ -57,11 +57,10 @@ const AboutCenter = styled.div`
   grid-column-gap: ${setRem(32)};
   .img {
     align-self: center;
+    width: 55vw;
   }
   .info {
-    p {
-      width: 80%;
-    }
+
   }
   a {
     text-decoration: none;

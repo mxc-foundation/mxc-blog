@@ -6,7 +6,7 @@ export const setColor = {
   mainWhite: "#fff",
   mainBlack: "#222",
   mainGrey: "#ccc",
-  lightGrey: "#f7f7f7",
+  lightGrey: "#ebeff2",
   navbar: "#050319",
   author: "rgba(0, 0, 0, 0.84)",
   date: "rgba(0, 0, 0, 0.54)",
