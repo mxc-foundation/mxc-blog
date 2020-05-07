@@ -27,6 +27,7 @@ display: flex;
 flex: 1 1 auto;
 flex-direction: column;
 height: 488px;
+margin-top: 78px;
 `
 
 export const BigFrame = styled.div`

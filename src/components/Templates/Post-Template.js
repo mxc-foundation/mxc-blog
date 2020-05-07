@@ -14,10 +14,12 @@ import {
   Tag,
   Tags,
   Left,
+  Social,
 } from "./Post-Template.styled"
 import Line from '../Globals/Line'
 import {setColor} from '../../styles'
 import Video from '../Globals/Video'
+import {FaTwitterSquare, FaTelegram, FaLinkedin} from 'react-icons/fa'
 
 const Post_Template = ({ data }) => {
   console.log(data);
@@ -26,11 +28,12 @@ const Post_Template = ({ data }) => {
       <Grid>
         <div></div>
         <div>
+          {data.post.Video ? <Video url={data.post.Video}/> : 
           <FeaturedImage>
             <Image fluid={data.post.Featured_Image.childImageSharp.fluid} />
-          </FeaturedImage>
+          </FeaturedImage> }
+          
         
-            <Video url={data.post.Video}/>
           
           <Meta>
           <Category><Link to={`/categories/${data.post.category.slug}`}>{data.post.category.Category}</Link></Category>
@@ -47,13 +50,26 @@ const Post_Template = ({ data }) => {
             {data.post.Author.Name}
             </Link>
           </Author>
+          <Social>
+          <a href="https://twitter.com/intent/tweet" target="_blank">
+          <FaTwitterSquare size={30} className="iconRight"/>
+          </a>
+          <a href="https://twitter.com/intent/tweet" target="_blank">
+            <FaTelegram size={30} className="icon"/>
+          </a>
+          <a href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${data.post.slug}`} target="_blank">
+            <FaLinkedin size={30} className="icon"/>
+            </a>
+          </Social>
           </Left>
           <Tags>
             {data.post.tags.map((item, index) => {
             return (
+              <Link to={`/tags/${item.slug}`}>
               <Tag key={index}>
-                <Link to={`/tags/${item.slug}`}>{item.tag}</Link>
+                {item.tag}
               </Tag>
+              </Link>
             )
           })}</Tags>
           </Bottom>
@@ -73,6 +89,7 @@ export const query = graphql`
       Meta_Description
       Date(formatString: "MMMM DD, YYYY")
       Video
+      slug
       category {
         Category
         slug

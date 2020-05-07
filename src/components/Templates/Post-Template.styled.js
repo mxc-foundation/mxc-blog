@@ -9,7 +9,7 @@ color: ${setColor.mainBlack};
 `
 
 export const Author = styled.div`
-padding: 0 ${setRem(19)} 0 ${setRem(19)};
+padding: ${setRem(19)} ${setRem(0)};
 font-size: ${setRem(18)};
 line-height: ${setRem(27)};
 a {
@@ -72,22 +72,23 @@ background: ${setColor.mainGrey};
 padding: ${setRem(7)} ${setRem(15)};
 margin: ${setRem()};
 border-radius: ${setRem()};
-a {
-  color: ${setColor.mainBlack};
-  text-decoration: none;
-}
-a:hover {
-  color: ${setColor.mainWhite};
-  ${setTransition}
 }
 
 `
-
 export const Tags = styled.div`
+a{
+  text-decoration: none;
+  color: ${setColor.mainBlack};
+  ${setTransition}
+}
+a:hover {
+  color: ${setColor.mainWhite};
+}
 display: flex;
 justify-content: space-around;
 flex-wrap: wrap;
 min-width: 10vw;
+${setTransition}
 `
 export const Left = styled.div`
 display: flex;
@@ -95,5 +96,18 @@ flex-direction: column;
 `
 
 export const Social = styled.div`
-
+a {
+  color: ${setColor.mainBlack}
+}
+a:hover{
+  color: ${setColor.secondaryColor}
+}
+.icon {
+  margin: ${setRem(0)} ${setRem(5)};
+  ${setTransition}
+}
+.iconRight {
+  margin-right: ${setRem(5)};
+  ${setTransition}
+}
 `
