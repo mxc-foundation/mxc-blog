@@ -5,7 +5,7 @@ export const setColor = {
   secondaryColor: "#00FFd9",
   mainWhite: "#fff",
   mainBlack: "#333",
-  mainGrey: "#ccc",
+  mainGrey: "#686868",
   lightGrey: "#ebeff2",
   navbar: "#050319",
   author: "rgba(0, 0, 0, 0.84)",

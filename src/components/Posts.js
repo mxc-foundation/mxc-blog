@@ -1,24 +1,47 @@
 import React from "react"
-import FeaturedPost from "./Globals/FeaturedPost"
 import { setColor, setRem, setFont } from "../styles"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
 import Line from './Globals/Line'
 import Categories from './Categories'
+import PostRow from "./Globals/PostRow"
 
 const getPosts = graphql`
   {
     allStrapiPosts(
       sort: { fields: Date, order: DESC }
-      filter: { Publish: { eq: true } }
+      filter: { Publish: { eq: true }, Featured: {ne: true} }
     ) {
       nodes {
         Title
         id
         slug
         Date(formatString: "MMMM Do, YYYY")
-        Content
         Meta_Description
+        category {
+          Category
+          slug
+        }
+        Featured_Image {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+      }
+    }
+    featured: allStrapiPosts(sort: {fields: Date, order: DESC}, filter: {Publish: {eq: true}, Featured: {eq: true}}) {
+      nodes {
+        Title
+        id
+        slug
+        Date(formatString: "MMMM Do, YYYY")
+        Meta_Description
+        category {
+          Category
+          slug
+        }
         Featured_Image {
           childImageSharp {
             fluid {
@@ -35,7 +58,9 @@ const Posts = () => {
   const {
     allStrapiPosts: { nodes: posts },
   } = useStaticQuery(getPosts)
-
+  const {
+    featured: { nodes: featured },
+  } = useStaticQuery(getPosts)
   return (
     <Grid>
       <div />
@@ -44,21 +69,41 @@ const Posts = () => {
         <h1>Blog</h1>
         </Title>
         <Categories />
-        {posts.map(item => {
+        {featured.map(item => {
           return (
             <div>
-            <FeaturedPost
+            <PostRow
               key={item.id}
               heading={item.Title}
               text={item.Meta_Description}
               slug={item.slug}
               image={item.Featured_Image.childImageSharp.fluid}
+              category={item.category.Category}
+              date={item.Date}
+              featured
+            />
+            <Line color={setColor.lightGrey}/>
+            </div>
+            
+          )
+        })}{posts.map(item => {
+          return (
+            <div>
+            <PostRow
+              key={item.id}
+              heading={item.Title}
+              text={item.Meta_Description}
+              slug={item.slug}
+              image={item.Featured_Image.childImageSharp.fluid}
+              imgWidth="30vw"
+              date={item.Date}
             />
             <Line color={setColor.lightGrey}/>
             </div>
             
           )
         })}
+
       </FeaturedRow>
       <div />
     </Grid>

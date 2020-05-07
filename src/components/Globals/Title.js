@@ -7,7 +7,7 @@ const Title = ({ className, title, align }) => {
 }
 
 export default styled(Title)`
-  font-size: ${setRem(36)};
+  font-size: ${setRem(32)};
   text-transform: capitalize;
   ${setLetterSpacing(3)};
   ${setFont.main};
