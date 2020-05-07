@@ -1,11 +1,21 @@
 import styled from "styled-components"
 import { setRem, setFlex, setColor, setTransition } from "../../styles"
 
+
 export const Content = styled.div`
 font-size: ${setRem(18)};
 line-height: ${setRem(27)};
 font-weight: 300;
 color: ${setColor.mainBlack};
+h2 {
+  margin: ${setRem(40)} 0 ${setRem(10)} 0;
+}
+h3 { 
+  margin: ${setRem(40)} 0 ${setRem(10)} 0;
+}
+h4 {
+  margin: ${setRem(20)} 0;
+}
 `
 
 export const Author = styled.div`
