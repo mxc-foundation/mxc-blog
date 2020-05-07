@@ -4,10 +4,12 @@ export const setColor = {
   primaryColor: "#af9a7d",
   secondaryColor: "#00FFd9",
   mainWhite: "#fff",
-  mainBlack: "#222",
-  mainGrey: "#ececec",
-  lightGrey: "#f7f7f7",
+  mainBlack: "#333",
+  mainGrey: "#ccc",
+  lightGrey: "#ebeff2",
   navbar: "#050319",
+  author: "rgba(0, 0, 0, 0.84)",
+  date: "rgba(0, 0, 0, 0.54)",
 }
 
 export const setFont = {

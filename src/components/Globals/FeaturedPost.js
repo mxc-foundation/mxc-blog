@@ -1,7 +1,7 @@
 import React from "react"
-import Section from "../Globals/Section"
-import Title from "../Globals/Title"
-import { PrimaryBtn } from "../Globals/Button"
+import Section from "./Section"
+import Title from "./Title"
+import { PrimaryBtn } from "./Button"
 import { Link } from "gatsby"
 import {
   setRem,
@@ -11,9 +11,9 @@ import {
   media,
 } from "../../styles"
 import styled from "styled-components"
-import DisplayImage from "../Globals/DisplayImage"
+import DisplayImage from "./DisplayImage"
 
-const Row = ({ text, heading, image, slug }) => {
+const FeaturedPost = ({ text, heading, image, slug }) => {
   return (
     <Section>
       <AboutCenter>
@@ -39,7 +39,7 @@ const AboutCenter = styled.div`
   }
   .img {
     display: block;
-    ${setBorder({ width: setRem(6), color: setColor.primaryColor })}
+    ${setBorder({ width: setRem(0), color: setColor.primaryColor })}
   }
   .info {
     p {
@@ -57,11 +57,10 @@ const AboutCenter = styled.div`
   grid-column-gap: ${setRem(32)};
   .img {
     align-self: center;
+    width: 55vw;
   }
   .info {
-    p {
-      width: 80%;
-    }
+
   }
   a {
     text-decoration: none;
@@ -70,4 +69,4 @@ const AboutCenter = styled.div`
   `}
 `
 
-export default Row
+export default FeaturedPost

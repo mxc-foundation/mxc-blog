@@ -9,6 +9,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
+    
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -32,7 +33,7 @@ module.exports = {
       options: {
         apiURL: `https://cms.mxc.org:443`,
         queryLimit: 1000, // Default to 100
-        contentTypes: [`posts`],
+        contentTypes: [`posts`,`categories`,`author`, `tags`],
         //If using single types place them in this array.
         // singleTypes: [`home-page`, `contact`],
         // Possibility to login with a strapi user, when content types are not publically available (optional).
