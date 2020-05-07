@@ -57,7 +57,7 @@ const Post_Template = ({ data }) => {
           <a href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">
           <FaTwitterSquare size={30} className="iconRight"/>
           </a>
-          <a href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">
+          <a href={`https://telegram.me/share/url?url=https://blog.mxc.org/${data.post.slug}`} target="_blank" rel="noopener noreferrer">
             <FaTelegram size={30} className="icon"/>
           </a>
           <a href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${data.post.slug}`} target="_blank" rel="noopener noreferrer">
