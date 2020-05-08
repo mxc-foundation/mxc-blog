@@ -6,18 +6,18 @@ import Line from '../Globals/Line'
 import {setColor, setRem, setFont} from '../../styles'
 import PostRow from '../Globals/PostRow'
 
-const CategoryTemplate = ({data}) => {
+const TagTemplate = ({data}) => {
     
     return (
         <Layout>
         
       
-        {data.categories.nodes.map(item => {
+        {data.tags.nodes.map(item => {
           return (
             <Grid key={item.id}>
               <div />
               <FeaturedRow>
-                <Title><h1>{item.Category}</h1></Title>
+                <Title><h1>{item.tag}</h1></Title>
                 {item.posts.map(post => {
                   console.log(post);
                   return (
@@ -80,29 +80,27 @@ const Column = styled.div`
 
 export const query = graphql`
 
-query ($slug:String!) {
-    categories: allStrapiCategories(filter: {slug: {eq: $slug}, posts: {elemMatch: {Publish: {eq: true}}}}) {
-      nodes {
-        Category
-        posts {
-          Date(formatString: "MMMM Do, YYYY")
-          slug
-          Title
-          Featured_Image {
-            childImageSharp {
-              fluid {
-                src
-              }
+query ($slug: String!) {
+  tags: allStrapiTags(filter: {slug: {eq: $slug}, posts: {elemMatch: {Publish: {eq: true}}}}) {
+    nodes {
+      posts {
+        Author
+        Featured_Image {
+          childImageSharp {
+            fluid {
+              src
             }
           }
-          Meta_Description
-          id
         }
-        slug
+        Date
+        Title
         id
+        Meta_Description
       }
+      tag
     }
   }
+}
 `
 
-export default CategoryTemplate
+export default TagTemplate
