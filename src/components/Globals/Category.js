@@ -16,7 +16,7 @@ const Category = ({children, category, url}) => {
             <Link to={url} className="button">
                 <p>See more in {category}</p>
                 <FaChevronRight className="icon"/>
-                </Link>
+            </Link>
             </More>
             
             </Cat>
@@ -27,7 +27,7 @@ const Category = ({children, category, url}) => {
 }
 
 export const Cat = styled.div `
-display: flex;Box
+display: flex;
 flex-direction: row;
 justify-content: space-between;
 margin-top: ${setRem(30)};

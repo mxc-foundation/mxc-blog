@@ -28,4 +28,5 @@ const DisplayImage = ({ className, img, width }) => {
 
 export default styled(DisplayImage)`
   width: ${props => props.width};
+  min-height:100%;
 `

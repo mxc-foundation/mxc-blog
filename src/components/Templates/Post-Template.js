@@ -23,7 +23,7 @@ import {FaTwitterSquare, FaTelegram, FaLinkedin} from 'react-icons/fa'
 import ReactMarkdown from "react-markdown"  
 
 const Post_Template = ({ data }) => {
-  console.log(data);
+
   return (
     <Layout>
       <Grid>

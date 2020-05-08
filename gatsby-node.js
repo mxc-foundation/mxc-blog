@@ -14,22 +14,24 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+    categories: allStrapiCategories(filter: {posts: {elemMatch: {Publish: {eq: true}}}}) {
+    nodes {
+      Category
+      slug
+    }
+  }
     }
   `)
 
   data.allStrapiPosts.nodes.forEach(node => {
     createPage({
-
       path: node.slug,
-
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
         slug: node.slug,
       },
     })
     node.Translations.forEach(translation => {
-      console.log(translation)
-
       createPage({
         path: `${translation.Language}/${translation.slug}`,
         component: path.resolve("./src/components/Templates/Post-Template.js"),
@@ -39,4 +41,16 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     })
   })
+  data.categories.nodes.forEach(node => {
+    createPage({
+      path: node.slug,
+      component: path.resolve("./src/components/Templates/Category-Template.js"),
+      context: {
+        slug: node.slug,
+      },
+    })
+  })
+  
 }
+
+
