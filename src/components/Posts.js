@@ -5,62 +5,17 @@ import { graphql, useStaticQuery } from "gatsby"
 import Line from './Globals/Line'
 import Categories from './Categories'
 import PostRow from "./Globals/PostRow"
+import Category from "./Globals/Category"
 
-const getPosts = graphql`
-  {
-    allStrapiPosts(
-      sort: { fields: Date, order: DESC }
-      filter: { Publish: { eq: true }, Featured: {ne: true} }
-    ) {
-      nodes {
-        Title
-        id
-        slug
-        Date(formatString: "MMMM Do, YYYY")
-        Meta_Description
-        category {
-          Category
-          slug
-        }
-        Featured_Image {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-      }
-    }
-    featured: allStrapiPosts(sort: {fields: Date, order: DESC}, filter: {Publish: {eq: true}, Featured: {eq: true}}) {
-      nodes {
-        Title
-        id
-        slug
-        Date(formatString: "MMMM Do, YYYY")
-        Meta_Description
-        category {
-          Category
-          slug
-        }
-        Featured_Image {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-      }
-    }
-  }
-`
 
 const Posts = () => {
   const {
-    allStrapiPosts: { nodes: posts },
+    posts: { nodes: posts },
   } = useStaticQuery(getPosts)
   const {
     featured: { nodes: featured },
   } = useStaticQuery(getPosts)
+  
   return (
     <Grid>
       <div />
@@ -86,23 +41,38 @@ const Posts = () => {
             </div>
             
           )
-        })}{posts.map(item => {
+        })}
+
+        
+        {posts.map(item => {
+          console.log(item.posts.Date)
           return (
+            
+            
             <div>
-            <PostRow
-              key={item.id}
-              heading={item.Title}
-              text={item.Meta_Description}
-              slug={item.slug}
-              image={item.Featured_Image.childImageSharp.fluid}
-              imgWidth="30vw"
-              date={item.Date}
-            />
-            <Line color={setColor.lightGrey}/>
+            <Category key={item.id} category={item.Category} url={`/${item.slug}`}>
+            {item.posts.map (data => {
+              console.log(data);
+              return (
+                <div>
+                <PostRow key={data.id}
+                heading={data.Title}
+                text={data.Meta_Description}
+                slug={data.slug}
+                date={data.Date}
+                image={data.Featured_Image.childImageSharp.fluid}
+              />
+              <Line color={setColor.lightGrey}/>
+              </div>
+              )
+              
+            })}
+            </Category>
             </div>
             
           )
         })}
+        
 
       </FeaturedRow>
       <div />
@@ -145,6 +115,50 @@ const Column = styled.div`
   padding: 0 2vw;
 `
 
-
+const getPosts = graphql`
+  {
+    featured: allStrapiPosts(sort: {fields: Date, order: DESC}, filter: {Publish: {eq: true}, Featured: {eq: true}}) {
+      nodes {
+        Title
+        id
+        slug
+        Date(formatString: "MMMM Do, YYYY")
+        Meta_Description
+        category {
+          Category
+          slug
+        }
+        Featured_Image {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+      }
+    }
+    posts: allStrapiCategories(filter: {posts: {elemMatch: {Publish: {eq: true}}}}) {
+      nodes {
+        Category
+        posts {
+          id
+          Date(formatString: "MMMM Do, YYYY")
+          slug
+          Title
+          Featured_Image {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
+          Meta_Description
+        }
+        slug
+        id
+      }
+    }
+  }
+`
 
 export default Posts

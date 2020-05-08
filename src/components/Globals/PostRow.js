@@ -16,7 +16,7 @@ const PostRow = ({ text, heading, image, slug, featured, category, date }) => {
   return (
     <Section>
       <Link to={slug}>
-      <Center imageWidth={featured ? `50vw`: `30vw`}>
+      <Center imageWidth={featured ? `50vw`: `25vw`}>
         
           <DisplayImage className="img" img={image} />
         
