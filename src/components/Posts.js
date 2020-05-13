@@ -105,13 +105,6 @@ const Title = styled.div`
     width: 5vw;
     margin-top: ${setRem(80)};`};
 `
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 2vw;
-`
 
 const getPosts = graphql`
   {
