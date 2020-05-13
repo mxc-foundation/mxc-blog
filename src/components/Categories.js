@@ -1,10 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
-import { media, setColor } from "../styles"
+import React, { useState } from "react"
+import styled from "styled-components"
+import { media, setColor, setRem, setFlex } from "../styles"
 import { graphql, useStaticQuery } from "gatsby"
+import { FaAngleDown } from "react-icons/fa"
+import styles from "./Categories.module.css"
 
 const getCategories = graphql`
-query {
+  query {
     categories: allStrapiCategories {
       nodes {
         slug
@@ -12,28 +14,50 @@ query {
       }
     }
   }
-   
 `
 
-
-
 const Categories = () => {
-    const links = useStaticQuery(getCategories)
-    console.log(links);
-    
-    return (
-        <StyledMenu>
-            {links.categories.nodes.map((item, index) => {
-            return (
-              <MenuItem key={index}>
-                <a href={item.slug}>{item.Category}</a>
-              </MenuItem>
-            )
-          })}
-        </StyledMenu>
-    )
+  const links = useStaticQuery(getCategories)
+  const [isOpen, setNav] = useState(false)
+  const toggleNav = () => {
+    setNav(isOpen => !isOpen)
+  }
+
+  return (
+    <div>
+      <FlexBox>
+        <MobileMenu type="button" onClick={toggleNav}>
+          Categories <FaAngleDown />
+        </MobileMenu>
+      </FlexBox>
+      <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
+        {links.categories.nodes.map((item, index) => {
+          return (
+            <MenuItem key={index}>
+              <a href={`/categories/${item.slug}`}>{item.Category}</a>
+            </MenuItem>
+          )
+        })}
+      </StyledMenu>
+    </div>
+  )
 }
 
+export const FlexBox = styled.div`
+  ${setFlex}
+`
+
+export const MobileMenu = styled.button`
+  color: ${setColor.mainBlack};
+  background-color: transparent;
+  margin-top: 1rem;
+  border: none;
+  outline: none;
+  font-size: ${setRem(14)};
+  order: 99;
+  cursor: pointer;
+  ${media.tablet`display:none;`};
+`
 
 export const StyledMenu = styled.ul`
   display: flex;
