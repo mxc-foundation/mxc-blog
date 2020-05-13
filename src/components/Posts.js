@@ -77,9 +77,9 @@ const Posts = () => {
 }
 
 const Grid = styled.div`
-  display: grid;
+  ${media.tablet`  display: grid;
   grid-template-columns: 10vw 80vw 10vw;
-  column-gap: ${setRem(5)};
+  column-gap: ${setRem(5)};`};
 `
 
 const FeaturedRow = styled.div`
@@ -99,8 +99,7 @@ const FeaturedRow = styled.div`
 
 const Title = styled.div`
   border-top: 3px solid ${setColor.mainBlack};
-
-  margin-top: ${setRem(80)};
+  margin-top: ${setRem(40)};
   ${media.tablet`
     border-top: 3px solid ${setColor.mainBlack}; 
     width: 5vw;
