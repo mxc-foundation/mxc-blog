@@ -40,8 +40,8 @@ const Post_Template = ({ data }) => {
 
           <Meta>
             <Category>
-              <Link to={`/categories/${data.post.category.slug}`}>
-                {data.post.category.category}
+              <Link to={`/zh-hans/categories/${data.post.category.zhchSlug}`}>
+                {data.post.category.zhchCategory}
               </Link>
             </Category>
             <Date>{data.post.post.date}</Date>
@@ -86,8 +86,8 @@ const Post_Template = ({ data }) => {
             <Tags>
               {data.post.tags.map((item, index) => {
                 return (
-                  <Link to={`/tags/${item.slug}`}>
-                    <Tag key={index}>{item.tag}</Tag>
+                  <Link to={`/zh-hans/tags/${item.zhchSlug}`}>
+                    <Tag key={index}>{item.zhchTag}</Tag>
                   </Link>
                 )
               })}
@@ -102,10 +102,10 @@ const Post_Template = ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    post: strapiPosts(post: { slug: { eq: $slug } }) {
+    post: strapiZhchPosts(post: { slug: { eq: $slug } }) {
       category {
-        category
-        slug
+        zhchCategory
+        zhchSlug
       }
       featuredImage {
         childImageSharp {
@@ -123,8 +123,8 @@ export const query = graphql`
         slug
       }
       tags {
-        tag
-        slug
+        zhchTag
+        zhchSlug
       }
       author {
         author

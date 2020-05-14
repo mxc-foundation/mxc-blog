@@ -34,14 +34,18 @@ const Post_Template = ({ data }) => {
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
-              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
+              <Image
+                fluid={
+                  data.post.featuredImage.formats.large.childImageSharp.fluid
+                }
+              />
             </FeaturedImage>
           )}
 
           <Meta>
             <Category>
-              <Link to={`/categories/${data.post.category.slug}`}>
-                {data.post.category.category}
+              <Link to={`/zh-hant/categories/${data.post.category.zhtwSlug}`}>
+                {data.post.category.zhtwCategory}
               </Link>
             </Category>
             <Date>{data.post.post.date}</Date>
@@ -86,8 +90,8 @@ const Post_Template = ({ data }) => {
             <Tags>
               {data.post.tags.map((item, index) => {
                 return (
-                  <Link to={`/tags/${item.slug}`}>
-                    <Tag key={index}>{item.tag}</Tag>
+                  <Link to={`/zh-hant/tags/${item.zhtwSlug}`}>
+                    <Tag key={index}>{item.zhtwTag}</Tag>
                   </Link>
                 )
               })}
@@ -102,15 +106,19 @@ const Post_Template = ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    post: strapiPosts(post: { slug: { eq: $slug } }) {
+    post: strapiZhtwPosts(post: { slug: { eq: $slug } }) {
       category {
-        category
-        slug
+        zhtwCategory
+        zhtwSlug
       }
       featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        formats {
+          large {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
           }
         }
       }
@@ -123,8 +131,8 @@ export const query = graphql`
         slug
       }
       tags {
-        tag
-        slug
+        zhtwTag
+        zhtwSlug
       }
       author {
         author
