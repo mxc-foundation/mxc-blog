@@ -2,11 +2,10 @@ import React from "react"
 import { setColor, setRem, setFont } from "../styles"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
-import Line from './Globals/Line'
-import Categories from './Categories'
+import Line from "./Globals/Line"
+import Categories from "./Categories"
 import PostRow from "./Globals/PostRow"
 import Category from "./Globals/Category"
-
 
 const Posts = () => {
   const {
@@ -15,65 +14,60 @@ const Posts = () => {
   const {
     featured: { nodes: featured },
   } = useStaticQuery(getPosts)
-  
+
   return (
     <Grid>
       <div />
       <FeaturedRow>
         <Title>
-        <h1>Blog</h1>
+          <h1>Blog</h1>
         </Title>
         <Categories />
         {featured.map(item => {
           return (
             <div>
-            <PostRow
-              key={item.id}
-              heading={item.Title}
-              text={item.Meta_Description}
-              slug={item.slug}
-              image={item.Featured_Image.childImageSharp.fluid}
-              category={item.category.Category}
-              date={item.Date}
-              featured
-            />
-            <Line color={setColor.lightGrey}/>
-            </div>
-            
-          )
-        })}
-
-        
-        {posts.map(item => {
-          console.log(item.posts.Date)
-          return (
-            
-            
-            <div>
-            <Category key={item.id} category={item.Category} url={`/${item.slug}`}>
-            {item.posts.map (data => {
-              console.log(data);
-              return (
-                <div>
-                <PostRow key={data.id}
-                heading={data.Title}
-                text={data.Meta_Description}
-                slug={data.slug}
-                date={data.Date}
-                image={data.Featured_Image.childImageSharp.fluid}
+              <PostRow
+                key={item.id}
+                heading={item.title}
+                text={item.post.metaDescription}
+                slug={item.post.lug}
+                image={item.featuredImage.childImageSharp.fluid}
+                category={item.category.category}
+                date={item.post.date}
+                featured
               />
-              <Line color={setColor.lightGrey}/>
-              </div>
-              )
-              
-            })}
-            </Category>
+              <Line color={setColor.lightGrey} />
             </div>
-            
           )
         })}
-        
 
+        {posts.map(item => {
+          return (
+            <div>
+              <Category
+                key={item.id}
+                category={item.category}
+                url={`/${item.slug}`}
+              >
+                {item.posts.map(data => {
+                  return (
+                    <div>
+                      <PostRow
+                        key={data.id}
+                        heading={data.title}
+                        text={data.post.metaDescription}
+                        slug={data.post.slug}
+                        date={data.post.date}
+                        image={data.featuredImage.childImageSharp.fluid}
+                      />
+                      <Line color={setColor.lightGrey} />
+                    </div>
+                  )
+                })}
+              </Category>
+            </div>
+          )
+        })}
       </FeaturedRow>
       <div />
     </Grid>
@@ -102,10 +96,9 @@ const FeaturedRow = styled.div`
 `
 
 const Title = styled.div`
-border-top: 3px solid ${setColor.mainBlack}; 
-width: 5vw;
-margin-top: ${setRem(80)};
-
+  border-top: 3px solid ${setColor.mainBlack};
+  width: 5vw;
+  margin-top: ${setRem(80)};
 `
 const Column = styled.div`
   display: flex;
@@ -117,45 +110,65 @@ const Column = styled.div`
 
 const getPosts = graphql`
   {
-    featured: allStrapiPosts(sort: {fields: Date, order: DESC}, filter: {Publish: {eq: true}, Featured: {eq: true}}) {
+    featured: allStrapiPosts(
+      sort: { order: DESC, fields: post___date }
+      filter: { post: { featured: { eq: true }, publish: { eq: true } } }
+    ) {
       nodes {
-        Title
         id
-        slug
-        Date(formatString: "MMMM Do, YYYY")
-        Meta_Description
-        category {
-          Category
+        author {
+          author
           slug
         }
-        Featured_Image {
+        category {
+          category
+          slug
+        }
+        post {
+          date(formatString: "MMMM DD, YYYY")
+          metaDescription
+          featured
+          publish
+          slug
+          video
+        }
+        tags {
+          tag
+          slug
+        }
+        title
+        featuredImage {
           childImageSharp {
             fluid {
-              ...GatsbyImageSharpFluid_withWebp
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
         }
       }
     }
-    posts: allStrapiCategories(filter: {posts: {elemMatch: {Publish: {eq: true}}}}) {
+    posts: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
       nodes {
-        Category
+        category
+        slug
         posts {
-          id
-          Date(formatString: "MMMM Do, YYYY")
-          slug
-          Title
-          Featured_Image {
+          author
+          category
+          featuredImage {
             childImageSharp {
               fluid {
-                ...GatsbyImageSharpFluid_withWebp
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
               }
             }
           }
-          Meta_Description
+          title
+          post {
+            date(formatString: "MMMM DD, YYYY")
+            metaDescription
+            slug
+          }
         }
-        slug
-        id
       }
     }
   }

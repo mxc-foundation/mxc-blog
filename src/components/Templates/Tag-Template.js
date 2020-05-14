@@ -1,48 +1,43 @@
-import React from 'react'
-import styled from 'styled-components'
-import Layout from '../Layout'
-import { graphql, useStaticQuery } from 'gatsby'
-import Line from '../Globals/Line'
-import {setColor, setRem, setFont} from '../../styles'
-import PostRow from '../Globals/PostRow'
+import React from "react"
+import styled from "styled-components"
+import Layout from "../Layout"
+import { graphql, useStaticQuery } from "gatsby"
+import Line from "../Globals/Line"
+import { setColor, setRem, setFont } from "../../styles"
+import PostRow from "../Globals/PostRow"
 
-const TagTemplate = ({data}) => {
-    
-    return (
-        <Layout>
-        
-      
-        {data.tags.nodes.map(item => {
-          return (
-            <Grid key={item.id}>
-              <div />
-              <FeaturedRow>
-                <Title><h1>{item.tag}</h1></Title>
-                {item.posts.map(post => {
-                  console.log(post);
-                  return (
-                    <div key={post.id}>
-                        <PostRow 
-                        heading={post.Title}
-                        text={post.Meta_Description}
-                        image={post.Featured_Image.childImageSharp.fluid}
-                        slug={post.slug}
-                        date={post.Date}
-                        
-                        />
-                      <Line color={setColor.lightGrey}/>
-
-                    </div>
-                  )
-                  })}
-              </FeaturedRow>
+const TagTemplate = ({ data }) => {
+  return (
+    <Layout>
+      {data.tags.nodes.map(item => {
+        return (
+          <Grid key={item.id}>
             <div />
-            </Grid>
-          )
-        })}
-
-        </Layout>
-    )
+            <FeaturedRow>
+              <Title>
+                <h1>{item.tag}</h1>
+              </Title>
+              {item.posts.map(post => {
+                return (
+                  <div key={post.id}>
+                    <PostRow
+                      heading={post.title}
+                      text={post.post.metaDescription}
+                      image={post.featuredImage.childImageSharp.fluid}
+                      slug={post.post.slug}
+                      date={post.post.date}
+                    />
+                    <Line color={setColor.lightGrey} />
+                  </div>
+                )
+              })}
+            </FeaturedRow>
+            <div />
+          </Grid>
+        )
+      })}
+    </Layout>
+  )
 }
 const Grid = styled.div`
   display: grid;
@@ -66,9 +61,8 @@ const FeaturedRow = styled.div`
 `
 
 const Title = styled.div`
-border-top: 3px solid ${setColor.mainBlack}; 
-margin-top: ${setRem(80)};
-
+  border-top: 3px solid ${setColor.mainBlack};
+  margin-top: ${setRem(80)};
 `
 const Column = styled.div`
   display: flex;
@@ -79,28 +73,34 @@ const Column = styled.div`
 `
 
 export const query = graphql`
-
-query ($slug: String!) {
-  tags: allStrapiTags(filter: {slug: {eq: $slug}, posts: {elemMatch: {Publish: {eq: true}}}}) {
-    nodes {
-      posts {
-        Author
-        Featured_Image {
-          childImageSharp {
-            fluid {
-              src
+  query($slug: String!) {
+    tags: allStrapiTags(
+      filter: {
+        slug: { eq: $slug }
+        posts: { elemMatch: { post: { publish: { eq: true } } } }
+      }
+    ) {
+      nodes {
+        posts {
+          author
+          featuredImage {
+            childImageSharp {
+              fluid {
+                src
+              }
             }
           }
+          post {
+            date
+            metaDescription
+          }
+          title
+          id
         }
-        Date
-        Title
-        id
-        Meta_Description
+        tag
       }
-      tag
     }
   }
-}
 `
 
 export default TagTemplate
