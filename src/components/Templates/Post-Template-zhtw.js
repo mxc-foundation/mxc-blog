@@ -44,8 +44,8 @@ const Post_Template = ({ data }) => {
 
           <Meta>
             <Category>
-              <Link to={`/categories/${data.post.category.slug}`}>
-                {data.post.category.category}
+              <Link to={`/zh-hant/categories/${data.post.category.zhtwSlug}`}>
+                {data.post.category.zhtwCategory}
               </Link>
             </Category>
             <Date>{data.post.post.date}</Date>
@@ -90,8 +90,8 @@ const Post_Template = ({ data }) => {
             <Tags>
               {data.post.tags.map((item, index) => {
                 return (
-                  <Link to={`/tags/${item.slug}`}>
-                    <Tag key={index}>{item.tag}</Tag>
+                  <Link to={`/zh-hant/tags/${item.zhtwSlug}`}>
+                    <Tag key={index}>{item.zhtwTag}</Tag>
                   </Link>
                 )
               })}
@@ -108,8 +108,8 @@ export const query = graphql`
   query($slug: String!) {
     post: strapiZhtwPosts(post: { slug: { eq: $slug } }) {
       category {
-        category
-        slug
+        zhtwCategory
+        zhtwSlug
       }
       featuredImage {
         formats {
@@ -131,8 +131,8 @@ export const query = graphql`
         slug
       }
       tags {
-        tag
-        slug
+        zhtwTag
+        zhtwSlug
       }
       author {
         author

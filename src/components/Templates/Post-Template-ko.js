@@ -40,8 +40,8 @@ const Post_Template = ({ data }) => {
 
           <Meta>
             <Category>
-              <Link to={`/categories/${data.post.category.slug}`}>
-                {data.post.category.category}
+              <Link to={`/ko/categories/${data.post.category.koSlug}`}>
+                {data.post.category.koCategory}
               </Link>
             </Category>
             <Date>{data.post.post.date}</Date>
@@ -86,8 +86,8 @@ const Post_Template = ({ data }) => {
             <Tags>
               {data.post.tags.map((item, index) => {
                 return (
-                  <Link to={`/tags/${item.slug}`}>
-                    <Tag key={index}>{item.tag}</Tag>
+                  <Link to={`/ko/tags/${item.koSlug}`}>
+                    <Tag key={index}>{item.koTag}</Tag>
                   </Link>
                 )
               })}
@@ -104,8 +104,8 @@ export const query = graphql`
   query($slug: String!) {
     post: strapiKoPosts(post: { slug: { eq: $slug } }) {
       category {
-        category
-        slug
+        koCategory
+        koSlug
       }
       featuredImage {
         childImageSharp {
@@ -123,8 +123,8 @@ export const query = graphql`
         slug
       }
       tags {
-        tag
-        slug
+        koTag
+        koSlug
       }
       author {
         author
