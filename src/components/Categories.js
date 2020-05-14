@@ -7,10 +7,36 @@ import styles from "./Categories.module.css"
 
 const getCategories = graphql`
   query {
-    categories: allStrapiCategories {
+    categories: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
       nodes {
         slug
         category
+      }
+    }
+    zhch: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        zhchCategory
+        zhchSlug
+      }
+    }
+    zhtw: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        zhtwCategory
+        zhtwSlug
+      }
+    }
+    ko: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        koCategory
+        koSlug
       }
     }
   }
