@@ -1,5 +1,5 @@
 import React from "react"
-import { setColor, setRem, setFont } from "../styles"
+import { setColor, setRem, setFont, media } from "../styles"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
 import Line from "./Globals/Line"
@@ -75,9 +75,9 @@ const Posts = () => {
 }
 
 const Grid = styled.div`
-  display: grid;
+  ${media.tablet`  display: grid;
   grid-template-columns: 10vw 80vw 10vw;
-  column-gap: ${setRem(5)};
+  column-gap: ${setRem(5)};`};
 `
 
 const FeaturedRow = styled.div`
@@ -97,15 +97,11 @@ const FeaturedRow = styled.div`
 
 const Title = styled.div`
   border-top: 3px solid ${setColor.mainBlack};
-  width: 5vw;
-  margin-top: ${setRem(80)};
-`
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 2vw;
+  margin-top: ${setRem(40)};
+  ${media.tablet`
+    border-top: 3px solid ${setColor.mainBlack}; 
+    width: 5vw;
+    margin-top: ${setRem(80)};`};
 `
 
 const getPosts = graphql`

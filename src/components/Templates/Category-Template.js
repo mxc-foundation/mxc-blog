@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Layout from "../Layout"
 import { graphql, useStaticQuery } from "gatsby"
 import Line from "../Globals/Line"
-import { setColor, setRem, setFont } from "../../styles"
+import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 
 const CategoryTemplate = ({ data }) => {
@@ -40,9 +40,9 @@ const CategoryTemplate = ({ data }) => {
   )
 }
 const Grid = styled.div`
-  display: grid;
+  ${media.tablet`  display: grid;
   grid-template-columns: 10vw 80vw 10vw;
-  column-gap: ${setRem(5)};
+  column-gap: ${setRem(5)};`};
 `
 
 const FeaturedRow = styled.div`
@@ -58,18 +58,29 @@ const FeaturedRow = styled.div`
     font-size: ${setRem(38)};
     color: ${setColor.mainBlack};
   }
+  .img {
+    height: 244px;
+  }
+  ${media.portraitTablet`
+  .img {
+    height: 344px;
+  }`}
+  ${media.tablet`
+   .img {
+    height: 488px;
+  `}
+  ${media.laptop`.img{height:100px;}`}
+  
+ 
 `
 
 const Title = styled.div`
   border-top: 3px solid ${setColor.mainBlack};
-  margin-top: ${setRem(80)};
-`
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 2vw;
+  margin-top: ${setRem(40)};
+  ${media.laptop`
+    border-top: 3px solid ${setColor.mainBlack}; 
+    width: 5vw;
+    margin-top: ${setRem(80)};`};
 `
 
 export const query = graphql`

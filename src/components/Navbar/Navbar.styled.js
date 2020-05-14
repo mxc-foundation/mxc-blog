@@ -66,7 +66,7 @@ export const NavRight = styled.div`
 `
 
 export const MobileMenu = styled.button`
-  color: ${setColor.primaryColor};
+  color: ${setColor.mainWhite};
   background-color: transparent;
   margin-top: 1rem;
   border: none;

@@ -16,45 +16,50 @@ const PostRow = ({ text, heading, image, slug, featured, category, date }) => {
   return (
     <Section>
       <Link to={slug}>
-      <Center imageWidth={featured ? `50vw`: `25vw`}>
-        
+        <Center imageWidth={featured ? `50vw` : `25vw`}>
           <DisplayImage className="img" img={image} />
-        
-        <div className="info">
-          <Title title={heading} className={featured ? `featured` : "normal"}/>
-          <p>{text}</p>
-          <Category>{featured ? `${category}` : null}</Category>
-          <Date>{date}</Date>
-        </div>
-      </Center>
+
+          <div className="info">
+            <Title
+              title={heading}
+              className={featured ? `featured` : "normal"}
+            />
+            <p>{text}</p>
+            <Category>{featured ? `${category}` : null}</Category>
+            <Date>{date}</Date>
+          </div>
+        </Center>
       </Link>
     </Section>
   )
 }
 
 const Center = styled.div`
-h3 {
-  color: ${setColor.mainBlack};
-}
+  h3 {
+    color: ${setColor.mainBlack};
+  }
   .img,
   .info {
-    padding: ${setRem(30)};
+    padding: ${setRem(15)};
+    ${media.laptop`
+       padding: ${setRem(30)};`}
   }
   .img {
     display: block;
     ${setBorder({ width: setRem(0), color: setColor.primaryColor })}
   }
   .featured {
-    margin-bottom:${setRem(76)};
+    margin-bottom: ${setRem(30)};
+    ${media.laptop`margin-bottom: ${setRem(76)};`}
   }
   .normal {
-    margin-bottom:${setRem(20)};
+    margin-bottom: ${setRem(20)};
     font-size: ${setRem(24)};
   }
   .info {
     p {
-      line-height:20px;
-      font-size:${setRem(16)};
+      line-height: 20px;
+      font-size: ${setRem(16)};
       color: ${setColor.mainBlack};
     }
   }
@@ -81,16 +86,16 @@ h3 {
   `}
 `
 export const Category = styled.div`
-color: ${setColor.mainGrey};
-font-size: ${setRem(16)};
-font-weight: 700;
-margin-top: ${setRem(44)};
+  color: ${setColor.mainGrey};
+  font-size: ${setRem(16)};
+  font-weight: 700;
+  margin-top: ${setRem(44)};
+  ${media.laptop``}
 `
 
 export const Date = styled.div`
-font-size: ${setRem(14)};
-color: ${setColor.mainGrey};
-
+  font-size: ${setRem(14)};
+  color: ${setColor.mainGrey};
 `
 
 export default PostRow
