@@ -102,7 +102,7 @@ const Post_Template = ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    post: strapiPosts(post: { slug: { eq: $slug } }) {
+    post: strapiKoPosts(post: { slug: { eq: $slug } }) {
       category {
         category
         slug
@@ -110,7 +110,7 @@ export const query = graphql`
       featuredImage {
         childImageSharp {
           fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            src
           }
         }
       }

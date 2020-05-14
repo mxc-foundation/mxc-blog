@@ -102,7 +102,7 @@ const Post_Template = ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    post: strapiPosts(post: { slug: { eq: $slug } }) {
+    post: strapiZhchPosts(post: { slug: { eq: $slug } }) {
       category {
         category
         slug

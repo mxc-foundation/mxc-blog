@@ -34,7 +34,11 @@ const Post_Template = ({ data }) => {
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
-              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
+              <Image
+                fluid={
+                  data.post.featuredImage.formats.large.childImageSharp.fluid
+                }
+              />
             </FeaturedImage>
           )}
 
@@ -102,15 +106,19 @@ const Post_Template = ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    post: strapiPosts(post: { slug: { eq: $slug } }) {
+    post: strapiZhtwPosts(post: { slug: { eq: $slug } }) {
       category {
         category
         slug
       }
       featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        formats {
+          large {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
           }
         }
       }
