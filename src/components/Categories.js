@@ -1,39 +1,34 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 import { media, setColor } from "../styles"
 import { graphql, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
 
 const getCategories = graphql`
-query {
+  {
     categories: allStrapiCategories {
       nodes {
         slug
-        Category
+        category
       }
     }
   }
-   
 `
 
-
-
 const Categories = () => {
-    const links = useStaticQuery(getCategories)
-    console.log(links);
-    
-    return (
-        <StyledMenu>
-            {links.categories.nodes.map((item, index) => {
-            return (
-              <MenuItem key={index}>
-                <a href={item.slug}>{item.Category}</a>
-              </MenuItem>
-            )
-          })}
-        </StyledMenu>
-    )
+  const links = useStaticQuery(getCategories)
+  return (
+    <StyledMenu>
+      {links.categories.nodes.map((item, index) => {
+        return (
+          <MenuItem key={index}>
+            <Link to={`/${item.slug}`}>{item.category}</Link>
+          </MenuItem>
+        )
+      })}
+    </StyledMenu>
+  )
 }
-
 
 export const StyledMenu = styled.ul`
   display: flex;
