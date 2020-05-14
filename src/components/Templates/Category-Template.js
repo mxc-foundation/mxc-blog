@@ -15,18 +15,17 @@ const CategoryTemplate = ({ data }) => {
             <div />
             <FeaturedRow>
               <Title>
-                <h1>{item.Category}</h1>
+                <h1>{item.category}</h1>
               </Title>
               {item.posts.map(post => {
-                console.log(post)
                 return (
                   <div key={post.id}>
                     <PostRow
-                      heading={post.Title}
-                      text={post.Meta_Description}
-                      image={post.Featured_Image.childImageSharp.fluid}
-                      slug={post.slug}
-                      date={post.Date}
+                      heading={post.title}
+                      text={post.post.metaDescription}
+                      image={post.featuredImage.childImageSharp.fluid}
+                      slug={post.post.slug}
+                      date={post.post.date}
                     />
                     <Line color={setColor.lightGrey} />
                   </div>
@@ -89,23 +88,25 @@ export const query = graphql`
     categories: allStrapiCategories(
       filter: {
         slug: { eq: $slug }
-        posts: { elemMatch: { Publish: { eq: true } } }
+        posts: { elemMatch: { post: { publish: { eq: true } } } }
       }
     ) {
       nodes {
-        Category
+        category
         posts {
-          Date(formatString: "MMMM Do, YYYY")
-          slug
-          Title
-          Featured_Image {
+          post {
+            date(formatString: "MMMM Do, YYYY")
+            slug
+            metaDescription
+          }
+          featuredImage {
             childImageSharp {
               fluid {
                 src
               }
             }
           }
-          Meta_Description
+          title
           id
         }
         slug

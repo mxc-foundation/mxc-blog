@@ -16,65 +16,82 @@ import {
   Left,
   Social,
 } from "./Post-Template.styled"
-import Line from '../Globals/Line'
-import {setColor} from '../../styles'
-import Video from '../Globals/Video'
-import {FaTwitterSquare, FaTelegram, FaLinkedin} from 'react-icons/fa'
-import ReactMarkdown from "react-markdown"  
+import Line from "../Globals/Line"
+import { setColor } from "../../styles"
+import Video from "../Globals/Video"
+import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
+import ReactMarkdown from "react-markdown"
 
 const Post_Template = ({ data }) => {
+  console.log(data)
 
   return (
     <Layout>
       <Grid>
         <div></div>
         <div>
-          {data.post.Video ? <Video url={data.post.Video}/> : 
-          <FeaturedImage>
-            <Image fluid={data.post.Featured_Image.childImageSharp.fluid} />
-          </FeaturedImage> }
-          
-        
-          
+          {data.post.post.video ? (
+            <Video url={data.post.post.video} />
+          ) : (
+            <FeaturedImage>
+              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
+            </FeaturedImage>
+          )}
+
           <Meta>
-          <Category><Link to={`/categories/${data.post.category.slug}`}>{data.post.category.Category}</Link></Category>
-          <Date>{data.post.Date}</Date>
+            <Category>
+              <Link to={`/categories/${data.post.category.slug}`}>
+                {data.post.category.category}
+              </Link>
+            </Category>
+            <Date>{data.post.post.date}</Date>
           </Meta>
-          <h1>{data.post.Title}</h1>
+          <h1>{data.post.title}</h1>
           <Content>
-          <h4>{data.post.Meta_Description}</h4>
-          <ReactMarkdown source={data.post.Content}/>
+            <h4>{data.post.post.metaDescription}</h4>
+            <ReactMarkdown source={data.post.post.content} />
           </Content>
-          <Line color={setColor.lightGrey}/>
+          <Line color={setColor.lightGrey} />
           <Bottom>
             <Left>
-          <Author>
-            <Link to={data.post.Author.slug}>
-            {data.post.Author.Name}
-            </Link>
-          </Author>
-          <Social>
-          <a href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">
-          <FaTwitterSquare size={30} className="iconRight"/>
-          </a>
-          <a href={`https://telegram.me/share/url?url=https://blog.mxc.org/${data.post.slug}`} target="_blank" rel="noopener noreferrer">
-            <FaTelegram size={30} className="icon"/>
-          </a>
-          <a href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${data.post.slug}`} target="_blank" rel="noopener noreferrer">
-            <FaLinkedin size={30} className="icon"/>
-            </a>
-          </Social>
-          </Left>
-          <Tags>
-            {data.post.tags.map((item, index) => {
-            return (
-              <Link to={`/tags/${item.slug}`}>
-              <Tag key={index}>
-                {item.tag}
-              </Tag>
-              </Link>
-            )
-          })}</Tags>
+              <Author>
+                <Link to={data.post.author.slug}>
+                  {data.post.author.author}
+                </Link>
+              </Author>
+              <Social>
+                <a
+                  href="https://twitter.com/intent/tweet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaTwitterSquare size={30} className="iconRight" />
+                </a>
+                <a
+                  href={`https://telegram.me/share/url?url=https://blog.mxc.org/${data.post.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaTelegram size={30} className="icon" />
+                </a>
+                <a
+                  href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${data.post.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin size={30} className="icon" />
+                </a>
+              </Social>
+            </Left>
+            <Tags>
+              {data.post.tags.map((item, index) => {
+                return (
+                  <Link to={`/tags/${item.slug}`}>
+                    <Tag key={index}>{item.tag}</Tag>
+                  </Link>
+                )
+              })}
+            </Tags>
           </Bottom>
         </div>
         <div></div>
@@ -83,36 +100,38 @@ const Post_Template = ({ data }) => {
   )
 }
 
-
 export const query = graphql`
   query($slug: String!) {
-    post: strapiPosts(slug: { eq: $slug }) {
-      Title
-      Content
-      Meta_Description
-      Date(formatString: "MMMM DD, YYYY")
-      Video
-      slug
+    post: strapiPosts(post: { slug: { eq: $slug } }) {
       category {
-        Category
+        category
         slug
       }
-      Author {
-        Name
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      title
+      post {
+        content
+        date(formatString: "MMMM DD, YYYY")
+        metaDescription
+        video
         slug
       }
       tags {
-        slug
         tag
+        slug
       }
-      Featured_Image {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp
-          }
-        }
+      author {
+        author
+        slug
       }
     }
   }
 `
+
 export default Post_Template

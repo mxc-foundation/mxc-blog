@@ -18,15 +18,14 @@ const TagTemplate = ({ data }) => {
                 <h1>{item.tag}</h1>
               </Title>
               {item.posts.map(post => {
-                console.log(post)
                 return (
                   <div key={post.id}>
                     <PostRow
-                      heading={post.Title}
-                      text={post.Meta_Description}
-                      image={post.Featured_Image.childImageSharp.fluid}
-                      slug={post.slug}
-                      date={post.Date}
+                      heading={post.title}
+                      text={post.post.metaDescription}
+                      image={post.featuredImage.childImageSharp.fluid}
+                      slug={post.post.slug}
+                      date={post.post.date}
                     />
                     <Line color={setColor.lightGrey} />
                   </div>
@@ -87,23 +86,25 @@ export const query = graphql`
     tags: allStrapiTags(
       filter: {
         slug: { eq: $slug }
-        posts: { elemMatch: { Publish: { eq: true } } }
+        posts: { elemMatch: { post: { publish: { eq: true } } } }
       }
     ) {
       nodes {
         posts {
-          Author
-          Featured_Image {
+          author
+          featuredImage {
             childImageSharp {
               fluid {
                 src
               }
             }
           }
-          Date
-          Title
+          post {
+            date
+            metaDescription
+          }
+          title
           id
-          Meta_Description
         }
         tag
       }

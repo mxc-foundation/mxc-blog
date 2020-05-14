@@ -10,7 +10,7 @@ const getCategories = graphql`
     categories: allStrapiCategories {
       nodes {
         slug
-        Category
+        category
       }
     }
   }
@@ -34,7 +34,7 @@ const Categories = () => {
         {links.categories.nodes.map((item, index) => {
           return (
             <MenuItem key={index}>
-              <a href={`/categories/${item.slug}`}>{item.Category}</a>
+              <a href={`/categories/${item.slug}`}>{item.category}</a>
             </MenuItem>
           )
         })}
