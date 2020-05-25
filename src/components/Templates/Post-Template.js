@@ -27,7 +27,16 @@ const Post_Template = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={data.post.title} language="en" description={data.post.post.metaDescription} koPost={data.post.ko_post ? `https://blog.mxc.org/${data.post.ko_post.post.slug}` : " "} hansPost={data.post.zhch_post ? `https://blog.mxc.org/${data.post.zhch_post.post.slug}` : " "} hantPost={data.post.zhtw_post ? `https://blog.mxc.org/${data.post.zhtw_post.post.slug}` : " "}/>
+      <SEO 
+      title={data.post.title} 
+      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
+      image={data.post.featuredImage.absolutePath} 
+      language="en" 
+      description={data.post.post.metaDescription} 
+      koPost={data.post.ko_post ? `https://blog.mxc.org/${data.post.ko_post.post.slug}` : " "} 
+      hansPost={data.post.zhch_post ? `https://blog.mxc.org/${data.post.zhch_post.post.slug}` : " "} 
+      hantPost={data.post.zhtw_post ? `https://blog.mxc.org/${data.post.zhtw_post.post.slug}` : " "}
+      />
       <Grid>
         <div></div>
         <div>
@@ -56,7 +65,7 @@ const Post_Template = ({ data }) => {
           <Bottom>
             <Left>
               <Author>
-                <Link to={data.post.author.slug}>
+                <Link to={`/${data.post.author.slug}`}>
                   {data.post.author.author}
                 </Link>
               </Author>
@@ -87,8 +96,8 @@ const Post_Template = ({ data }) => {
             <Tags>
               {data.post.tags.map((item, index) => {
                 return (
-                  <Link to={`/tags/${item.slug}`}>
-                    <Tag key={index}>{item.tag}</Tag>
+                  <Link to={`/tags/${item.slug}`} key={index}>
+                    <Tag>{item.tag}</Tag>
                   </Link>
                 )
               })}
@@ -109,11 +118,12 @@ export const query = graphql`
         slug
       }
       featuredImage {
+        absolutePath
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
-        }
+       }
       }
       title
       post {

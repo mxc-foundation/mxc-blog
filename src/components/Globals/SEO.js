@@ -31,20 +31,20 @@ const SEO = ({ title, description, language, image, pageTitle, pageUrl, enPost, 
 
             <meta name="twitter:card" content="summary_large_image"/>
             <meta name="twitter:creator" content={twitterUsername} />
-            <meta name="twitter:title" content={siteTitle || pageTitle} />
-            <meta name="twitter:description" content={siteDesc || description} />
-            <meta name="twitter:image" content={`${siteUrl}${siteImage}` || `${pageUrl}${image}`} />
+            <meta name="twitter:title" content={title || siteTitle} />
+            <meta name="twitter:description" content={description || siteDesc} />
+            <meta name="twitter:image" content={`${pageUrl}${image}` || `${siteUrl}${siteImage}`} />
             
             {/*Facebook Card */}
 
-            <meta property="og:url" content={siteUrl} />
+            <meta property="og:url" content={pageUrl || siteUrl} />
             <meta property="og:type" content="website" />
-            <meta property="og:title" content={siteTitle} />
-            <meta property="og:description" content={siteDesc || description} />
-            <meta property="og:image" content={`${siteUrl}${siteImage}`} />
+            <meta property="og:title" content={title || siteTitle} />
+            <meta property="og:description" content={description || siteDesc} />
+            <meta property="og:image" content={`${pageUrl}${image}` || `${siteUrl}${siteImage}`} />
             <meta property="og:image:width" content="400" />
             <meta property="og:image:height" content="300" />
-            <meta property="og:url" content={siteUrl} />
+            <meta property="og:url" content={ pageUrl || siteUrl} />
 
             {/*Language References*/}
 
