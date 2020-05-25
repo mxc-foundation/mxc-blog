@@ -106,7 +106,7 @@ const Title = styled.div`
 
 const getPosts = graphql`
 {
-  featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}, limit: 5) {
+  featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
     nodes {
       id
       author {
@@ -139,7 +139,7 @@ const getPosts = graphql`
       }
     }
   }
-  posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}, limit: 5) {
+  posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
     nodes {
       category
       slug
@@ -160,6 +160,27 @@ const getPosts = graphql`
           slug
         }
       }
+    }
+  }
+  kopost: allStrapiCategories(filter: {ko_posts: {elemMatch: {post: {publish: {eq: true}, featured: {eq: true}}}}}) {
+    nodes {
+      id
+      ko_posts {
+        author
+        post {
+          slug
+        }
+        title
+        featuredImage {
+          childImageSharp {
+            fluid {
+              src
+            }
+          }
+        }
+      }
+      koCategory
+      koSlug
     }
   }
 }
