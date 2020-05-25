@@ -21,12 +21,14 @@ import { setColor } from "../../styles"
 import Video from "../Globals/Video"
 import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
 import ReactMarkdown from "react-markdown"
+import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-  const language = () => {}
 
   return (
     <Layout>
+      <SEO title={data.post.title} language="zh-tw"/>
+
       <Grid>
         <div></div>
         <div>
@@ -105,41 +107,58 @@ const Post_Template = ({ data }) => {
 }
 
 export const query = graphql`
-  query($slug: String!) {
-    post: strapiZhtwPosts(post: { slug: { eq: $slug } }) {
-      category {
-        zhtwCategory
-        zhtwSlug
-      }
-      featuredImage {
-        formats {
-          large {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid_withWebp_tracedSVG
-              }
+query ($slug: String!, $enSlug: String!) {
+  post: strapiZhtwPosts(post: {slug: {eq: $slug}}) {
+    category {
+      zhtwCategory
+      zhtwSlug
+    }
+    featuredImage {
+      formats {
+        large {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
         }
       }
-      title
+    }
+    title
+    post {
+      content
+      date(formatString: "MMMM DD, YYYY")
+      metaDescription
+      video
+      slug
+    }
+    tags {
+      zhtwTag
+      zhtwSlug
+    }
+    author {
+      author
+      slug
+    }
+    enPost {
       post {
-        content
-        date(formatString: "MMMM DD, YYYY")
-        metaDescription
-        video
-        slug
-      }
-      tags {
-        zhtwTag
-        zhtwSlug
-      }
-      author {
-        author
         slug
       }
     }
   }
+  postLang: strapiPosts(post: {slug: {eq: $enSlug}}) {
+    zhch_post {
+      post {
+        slug
+      }
+    }
+    zhtw_post {
+      post {
+        slug
+      }
+    }
+  }
+}
 `
 
 export default Post_Template

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {setRem, setColor} from '../../styles'
+import {setRem} from '../../styles'
 
 const Line = ({color, width}) => {
     return (

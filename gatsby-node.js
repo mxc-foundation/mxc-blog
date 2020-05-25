@@ -32,24 +32,39 @@ exports.createPages = async ({ graphql, actions }) => {
           slug
         }
       }
-      allStrapiZhchPosts(filter: { post: { publish: { eq: true } } }) {
+      allStrapiZhchPosts(filter: {post: {publish: {eq: true}}}) {
         nodes {
           post {
             slug
           }
+          enPost {
+            post {
+              slug
+            }
+          }
         }
       }
-      allStrapiZhtwPosts(filter: { post: { publish: { eq: true } } }) {
+      allStrapiZhtwPosts(filter: {post: {publish: {eq: true}}}) {
         nodes {
           post {
             slug
           }
+          enPost {
+            post {
+              slug
+            }
+          }
         }
       }
-      allStrapiKoPosts(filter: { post: { publish: { eq: true } } }) {
+      allStrapiKoPosts(filter: {post: {publish: {eq: true}}}) {
         nodes {
           post {
             slug
+          }
+          enPost {
+            post {
+              slug
+            }
           }
         }
       }
@@ -73,6 +88,7 @@ exports.createPages = async ({ graphql, actions }) => {
       ),
       context: {
         slug: node.post.slug,
+        enSlug: node.enPost.post.slug,
       },
     })
   })
@@ -84,6 +100,7 @@ exports.createPages = async ({ graphql, actions }) => {
       ),
       context: {
         slug: node.post.slug,
+        enSlug: node.enPost.post.slug,
       },
     })
   })
@@ -93,6 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Post-Template-ko.js"),
       context: {
         slug: node.post.slug,
+        enSlug: node.enPost.post.slug,
       },
     })
   })

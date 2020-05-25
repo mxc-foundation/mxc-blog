@@ -25,9 +25,8 @@ const Posts = () => {
         <Categories />
         {featured.map(item => {
           return (
-            <div>
+            <div key={item.id}>
               <PostRow
-                key={item.id}
                 heading={item.title}
                 text={item.post.metaDescription}
                 slug={item.post.slug}
@@ -43,17 +42,15 @@ const Posts = () => {
 
         {posts.map(item => {
           return (
-            <div>
+            <div key={item.id}>
               <Category
-                key={item.id}
                 category={item.category}
                 url={`/${item.slug}`}
               >
                 {item.posts.slice(0,5).map(data => {
                   return (
-                    <div>
+                    <div key={data.id}>
                       <PostRow
-                        key={data.id}
                         heading={data.title}
                         text={data.post.metaDescription}
                         slug={data.post.slug}
@@ -141,9 +138,11 @@ const getPosts = graphql`
   }
   posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
     nodes {
+      id
       category
       slug
       posts {
+        id
         author
         category
         featuredImage {

@@ -21,12 +21,13 @@ import { setColor } from "../../styles"
 import Video from "../Globals/Video"
 import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
 import ReactMarkdown from "react-markdown"
+import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-  const language = () => {}
 
   return (
     <Layout>
+      <SEO />
       <Grid>
         <div></div>
         <div>
@@ -129,6 +130,11 @@ export const query = graphql`
       author {
         author
         slug
+      }
+      enPost {
+        post {
+          slug
+        }
       }
     }
   }
