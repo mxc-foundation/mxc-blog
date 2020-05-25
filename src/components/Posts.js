@@ -30,7 +30,7 @@ const Posts = () => {
                 key={item.id}
                 heading={item.title}
                 text={item.post.metaDescription}
-                slug={item.post.lug}
+                slug={item.post.slug}
                 image={item.featuredImage.childImageSharp.fluid}
                 category={item.category.category}
                 date={item.post.date}
@@ -49,7 +49,7 @@ const Posts = () => {
                 category={item.category}
                 url={`/${item.slug}`}
               >
-                {item.posts.map(data => {
+                {item.posts.slice(0,5).map(data => {
                   return (
                     <div>
                       <PostRow
@@ -105,34 +105,47 @@ const Title = styled.div`
 `
 
 const getPosts = graphql`
-  {
-    featured: allStrapiPosts(
-      sort: { order: DESC, fields: post___date }
-      filter: { post: { featured: { eq: true }, publish: { eq: true } } }
-    ) {
-      nodes {
-        id
-        author {
-          author
-          slug
+{
+  featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}, limit: 5) {
+    nodes {
+      id
+      author {
+        author
+        slug
+      }
+      category {
+        category
+        slug
+      }
+      post {
+        date(formatString: "MMMM DD, YYYY")
+        metaDescription
+        featured
+        publish
+        slug
+        video
+      }
+      tags {
+        tag
+        slug
+      }
+      title
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
         }
-        category {
-          category
-          slug
-        }
-        post {
-          date(formatString: "MMMM DD, YYYY")
-          metaDescription
-          featured
-          publish
-          slug
-          video
-        }
-        tags {
-          tag
-          slug
-        }
-        title
+      }
+    }
+  }
+  posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}, limit: 5) {
+    nodes {
+      category
+      slug
+      posts {
+        author
+        category
         featuredImage {
           childImageSharp {
             fluid {
@@ -140,34 +153,17 @@ const getPosts = graphql`
             }
           }
         }
-      }
-    }
-    posts: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        category
-        slug
-        posts {
-          author
-          category
-          featuredImage {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid_withWebp_tracedSVG
-              }
-            }
-          }
-          title
-          post {
-            date(formatString: "MMMM DD, YYYY")
-            metaDescription
-            slug
-          }
+        title
+        post {
+          date(formatString: "MMMM DD, YYYY")
+          metaDescription
+          slug
         }
       }
     }
   }
+}
+
 `
 
 export default Posts
