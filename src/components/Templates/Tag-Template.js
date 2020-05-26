@@ -5,13 +5,20 @@ import { graphql} from "gatsby"
 import Line from "../Globals/Line"
 import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
+import SEO from "../Globals/SEO"
 
 const TagTemplate = ({ data }) => {
   return (
     <Layout>
       {data.tags.nodes.map(item => {
         return (
-          <Grid key={item.id}>
+          <div key={item.id}>
+          <SEO 
+          title={item.tag} 
+          pageUrl={`https://blog.mxc.org/${item.tag.slug}`}
+          />
+          
+          <Grid>
             <div />
             <FeaturedRow>
               <Title>
@@ -34,6 +41,7 @@ const TagTemplate = ({ data }) => {
             </FeaturedRow>
             <div />
           </Grid>
+          </div>
         )
       })}
     </Layout>
