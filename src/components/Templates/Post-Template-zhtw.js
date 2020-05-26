@@ -21,12 +21,24 @@ import { setColor } from "../../styles"
 import Video from "../Globals/Video"
 import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
 import ReactMarkdown from "react-markdown"
+import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-  const language = () => {}
-
+  
   return (
     <Layout>
+      <SEO 
+      title={data.post.title} 
+      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
+      image={data.post.featuredImage.absolutePath} 
+      language="en" 
+      description={data.post.post.metaDescription} 
+      hantPost={data.post.post.slug ? data.post.post.slug : " "}
+      koPost={data.postLang.ko_post ? data.postLang.ko_post.post.slug : " "} 
+      hansPost={data.postLang.zhch_post ? data.postLang.zhch_post.post.slug : " "} 
+      enPost={data.post.enPost ? data.post.enPost.post.slug : " "}
+      />
+
       <Grid>
         <div></div>
         <div>
@@ -36,7 +48,7 @@ const Post_Template = ({ data }) => {
             <FeaturedImage>
               <Image
                 fluid={
-                  data.post.featuredImage.formats.large.childImageSharp.fluid
+                  data.post.featuredImage[0].formats.large.childImageSharp.fluid
                 }
               />
             </FeaturedImage>
@@ -59,7 +71,7 @@ const Post_Template = ({ data }) => {
           <Bottom>
             <Left>
               <Author>
-                <Link to={data.post.author.slug}>
+                <Link to={`/${data.post.author.slug}`}>
                   {data.post.author.author}
                 </Link>
               </Author>
@@ -105,41 +117,64 @@ const Post_Template = ({ data }) => {
 }
 
 export const query = graphql`
-  query($slug: String!) {
-    post: strapiZhtwPosts(post: { slug: { eq: $slug } }) {
-      category {
-        zhtwCategory
-        zhtwSlug
-      }
-      featuredImage {
-        formats {
-          large {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid_withWebp_tracedSVG
-              }
+query ($slug: String!, $enSlug: String!) {
+  post: strapiZhtwPosts(post: {slug: {eq: $slug}}) {
+    category {
+      zhtwCategory
+      zhtwSlug
+    }
+    featuredImage {
+      formats {
+        large {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
+          absolutePath
         }
       }
-      title
+    }
+    title
+    post {
+      content
+      date(formatString: "MMMM DD, YYYY")
+      metaDescription
+      video
+      slug
+    }
+    tags {
+      zhtwTag
+      zhtwSlug
+    }
+    author {
+      author
+      slug
+    }
+    enPost {
       post {
-        content
-        date(formatString: "MMMM DD, YYYY")
-        metaDescription
-        video
-        slug
-      }
-      tags {
-        zhtwTag
-        zhtwSlug
-      }
-      author {
-        author
         slug
       }
     }
   }
+  postLang: strapiPosts(post: {slug: {eq: $enSlug}}) {
+    zhch_post {
+      post {
+        slug
+      }
+    }
+    zhtw_post {
+      post {
+        slug
+      }
+    }
+    ko_post {
+      post {
+        slug
+      }
+    }
+  }
+}
 `
 
 export default Post_Template

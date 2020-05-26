@@ -6,7 +6,6 @@ import {
   setRem,
   setBorder,
   setColor,
-  setLetterSpacing,
   media,
 } from "../../styles"
 import styled from "styled-components"
@@ -15,7 +14,7 @@ import DisplayImage from "./DisplayImage"
 const PostRow = ({ text, heading, image, slug, featured, category, date }) => {
   return (
     <Section>
-      <Link to={slug}>
+      <Link to={`/${slug}`}>
         <Center imageWidth={featured ? `50vw` : `25vw`}>
           <DisplayImage className="img" img={image} />
 

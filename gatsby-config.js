@@ -6,6 +6,14 @@
 
 module.exports = {
   /* Your site config here */
+  siteMetadata: {
+    title: "MXC Blog",
+    description: "Our blog provides the latest information about the MXC Foundation, the MXC token, and relevant industry news regarding blockchain and the internet of things (IoT).",
+    author: "MXC Foundation gGmbH",
+    twitterUsername: "@mxcfoundation",
+    image: "/defaultImg.png",
+    siteUrl: "https://blog.mxc.org",
+  },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,

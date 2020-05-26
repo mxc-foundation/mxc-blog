@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { setRem, setFlex, setColor, setTransition, media } from "../../styles"
+import { setRem, setColor, setTransition, media } from "../../styles"
 
 export const Content = styled.div`
   font-size: ${setRem(18)};

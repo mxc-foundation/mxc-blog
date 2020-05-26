@@ -21,12 +21,23 @@ import { setColor } from "../../styles"
 import Video from "../Globals/Video"
 import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
 import ReactMarkdown from "react-markdown"
+import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-  const language = () => {}
 
   return (
     <Layout>
+      <SEO 
+      title={data.post.title} 
+      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
+      image={data.post.featuredImage.absolutePath} 
+      language="en" 
+      description={data.post.post.metaDescription} 
+      hansPost={data.post.post.slug ? data.post.post.slug : " "}
+      koPost={data.postLang.ko_post ? data.postLang.ko_post.post.slug : " "} 
+      hantPost={data.postLang.zhtw_post ? data.postLang.zhtw_post.post.slug : " "} 
+      enPost={data.post.enPost ? data.post.enPost.post.slug : " "}
+      />
       <Grid>
         <div></div>
         <div>
@@ -101,7 +112,7 @@ const Post_Template = ({ data }) => {
 }
 
 export const query = graphql`
-  query($slug: String!) {
+  query($slug: String!, $enSlug: String!) {
     post: strapiZhchPosts(post: { slug: { eq: $slug } }) {
       category {
         zhchCategory
@@ -129,6 +140,28 @@ export const query = graphql`
       author {
         author
         slug
+      }
+      enPost {
+        post {
+          slug
+        }
+      }
+    }
+    postLang: strapiPosts(post: {slug: {eq: $enSlug}}) {
+      zhch_post {
+        post {
+          slug
+        }
+      }
+      zhtw_post {
+        post {
+          slug
+        }
+      }
+      ko_post {
+        post {
+          slug
+        }
       }
     }
   }
