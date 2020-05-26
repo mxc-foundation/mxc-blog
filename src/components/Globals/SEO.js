@@ -17,13 +17,13 @@ query {
   }
 `
 
-const SEO = ({ title, description, language, image, pageTitle, pageUrl, enPost, hansPost, hantPost, koPost }) => {
+const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, hantPost, koPost }) => {
     const {site} = useStaticQuery(getData)
 
     const {siteDesc, siteTitle, siteUrl, siteImage, twitterUsername} = site.siteMetadata
 
     return (
-        <Helmet htmlAttributes={{lang: {language}}} title={`${title} | ${siteTitle}`}>
+        <Helmet htmlAttributes={{lang: language}} title={`${title} | ${siteTitle}`}>
             <meta name="description" content={description || siteDesc} />
             <meta name="image" content={siteImage || image} />
             
@@ -47,11 +47,10 @@ const SEO = ({ title, description, language, image, pageTitle, pageUrl, enPost, 
             <meta property="og:url" content={ pageUrl || siteUrl} />
 
             {/*Language References*/}
-
-            {enPost ? `<link rel="alternate" href="${enPost}" hreflang="en"/>` : " "}
-            {hansPost ? `<link rel="alternate" href="${hansPost}" hreflang="zh-cn"/>` : " "}
-            {hantPost ? `<link rel="alternate" href="${hantPost}" hreflang="zh-tw"/>` : " "}
-            {koPost ? `<link rel="alternate" href="${koPost}" hreflang="ko-kr"/>` : " "}
+            <link rel="alternate" href={hansPost} hreflang="zh-cn"/>
+            <link rel="alternate" href={enPost} hreflang="en"/>
+            <link rel="alternate" href={hantPost} hreflang="zh-tw"/>
+            <link rel="alternate" href={koPost} hreflang="ko-kr"/>
 
         </Helmet>
     )
