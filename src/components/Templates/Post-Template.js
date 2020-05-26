@@ -33,6 +33,7 @@ const Post_Template = ({ data }) => {
       image={data.post.featuredImage.absolutePath} 
       language="en" 
       description={data.post.post.metaDescription} 
+      enPost={data.post.post.slug ? `https://blog.mxc.org/${data.post.post.slug}` : " "}
       koPost={data.post.ko_post ? `https://blog.mxc.org/${data.post.ko_post.post.slug}` : " "} 
       hansPost={data.post.zhch_post ? `https://blog.mxc.org/${data.post.zhch_post.post.slug}` : " "} 
       hantPost={data.post.zhtw_post ? `https://blog.mxc.org/${data.post.zhtw_post.post.slug}` : " "}

@@ -24,10 +24,20 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-
+  
   return (
     <Layout>
-      <SEO title={data.post.title} language="zh-tw"/>
+      <SEO 
+      title={data.post.title} 
+      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
+      image={data.post.featuredImage.absolutePath} 
+      language="en" 
+      description={data.post.post.metaDescription} 
+      hantPost={data.post.post.slug ? `https://blog.mxc.org/${data.post.post.slug}` : " "}
+      koPost={data.postLang.ko_post ? `https://blog.mxc.org/${data.post.ko_post.post.slug}` : " "} 
+      hansPost={data.post.zhch_post ? `https://blog.mxc.org/${data.post.zhch_post.post.slug}` : " "} 
+      enPost={data.post.enPost ? `https://blog.mxc.org/${data.post.enPost.post.slug}` : " "}
+      />
 
       <Grid>
         <div></div>
@@ -38,7 +48,7 @@ const Post_Template = ({ data }) => {
             <FeaturedImage>
               <Image
                 fluid={
-                  data.post.featuredImage.formats.large.childImageSharp.fluid
+                  data.post.featuredImage[0].formats.large.childImageSharp.fluid
                 }
               />
             </FeaturedImage>
@@ -121,6 +131,7 @@ query ($slug: String!, $enSlug: String!) {
               ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
+          absolutePath
         }
       }
     }
@@ -153,6 +164,11 @@ query ($slug: String!, $enSlug: String!) {
       }
     }
     zhtw_post {
+      post {
+        slug
+      }
+    }
+    ko_post {
       post {
         slug
       }
