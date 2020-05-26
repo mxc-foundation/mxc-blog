@@ -27,7 +27,17 @@ const Post_Template = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={data.post.title} language="zh-ko"/>
+    <SEO 
+      title={data.post.title} 
+      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
+      image={data.post.featuredImage.absolutePath} 
+      language="en" 
+      description={data.post.post.metaDescription} 
+      koPost={data.post.post.slug ? `https://blog.mxc.org/${data.post.post.slug}` : " "}
+      hantPost={data.postLang.zhtw_post ? `https://blog.mxc.org/${data.postLang.zhtw_post.post.slug}` : " "} 
+      hansPost={data.postLang.zhch_post ? `https://blog.mxc.org/${data.postLang.zhch_post.post.slug}` : " "} 
+      enPost={data.post.enPost ? `https://blog.mxc.org/${data.post.enPost.post.slug}` : " "}
+      />
       <Grid>
         <div></div>
         <div>

@@ -33,10 +33,10 @@ const Post_Template = ({ data }) => {
       image={data.post.featuredImage.absolutePath} 
       language="en" 
       description={data.post.post.metaDescription} 
-      hantPost={data.post.post.slug ? `https://blog.mxc.org/${data.post.post.slug}` : " "}
-      koPost={data.postLang.ko_post ? `https://blog.mxc.org/${data.post.ko_post.post.slug}` : " "} 
-      hansPost={data.post.zhch_post ? `https://blog.mxc.org/${data.post.zhch_post.post.slug}` : " "} 
-      enPost={data.post.enPost ? `https://blog.mxc.org/${data.post.enPost.post.slug}` : " "}
+      hantPost={data.post.post.slug ? data.post.post.slug : " "}
+      koPost={data.postLang.ko_post ? data.postLang.ko_post.post.slug : " "} 
+      hansPost={data.postLang.zhch_post ? data.postLang.zhch_post.post.slug : " "} 
+      enPost={data.post.enPost ? data.post.enPost.post.slug : " "}
       />
 
       <Grid>
@@ -71,7 +71,7 @@ const Post_Template = ({ data }) => {
           <Bottom>
             <Left>
               <Author>
-                <Link to={data.post.author.slug}>
+                <Link to={`/${data.post.author.slug}`}>
                   {data.post.author.author}
                 </Link>
               </Author>

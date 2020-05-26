@@ -19,7 +19,6 @@ query {
 
 const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, hantPost, koPost }) => {
     const {site} = useStaticQuery(getData)
-
     const {siteDesc, siteTitle, siteUrl, siteImage, twitterUsername} = site.siteMetadata
 
     return (
@@ -47,11 +46,11 @@ const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, h
             <meta property="og:url" content={ pageUrl || siteUrl} />
 
             {/*Language References*/}
-            <link rel="alternate" href={hansPost} hreflang="zh-cn"/>
-            <link rel="alternate" href={enPost} hreflang="en"/>
-            <link rel="alternate" href={hantPost} hreflang="zh-tw"/>
-            <link rel="alternate" href={koPost} hreflang="ko-kr"/>
-
+          <link rel="alternate" href={`https://blog.mxc.org/zh-hans/${hansPost}`} hreflang="zh-cn"/>
+          <link rel="alternate" href={`https://blog.mxc.org/zh-hant/${hantPost}`} hreflang="zh-tw"/>
+          <link rel="alternate" href={`https://blog.mxc.org/ko/${koPost}`} hreflang="ko-kr"/>
+          <link rel="alternate" href={`https://blog.mxc.org/${enPost}`} hreflang="en"/>
+        
         </Helmet>
     )
 }
