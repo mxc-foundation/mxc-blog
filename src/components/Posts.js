@@ -45,7 +45,7 @@ const Posts = () => {
             <div key={item.id}>
               <Category
                 category={item.category}
-                url={`/${item.slug}`}
+                url={`/categories/${item.slug}`}
               >
                 {item.posts.slice(0,5).map(data => {
                   return (

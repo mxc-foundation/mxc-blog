@@ -1,5 +1,7 @@
 const path = require("path")
 
+/*TODO: make it so that non EN posts can be present without an EN connection*/
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 

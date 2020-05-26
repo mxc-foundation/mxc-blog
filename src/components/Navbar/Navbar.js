@@ -12,6 +12,9 @@ import {
 } from "./Navbar.styled"
 import { FaBars } from "react-icons/fa"
 import links from "../Constants/Links"
+import linksKo from "../Constants/KoLinks"
+import linksHans from "../Constants/HansLinks"
+import linksHant from "../Constants/HantLinks"
 import styles from "./Navbar.module.css"
 import { PrimaryBtn } from "../Globals/Button"
 
@@ -34,6 +37,9 @@ const Navbar = () => {
     setNav(isOpen => !isOpen)
   }
 
+const url = window.location.href
+const menu = url.includes("/ko") ? linksKo : url.includes("/zh-hans") ? linksHans : url.includes("/zh-hant") ? linksHant : links
+
   return (
     <Grid>
       <StyledNav>
@@ -46,7 +52,7 @@ const Navbar = () => {
           <FaBars />
         </MobileMenu>
         <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
-          {links.map((item, index) => {
+          {menu.map((item, index) => {
             return (
               <MenuItem key={index}>
                 <a href={item.path}>{item.text}</a>
