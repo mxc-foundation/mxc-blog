@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/Layout"
-import Posts from "../components/Posts"
+import Posts from "../components/KoPosts"
 import SEO from '../components/Globals/SEO'
 
 export default () => (

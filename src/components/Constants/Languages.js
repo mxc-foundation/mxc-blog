@@ -5,14 +5,14 @@ export default [
 	},
 	{
 		path: '/zh-hans',
-		text: 'Simplified Chinese'
+		text: '简体中文'
 	},
 	{
 		path: '/zh-hant',
-		text: 'Traditional Chinese'
+		text: '繁體中文'
 	},
 	{
 		path: '/ko',
-		text: 'Korean'
+		text: '한국어'
 	}
 ];
