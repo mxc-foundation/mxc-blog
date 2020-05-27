@@ -4,43 +4,7 @@ import { media, setColor, setRem, setFlex } from "../styles"
 import { graphql, useStaticQuery } from "gatsby"
 import { FaAngleDown } from "react-icons/fa"
 import styles from "./Categories.module.css"
-
-const getCategories = graphql`
-  query {
-    categories: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        slug
-        category
-      }
-    }
-    zhch: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        zhchCategory
-        zhchSlug
-      }
-    }
-    zhtw: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        zhtwCategory
-        zhtwSlug
-      }
-    }
-    ko: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        koCategory
-        koSlug
-      }
-    }
-  }
-`
+import { Link } from "gatsby"
 
 const Categories = () => {
   const links = useStaticQuery(getCategories)
@@ -60,7 +24,7 @@ const Categories = () => {
         {links.categories.nodes.map((item, index) => {
           return (
             <MenuItem key={index}>
-              <a href={`/categories/${item.slug}`}>{item.category}</a>
+              <Link to={`/categories/${item.slug}`}>{item.category}</Link>
             </MenuItem>
           )
         })}
@@ -114,6 +78,42 @@ export const StyledMenu = styled.ul`
 `
 export const MenuItem = styled.li`
   padding: 1rem 2rem;
+`
+const getCategories = graphql`
+  query {
+    categories: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        slug
+        category
+      }
+    }
+    zhch: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        zhchCategory
+        zhchSlug
+      }
+    }
+    zhtw: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        zhtwCategory
+        zhtwSlug
+      }
+    }
+    ko: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        koCategory
+        koSlug
+      }
+    }
+  }
 `
 
 export default Categories

@@ -17,6 +17,7 @@ import linksHans from "../Constants/HansLinks"
 import linksHant from "../Constants/HantLinks"
 import styles from "./Navbar.module.css"
 import LangDropdown from "./LangDropdown"
+import { Link } from "gatsby"
 
 const getLogo = graphql`
   {

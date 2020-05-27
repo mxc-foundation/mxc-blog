@@ -12,7 +12,7 @@ export default [
     text: "Supernode",
   },
   {
-    path: "https://www.mxc.org/blog",
+    path: "/",
     text: "Blog",
   },
   {
