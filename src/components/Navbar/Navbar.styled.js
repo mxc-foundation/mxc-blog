@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { media, setColor } from "../../styles"
+import { media, setColor, setRem } from "../../styles"
 
 export const Grid = styled.div`
   color: ${setColor.mainWhite};
@@ -62,6 +62,7 @@ export const NavRight = styled.div`
     display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding: 0 ${setRem(70)} 0 0;
   `}
 `
 

@@ -66,7 +66,7 @@ const Post_Template = ({ data }) => {
           <Bottom>
             <Left>
               <Author>
-                <Link to={data.post.author.slug}>
+                <Link to={`/${data.post.author.slug}`}>
                   {data.post.author.author}
                 </Link>
               </Author>
@@ -97,8 +97,8 @@ const Post_Template = ({ data }) => {
             <Tags>
               {data.post.tags.map((item, index) => {
                 return (
-                  <Link to={`/ko/tags/${item.koSlug}`}>
-                    <Tag key={index}>{item.koTag}</Tag>
+                  <Link to={`/ko/tags/${item.koSlug}`} key={index}>
+                    <Tag >{item.koTag}</Tag>
                   </Link>
                 )
               })}

@@ -16,7 +16,7 @@ import linksKo from "../Constants/KoLinks"
 import linksHans from "../Constants/HansLinks"
 import linksHant from "../Constants/HantLinks"
 import styles from "./Navbar.module.css"
-import { PrimaryBtn } from "../Globals/Button"
+import LangDropdown from "./LangDropdown"
 
 const getLogo = graphql`
   {
@@ -71,12 +71,14 @@ const menu = url.includes("/ko") ? linksKo : url.includes("/zh-hans") ? linksHan
         </StyledMenu>
       </StyledNav>
       <NavRight>
-        <PrimaryBtn />
-        <PrimaryBtn />
-        <PrimaryBtn />
+        <LangDropdown />
+
       </NavRight>
     </Grid>
   )
 }
+
+
+
 
 export default Navbar

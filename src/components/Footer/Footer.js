@@ -21,8 +21,6 @@ const setCompany = url.includes("/ko") ? KoCompany : url.includes("/zh-hans") ? 
 const setCommunity = url.includes("/ko") ? KoCommunity : url.includes("/zh-hans") ? HansCommunity : url.includes("/zh-hant") ? HantCommunity : Community
 const setResources = url.includes("/ko") ? KoResources : url.includes("/zh-hans") ? HansResources : url.includes("/zh-hant") ? HantResources : Resources
 
-
-
   return (
     <StyledFooter>
       <Column>
