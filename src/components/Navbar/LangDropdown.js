@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import languages from '../Constants/Languages'
 import { FaCaretDown } from 'react-icons/fa'
 import styles from './LangDropdown.module.css'
-import { media, setColor, setRem } from '../../styles'
+import { setColor, setRem } from '../../styles'
 import { Link } from 'gatsby'
 import {graphql, useStaticQuery} from 'gatsby'
-
-/*TODO: add categories, tags and index pages to the page switcher logic with a failsafe to "default"*/
 
 const LangDropdown = () => {
 
   /* get slug of current page */
+
   const url = window.location.href.split("/")
 
-  
   const decodeSlug = (url.slice(-1)[0].includes("%")) ? decodeURIComponent(url.slice(-1)[0]) : url.slice(-1)[0] 
   
   const slug = decodeSlug ? decodeSlug : "/"
@@ -95,30 +92,20 @@ const homeArray = {
   "hant" : "/zh-hant"
 }
 
-
 /* Consolidate the Arrays */
 
 const combinedArray = postArray.concat(categoriesArray, tagsArray, homeArray)
 
-
 /* Identify location of successful slug */
 
 const enSlug = combinedArray.findIndex(i => i.en === slug)
-
 const koSlug = combinedArray.findIndex(i => i.ko === slug)
-
 const hansSlug = combinedArray.findIndex(i => i.hans === slug)
-
 const hantSlug = combinedArray.findIndex(i => i.hant === slug)
-
-console.log(enSlug)
-
 const checkIndex = (enSlug !== -1) ? enSlug : (koSlug !== -1) ? koSlug : (hansSlug !== -1) ? hansSlug : (hantSlug !== -1) ? hantSlug : "failed"
-
 const thisPage = combinedArray[checkIndex]
-console.log(slug)
 
-console.log(checkIndex)
+/* set up state */
 
     const [isOpen, setDropdown] = useState(false)
     const toggleDropdown = () => {
