@@ -1,7 +1,7 @@
 export default [
   {
     path: "https://www.mxc.org/",
-    text: "Home",
+    text: "Hans",
   },
   {
     path: "https://www.mxc.org/token",
@@ -12,7 +12,7 @@ export default [
     text: "Supernode",
   },
   {
-    path: "/",
+    path: "/zh-hans",
     text: "Blog",
   },
   {

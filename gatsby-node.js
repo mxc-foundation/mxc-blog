@@ -1,5 +1,7 @@
 const path = require("path")
 
+/*TODO: make it so that non EN posts can be present without an EN connection*/
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
@@ -32,7 +34,7 @@ exports.createPages = async ({ graphql, actions }) => {
           slug
         }
       }
-      allStrapiZhchPosts(filter: {post: {publish: {eq: true}}}) {
+      allStrapiZhchPosts(filter: {post: {publish: {eq: true}}, enPost: {post: {slug: {glob: "*"}}}}) {
         nodes {
           post {
             slug
@@ -44,7 +46,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allStrapiZhtwPosts(filter: {post: {publish: {eq: true}}}) {
+      allStrapiZhtwPosts(filter: {post: {publish: {eq: true}}, enPost: {post: {slug: {glob: "*"}}}}) {
         nodes {
           post {
             slug
@@ -56,7 +58,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allStrapiKoPosts(filter: {post: {publish: {eq: true}}}) {
+      allStrapiKoPosts(filter: {post: {publish: {eq: true}}, enPost: {post: {slug: {glob: "*"}}}}) {
         nodes {
           post {
             slug

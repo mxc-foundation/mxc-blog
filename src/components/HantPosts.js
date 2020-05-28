@@ -29,9 +29,9 @@ const Posts = () => {
               <PostRow
                 heading={item.title}
                 text={item.post.metaDescription}
-                slug={item.post.slug}
-                image={item.featuredImage.childImageSharp.fluid}
-                category={item.category.category}
+                slug={`zh-hant/${item.post.slug}`}
+                image={item.featuredImage[0].formats.large.childImageSharp.fluid}
+                category={item.category.zhtwCategory}
                 date={item.post.date}
                 featured
               />
@@ -41,21 +41,22 @@ const Posts = () => {
         })}
 
         {posts.map(item => {
+          console.log(posts)
           return (
             <div key={item.id}>
               <Category
-                category={item.category}
-                url={`/categories/${item.slug}`}
+                category={item.zhtwCategory}
+                url={`/categories/${item.zhtwSlug}`}
               >
-                {item.posts.slice(0,5).map(data => {
+                {item.zhtw_posts.slice(0,5).map(data => {
                   return (
                     <div key={data.id}>
                       <PostRow
                         heading={data.title}
                         text={data.post.metaDescription}
-                        slug={data.post.slug}
+                        slug={`zh-hant/${data.post.slug}`}
                         date={data.post.date}
-                        image={data.featuredImage.childImageSharp.fluid}
+                        image={data.featuredImage[0].formats.large.childImageSharp.fluid}
                       />
                       <Line color={setColor.lightGrey} />
                     </div>
@@ -103,7 +104,7 @@ const Title = styled.div`
 
 const getPosts = graphql`
 {
-  featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
+  featured: allStrapiZhtwPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
     nodes {
       id
       author {
@@ -111,8 +112,8 @@ const getPosts = graphql`
         slug
       }
       category {
-        category
-        slug
+        zhtwCategory
+        zhtwSlug
       }
       post {
         date(formatString: "MMMM DD, YYYY")
@@ -123,34 +124,41 @@ const getPosts = graphql`
         video
       }
       tags {
-        tag
-        slug
+        zhtwTag
+        zhtwSlug
       }
-      title
       featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        formats {
+          large {
+            childImageSharp {
+              fluid {
+                src
+              }
+            }
           }
         }
       }
+      title
     }
   }
-  posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
+  posts: allStrapiCategories(filter: {zhtw_posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
     nodes {
       id
-      category
-      slug
-      posts {
+      zhtwSlug
+      zhtwCategory
+      zhtw_posts {
         id
         author
-        category
         featuredImage {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          formats {
+          large {
+            childImageSharp {
+              fluid {
+                src
+              }
             }
           }
+        }
         }
         title
         post {
@@ -161,28 +169,8 @@ const getPosts = graphql`
       }
     }
   }
-  kopost: allStrapiCategories(filter: {ko_posts: {elemMatch: {post: {publish: {eq: true}, featured: {eq: true}}}}}) {
-    nodes {
-      id
-      ko_posts {
-        author
-        post {
-          slug
-        }
-        title
-        featuredImage {
-          childImageSharp {
-            fluid {
-              src
-            }
-          }
-        }
-      }
-      koCategory
-      koSlug
-    }
-  }
 }
+
 
 `
 

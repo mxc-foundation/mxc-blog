@@ -29,9 +29,9 @@ const Posts = () => {
               <PostRow
                 heading={item.title}
                 text={item.post.metaDescription}
-                slug={item.post.slug}
+                slug={`/zh-hans/${item.post.slug}`}
                 image={item.featuredImage.childImageSharp.fluid}
-                category={item.category.category}
+                category={item.category.zhchCategory}
                 date={item.post.date}
                 featured
               />
@@ -44,16 +44,16 @@ const Posts = () => {
           return (
             <div key={item.id}>
               <Category
-                category={item.category}
-                url={`/categories/${item.slug}`}
+                category={item.zhchCategory}
+                url={`/categories/${item.zhchSlug}`}
               >
-                {item.posts.slice(0,5).map(data => {
+                {item.zhch_posts.slice(0,5).map(data => {
                   return (
                     <div key={data.id}>
                       <PostRow
                         heading={data.title}
                         text={data.post.metaDescription}
-                        slug={data.post.slug}
+                        slug={`/zh-hans/${data.post.slug}`}
                         date={data.post.date}
                         image={data.featuredImage.childImageSharp.fluid}
                       />
@@ -103,7 +103,7 @@ const Title = styled.div`
 
 const getPosts = graphql`
 {
-  featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
+  featured: allStrapiZhchPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
     nodes {
       id
       author {
@@ -111,8 +111,8 @@ const getPosts = graphql`
         slug
       }
       category {
-        category
-        slug
+        zhchCategory
+        zhchSlug
       }
       post {
         date(formatString: "MMMM DD, YYYY")
@@ -123,10 +123,9 @@ const getPosts = graphql`
         video
       }
       tags {
-        tag
-        slug
+        zhchTag
+        zhchSlug
       }
-      title
       featuredImage {
         childImageSharp {
           fluid {
@@ -134,17 +133,17 @@ const getPosts = graphql`
           }
         }
       }
+      title
     }
   }
   posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
     nodes {
       id
-      category
-      slug
-      posts {
+      zhchSlug
+      zhchCategory
+      zhch_posts {
         id
         author
-        category
         featuredImage {
           childImageSharp {
             fluid {
@@ -161,28 +160,8 @@ const getPosts = graphql`
       }
     }
   }
-  kopost: allStrapiCategories(filter: {ko_posts: {elemMatch: {post: {publish: {eq: true}, featured: {eq: true}}}}}) {
-    nodes {
-      id
-      ko_posts {
-        author
-        post {
-          slug
-        }
-        title
-        featuredImage {
-          childImageSharp {
-            fluid {
-              src
-            }
-          }
-        }
-      }
-      koCategory
-      koSlug
-    }
-  }
 }
+
 
 `
 

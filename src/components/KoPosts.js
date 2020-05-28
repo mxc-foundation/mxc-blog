@@ -24,7 +24,9 @@ const Posts = () => {
         </Title>
         <Categories />
         {featured.map(item => {
+  
           return (
+            
             <div key={item.id}>
               <PostRow
                 heading={item.title}
@@ -41,13 +43,15 @@ const Posts = () => {
         })}
 
         {posts.map(item => {
+          console.log(item)
           return (
             <div key={item.id}>
               <Category
-                category={item.category}
-                url={`/categories/${item.slug}`}
+                category={item.KoCategory}
+                url={`/categories/${item.KoSlug}`}
               >
-                {item.posts.slice(0,5).map(data => {
+                {item.ko_posts.slice(0,5).map(data => {
+                  
                   return (
                     <div key={data.id}>
                       <PostRow
@@ -103,7 +107,7 @@ const Title = styled.div`
 
 const getPosts = graphql`
 {
-  featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
+  featured: allStrapiKoPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
     nodes {
       id
       author {
@@ -111,8 +115,8 @@ const getPosts = graphql`
         slug
       }
       category {
-        category
-        slug
+        koCategory
+        koSlug
       }
       post {
         date(formatString: "MMMM DD, YYYY")
@@ -130,7 +134,7 @@ const getPosts = graphql`
       featuredImage {
         childImageSharp {
           fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            src
           }
         }
       }
@@ -139,16 +143,14 @@ const getPosts = graphql`
   posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
     nodes {
       id
-      category
-      slug
-      posts {
+      koCategory
+      koSlug
+      ko_posts {
         id
-        author
-        category
         featuredImage {
           childImageSharp {
             fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              src
             }
           }
         }
@@ -159,17 +161,9 @@ const getPosts = graphql`
           slug
         }
       }
-    }
-  }
-  kopost: allStrapiCategories(filter: {ko_posts: {elemMatch: {post: {publish: {eq: true}, featured: {eq: true}}}}}) {
-    nodes {
-      id
-      ko_posts {
+      posts {
         author
-        post {
-          slug
-        }
-        title
+        category
         featuredImage {
           childImageSharp {
             fluid {
@@ -178,8 +172,6 @@ const getPosts = graphql`
           }
         }
       }
-      koCategory
-      koSlug
     }
   }
 }

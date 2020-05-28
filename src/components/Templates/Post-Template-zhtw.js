@@ -102,8 +102,8 @@ const Post_Template = ({ data }) => {
             <Tags>
               {data.post.tags.map((item, index) => {
                 return (
-                  <Link to={`/zh-hant/tags/${item.zhtwSlug}`}>
-                    <Tag key={index}>{item.zhtwTag}</Tag>
+                  <Link to={`/zh-hant/tags/${item.zhtwSlug}`} key={index}>
+                    <Tag >{item.zhtwTag}</Tag>
                   </Link>
                 )
               })}

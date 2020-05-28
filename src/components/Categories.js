@@ -4,43 +4,7 @@ import { media, setColor, setRem, setFlex } from "../styles"
 import { graphql, useStaticQuery } from "gatsby"
 import { FaAngleDown } from "react-icons/fa"
 import styles from "./Categories.module.css"
-
-const getCategories = graphql`
-  query {
-    categories: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        slug
-        category
-      }
-    }
-    zhch: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        zhchCategory
-        zhchSlug
-      }
-    }
-    zhtw: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        zhtwCategory
-        zhtwSlug
-      }
-    }
-    ko: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
-      nodes {
-        koCategory
-        koSlug
-      }
-    }
-  }
-`
+import { Link } from "gatsby"
 
 const Categories = () => {
   const links = useStaticQuery(getCategories)
@@ -48,6 +12,7 @@ const Categories = () => {
   const toggleNav = () => {
     setNav(isOpen => !isOpen)
   }
+  const url = window.location.href
 
   return (
     <div>
@@ -58,9 +23,11 @@ const Categories = () => {
       </FlexBox>
       <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
         {links.categories.nodes.map((item, index) => {
+            const catList = url.includes("/ko") ? item.koCategory : url.includes("/zh-hans") ? item.zhchCategory : url.includes("/zh-hant") ? item.zhtwCategory : item.category
+            const catSlug = url.includes("/ko") ? item.koSlug : url.includes("/zh-hans") ? item.zhchSlug : url.includes("/zh-hant") ? item.zhtwSlug : item.slug
           return (
             <MenuItem key={index}>
-              <a href={`/categories/${item.slug}`}>{item.category}</a>
+              <Link to={`/categories/${catSlug}`}>{catList}</Link>
             </MenuItem>
           )
         })}
@@ -114,6 +81,24 @@ export const StyledMenu = styled.ul`
 `
 export const MenuItem = styled.li`
   padding: 1rem 2rem;
+`
+const getCategories = graphql`
+  query {
+    categories: allStrapiCategories(
+      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
+    ) {
+      nodes {
+        slug
+        category
+        zhtwCategory
+        zhtwSlug
+        koCategory
+        koSlug
+        zhchCategory
+        zhchSlug
+      }
+    }
+  }
 `
 
 export default Categories

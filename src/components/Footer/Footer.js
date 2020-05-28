@@ -1,18 +1,32 @@
 import React from "react"
 import { Link } from "gatsby"
 import Company from "../Constants/FooterCompany"
+import KoCompany from "../Constants/KoFooterCompany"
+import HansCompany from "../Constants/HansFooterCompany"
+import HantCompany from "../Constants/HantFooterCompany"
 import Community from "../Constants/FooterCommunity"
+import KoCommunity from "../Constants/KoFooterCommunity"
+import HansCommunity from "../Constants/HansFooterCommunity"
+import HantCommunity from "../Constants/HantFooterCommunity"
 import Resources from "../Constants/FooterResources"
+import KoResources from "../Constants/KoFooterResources"
+import HansResources from "../Constants/HansFooterResources"
+import HantResources from "../Constants/HantFooterResources"
 import styled from "styled-components"
 import { setColor, setRem, media } from "../../styles"
 
 const Footer = () => {
+const url = window.location.href
+const setCompany = url.includes("/ko") ? KoCompany : url.includes("/zh-hans") ? HansCompany : url.includes("/zh-hant") ? HantCompany : Company
+const setCommunity = url.includes("/ko") ? KoCommunity : url.includes("/zh-hans") ? HansCommunity : url.includes("/zh-hant") ? HantCommunity : Community
+const setResources = url.includes("/ko") ? KoResources : url.includes("/zh-hans") ? HansResources : url.includes("/zh-hant") ? HantResources : Resources
+
   return (
     <StyledFooter>
       <Column>
         Company
         <Menu>
-          {Company.map((item, index) => {
+          {setCompany.map((item, index) => {
             return (
               <MenuItem key={index}>
                 <Link to={item.path}>{item.text}</Link>
@@ -24,7 +38,7 @@ const Footer = () => {
       <Column>
         Community
         <Menu>
-          {Community.map((item, index) => {
+          {setCommunity.map((item, index) => {
             return (
               <MenuItem key={index}>
                 <Link to={item.path}>{item.text}</Link>
@@ -36,7 +50,7 @@ const Footer = () => {
       <Column>
         Resources
         <Menu>
-          {Resources.map((item, index) => {
+          {setResources.map((item, index) => {
             return (
               <MenuItem key={index}>
                 <Link to={item.path}>{item.text}</Link>
