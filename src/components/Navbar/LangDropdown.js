@@ -87,9 +87,9 @@ const tagsArray = tags.map((item, index) => {
 
 const homeArray = {
   "en" : "/",
-  "ko" : "/ko",
-  "hans" : "/zh-hans",
-  "hant" : "/zh-hant"
+  "ko" : "/",
+  "hans" : "/",
+  "hant" : "/"
 }
 
 /* Consolidate the Arrays */
