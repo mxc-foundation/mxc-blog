@@ -13,17 +13,28 @@ const LangDropdown = () => {
 
   /* get slug of current page */
   const url = window.location.href.split("/")
-  const slug = url.slice(-1)[0]
+
   
+  const decodeSlug = (url.slice(-1)[0].includes("%")) ? decodeURIComponent(url.slice(-1)[0]) : url.slice(-1)[0] 
+  
+  const slug = decodeSlug ? decodeSlug : "/"
+
   /* destructure Graphql Query */
   const {
     posts: { nodes: posts },
   } = useStaticQuery(query)
 
+  const {
+    categories: { nodes: categories }, 
+  } = useStaticQuery(query)
+
+  const {
+    tags: { nodes: tags },
+  } = useStaticQuery(query)
 
 /* make a nicer array of graphql data */
 
-const slugArray = posts.map((item, index) => {
+const postArray = posts.map((item, index) => {
   const en = item.post.slug || "/";
   const ko = item.ko_post ? item.ko_post.post.slug : "/"
   const hans = item.zhch_post ? item.zhch_post.post.slug : "/"
@@ -39,24 +50,81 @@ const slugArray = posts.map((item, index) => {
   return array
 })
 
+/* Modify Categories Array*/
+const categoriesArray = categories.map((item, index) => {
+  const en = item.slug || "/";
+  const ko = item.koSlug ? item.koSlug : "/"
+  const hans = item.zhchSlug ? item.zhchSlug : "/"
+  const hant = item.zhtwSlug ? item.zhtwSlug : "/"
+
+  const array = {
+    "en" : en,
+    "ko" : ko,
+    "hans" : hans,
+    "hant" : hant
+  }
+
+  return array
+})
+
+/* Modify Tags Array*/
+
+const tagsArray = tags.map((item, index) => {
+  const en = item.slug || "/";
+  const ko = item.koSlug ? item.koSlug : "/"
+  const hans = item.zhchSlug ? item.zhchSlug : "/"
+  const hant = item.zhtwSlug ? item.zhtwSlug : "/"
+
+  const array = {
+    "en" : en,
+    "ko" : ko,
+    "hans" : hans,
+    "hant" : hant
+  }
+
+  return array
+})
+
+
+/* Create Home pages array*/
+
+const homeArray = {
+  "en" : "/",
+  "ko" : "/ko",
+  "hans" : "/zh-hans",
+  "hant" : "/zh-hant"
+}
+
+
+/* Consolidate the Arrays */
+
+const combinedArray = postArray.concat(categoriesArray, tagsArray, homeArray)
+
+
 /* Identify location of successful slug */
 
-const pageIndex = (slugArray.findIndex(i => i.en === slug) !== "-1") ? slugArray.findIndex(i => i.en === slug) : 
-    (slugArray.findIndex(i => i.ko === slug) !== "-1") ? slugArray.findIndex(i => i.ko === slug) : 
-    (slugArray.findIndex(i => i.hans === slug) !== "-1") ? slugArray.findIndex(i => i.hans === slug) : 
-    (slugArray.findIndex(i => i.hant === slug) !== "-1") ? slugArray.findIndex(i => i.hant === slug) : 
-    "this sucks"
+const enSlug = combinedArray.findIndex(i => i.en === slug)
 
-const thisPage = slugArray[pageIndex]
-console.log(thisPage)
+const koSlug = combinedArray.findIndex(i => i.ko === slug)
+
+const hansSlug = combinedArray.findIndex(i => i.hans === slug)
+
+const hantSlug = combinedArray.findIndex(i => i.hant === slug)
+
+console.log(enSlug)
+
+const checkIndex = (enSlug !== -1) ? enSlug : (koSlug !== -1) ? koSlug : (hansSlug !== -1) ? hansSlug : (hantSlug !== -1) ? hantSlug : "failed"
+
+const thisPage = combinedArray[checkIndex]
+console.log(slug)
+
+console.log(checkIndex)
 
     const [isOpen, setDropdown] = useState(false)
     const toggleDropdown = () => {
       setDropdown(isOpen => !isOpen)
     }
-
-    
-
+  
     return (
         <div>
             <Button type="button" onClick={toggleDropdown}>
@@ -147,6 +215,22 @@ const query = graphql`
           slug
         }
       }
+    }
+  }
+  categories:allStrapiCategories {
+    nodes {
+      slug
+      koSlug
+      zhchSlug
+      zhtwSlug
+    }
+  }
+  tags: allStrapiTags {
+    nodes {
+      slug
+      koSlug
+      zhchTag
+      zhtwTag
     }
   }
 }
