@@ -24,12 +24,12 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-
+console.log(data)
   return (
     <Layout>
     <SEO 
       title={data.post.title} 
-      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
+      pageUrl={`https://blog.mxc.org/ko/${data.post.post.title}`} 
       image={data.post.featuredImage.absolutePath} 
       language="en" 
       description={data.post.post.metaDescription} 
@@ -41,7 +41,7 @@ const Post_Template = ({ data }) => {
       <Grid>
         <div></div>
         <div>
-          {data.post.post.video ? (
+        {data.post.post.video ? (
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
@@ -113,20 +113,19 @@ const Post_Template = ({ data }) => {
 
 export const query = graphql`
 query ($slug: String!, $enSlug: String!) {
-  post: strapiZhtwPosts(post: {slug: {eq: $slug}}) {
+  post: strapiKoPosts(post: {slug: {eq: $slug}}) {
     category {
-      zhtwCategory
-      zhtwSlug
+      koCategory
+      koSlug
     }
     featuredImage {
-      formats {
-        large {
+
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
-          }
-        }
+          
+        
       }
     }
     title
@@ -138,8 +137,8 @@ query ($slug: String!, $enSlug: String!) {
       slug
     }
     tags {
-      zhtwTag
-      zhtwSlug
+      koTag
+      koSlug
     }
     author {
       author
@@ -152,12 +151,12 @@ query ($slug: String!, $enSlug: String!) {
     }
   }
   postLang: strapiPosts(post: {slug: {eq: $enSlug}}) {
-    zhch_post {
+    ko_post {
       post {
         slug
       }
     }
-    zhtw_post {
+    ko_post {
       post {
         slug
       }

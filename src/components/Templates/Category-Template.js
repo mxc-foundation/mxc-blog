@@ -11,6 +11,7 @@ const CategoryTemplate = ({ data }) => {
   return (
     <Layout>
       {data.categories.nodes.map(item => {
+
         return (
           <div key={item.id}>
           <SEO 

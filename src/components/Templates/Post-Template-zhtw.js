@@ -48,7 +48,7 @@ const Post_Template = ({ data }) => {
             <FeaturedImage>
               <Image
                 fluid={
-                  data.post.featuredImage[0].formats.large.childImageSharp.fluid
+                  data.post.featuredImage.childImageSharp.fluid
                 }
               />
             </FeaturedImage>
@@ -124,16 +124,15 @@ query ($slug: String!, $enSlug: String!) {
       zhtwSlug
     }
     featuredImage {
-      formats {
-        large {
+
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
           }
           absolutePath
-        }
-      }
+      
+    
     }
     title
     post {

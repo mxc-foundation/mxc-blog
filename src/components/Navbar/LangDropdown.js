@@ -133,7 +133,7 @@ const thisPage = combinedArray[checkIndex]
                 繁體中文
               </MenuItem>
               </Link>  
-              <Link to={`/ko-kr/${thisPage.ko}`} className="list">
+              <Link to={`/ko/${thisPage.ko}`} className="list">
               <MenuItem >
                 한국어
               </MenuItem>

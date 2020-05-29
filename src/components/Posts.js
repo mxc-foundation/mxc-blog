@@ -9,11 +9,30 @@ import Category from "./Globals/Category"
 
 const Posts = () => {
   const {
-    posts: { nodes: posts },
+    newsUpdate: { nodes: newsUpdate },
   } = useStaticQuery(getPosts)
   const {
     featured: { nodes: featured },
   } = useStaticQuery(getPosts)
+  const {
+    categories: { nodes: categories },
+  } = useStaticQuery(getPosts)
+  const {
+    events: { nodes: events },
+  } = useStaticQuery(getPosts)
+  const {
+    furtherReading: { nodes: furtherReading },
+  } = useStaticQuery(getPosts)
+  const {
+    technology: { nodes: technology },
+  } = useStaticQuery(getPosts)
+  const {
+    pressRelease: { nodes: pressRelease },
+  } = useStaticQuery(getPosts)
+ 
+
+
+
 
   return (
     <Grid>
@@ -32,7 +51,7 @@ const Posts = () => {
                 slug={item.post.slug}
                 image={item.featuredImage.childImageSharp.fluid}
                 category={item.category.category}
-                date={item.post.date}
+                date={item.date}
                 featured
               />
               <Line color={setColor.lightGrey} />
@@ -40,21 +59,28 @@ const Posts = () => {
           )
         })}
 
-        {posts.map(item => {
+        {categories.map(item => {
+          const posts = (item.slug === "news-update") ? newsUpdate : 
+              (item.slug === "further-reading") ? furtherReading : 
+              (item.slug === "events") ? events : 
+              (item.slug === "press-release") ? pressRelease : 
+              (item.slug === "technology") ? 
+              technology : " "
+             
           return (
             <div key={item.id}>
               <Category
                 category={item.category}
                 url={`/categories/${item.slug}`}
               >
-                {item.posts.slice(0,5).map(data => {
+                {posts.map(data => {
                   return (
                     <div key={data.id}>
                       <PostRow
                         heading={data.title}
                         text={data.post.metaDescription}
                         slug={data.post.slug}
-                        date={data.post.date}
+                        date={data.date}
                         image={data.featuredImage.childImageSharp.fluid}
                       />
                       <Line color={setColor.lightGrey} />
@@ -100,12 +126,12 @@ const Title = styled.div`
     width: 5vw;
     margin-top: ${setRem(80)};`};
 `
-
 const getPosts = graphql`
 {
   featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
     nodes {
       id
+      date(formatString: "MMMM DD, YYYY")
       author {
         author
         slug
@@ -136,53 +162,120 @@ const getPosts = graphql`
       }
     }
   }
-  posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
+  newsUpdate: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "news-update"}}}) {
     nodes {
-      id
-      category
-      slug
-      posts {
-        id
-        author
-        category
-        featuredImage {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
-            }
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
         }
-        title
-        post {
-          date(formatString: "MMMM DD, YYYY")
-          metaDescription
-          slug
-        }
       }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
     }
   }
-  kopost: allStrapiCategories(filter: {ko_posts: {elemMatch: {post: {publish: {eq: true}, featured: {eq: true}}}}}) {
+  events: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "events"}}}) {
     nodes {
-      id
-      ko_posts {
-        author
-        post {
-          slug
-        }
-        title
-        featuredImage {
-          childImageSharp {
-            fluid {
-              src
-            }
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
         }
       }
-      koCategory
-      koSlug
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  furtherReading: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "further-reading"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  technology: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "technology"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  pressRelease: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "press-release"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  categories: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
+    nodes {
+      category
+      slug
     }
   }
 }
+
 
 `
 

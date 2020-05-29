@@ -9,11 +9,27 @@ import Category from "./Globals/Category"
 
 const Posts = () => {
   const {
-    posts: { nodes: posts },
+    newsUpdate: { nodes: newsUpdate },
   } = useStaticQuery(getPosts)
   const {
     featured: { nodes: featured },
   } = useStaticQuery(getPosts)
+  const {
+    categories: { nodes: categories },
+  } = useStaticQuery(getPosts)
+  const {
+    events: { nodes: events },
+  } = useStaticQuery(getPosts)
+  const {
+    furtherReading: { nodes: furtherReading },
+  } = useStaticQuery(getPosts)
+  const {
+    technology: { nodes: technology },
+  } = useStaticQuery(getPosts)
+  const {
+    pressRelease: { nodes: pressRelease },
+  } = useStaticQuery(getPosts)
+
 
   return (
     <Grid>
@@ -32,7 +48,7 @@ const Posts = () => {
                 slug={`/zh-hans/${item.post.slug}`}
                 image={item.featuredImage.childImageSharp.fluid}
                 category={item.category.zhchCategory}
-                date={item.post.date}
+                date={item.date}
                 featured
               />
               <Line color={setColor.lightGrey} />
@@ -40,21 +56,28 @@ const Posts = () => {
           )
         })}
 
-        {posts.map(item => {
+        {categories.map(item => {
+          const posts = (item.slug === "news-update") ? newsUpdate : 
+              (item.slug === "further-reading") ? furtherReading : 
+              (item.slug === "events") ? events : 
+              (item.slug === "press-release") ? pressRelease : 
+              (item.slug === "technology") ? 
+              technology : " "
+             
           return (
             <div key={item.id}>
               <Category
                 category={item.zhchCategory}
-                url={`/categories/${item.zhchSlug}`}
+                url={`/zh-hans/categories/${item.zhchSlug}`}
               >
-                {item.zhch_posts.slice(0,5).map(data => {
+                {posts.map(data => {
                   return (
                     <div key={data.id}>
                       <PostRow
                         heading={data.title}
                         text={data.post.metaDescription}
                         slug={`/zh-hans/${data.post.slug}`}
-                        date={data.post.date}
+                        date={data.date}
                         image={data.featuredImage.childImageSharp.fluid}
                       />
                       <Line color={setColor.lightGrey} />
@@ -100,19 +123,21 @@ const Title = styled.div`
     width: 5vw;
     margin-top: ${setRem(80)};`};
 `
-
 const getPosts = graphql`
 {
   featured: allStrapiZhchPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
     nodes {
       id
+      date(formatString: "MMMM DD, YYYY")
       author {
         author
         slug
       }
       category {
-        zhchCategory
+        category
+        slug
         zhchSlug
+        zhchCategory
       }
       post {
         date(formatString: "MMMM DD, YYYY")
@@ -123,9 +148,10 @@ const getPosts = graphql`
         video
       }
       tags {
-        zhchTag
-        zhchSlug
+        tag
+        slug
       }
+      title
       featuredImage {
         childImageSharp {
           fluid {
@@ -133,31 +159,120 @@ const getPosts = graphql`
           }
         }
       }
-      title
     }
   }
-  posts: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
+  newsUpdate: allStrapiZhchPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "news-update"}}}) {
     nodes {
-      id
-      zhchSlug
-      zhchCategory
-      zhch_posts {
-        id
-        author
-        featuredImage {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
-            }
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
         }
-        title
-        post {
-          date(formatString: "MMMM DD, YYYY")
-          metaDescription
-          slug
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  events: allStrapiZhchPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "events"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
         }
       }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  furtherReading: allStrapiZhchPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "further-reading"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  technology: allStrapiZhchPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "technology"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  pressRelease: allStrapiZhchPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "press-release"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  categories: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
+    nodes {
+      category
+      slug
+      zhchSlug
+      zhchCategory
     }
   }
 }

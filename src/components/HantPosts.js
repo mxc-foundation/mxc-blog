@@ -9,11 +9,27 @@ import Category from "./Globals/Category"
 
 const Posts = () => {
   const {
-    posts: { nodes: posts },
+    newsUpdate: { nodes: newsUpdate },
   } = useStaticQuery(getPosts)
   const {
     featured: { nodes: featured },
   } = useStaticQuery(getPosts)
+  const {
+    categories: { nodes: categories },
+  } = useStaticQuery(getPosts)
+  const {
+    events: { nodes: events },
+  } = useStaticQuery(getPosts)
+  const {
+    furtherReading: { nodes: furtherReading },
+  } = useStaticQuery(getPosts)
+  const {
+    technology: { nodes: technology },
+  } = useStaticQuery(getPosts)
+  const {
+    pressRelease: { nodes: pressRelease },
+  } = useStaticQuery(getPosts)
+
 
   return (
     <Grid>
@@ -24,15 +40,16 @@ const Posts = () => {
         </Title>
         <Categories />
         {featured.map(item => {
+    
           return (
             <div key={item.id}>
               <PostRow
                 heading={item.title}
                 text={item.post.metaDescription}
-                slug={`zh-hant/${item.post.slug}`}
-                image={item.featuredImage[0].formats.large.childImageSharp.fluid}
+                slug={`/zh-hant/${item.post.slug}`}
+                image={item.featuredImage.childImageSharp.fluid}
                 category={item.category.zhtwCategory}
-                date={item.post.date}
+                date={item.date}
                 featured
               />
               <Line color={setColor.lightGrey} />
@@ -40,23 +57,29 @@ const Posts = () => {
           )
         })}
 
-        {posts.map(item => {
-          console.log(posts)
+        {categories.map(item => {
+          const posts = (item.slug === "news-update") ? newsUpdate : 
+              (item.slug === "further-reading") ? furtherReading : 
+              (item.slug === "events") ? events : 
+              (item.slug === "press-release") ? pressRelease : 
+              (item.slug === "technology") ? 
+              technology : " "
+             
           return (
             <div key={item.id}>
               <Category
                 category={item.zhtwCategory}
-                url={`/categories/${item.zhtwSlug}`}
+                url={`/zh-hant/categories/${item.zhtwSlug}`}
               >
-                {item.zhtw_posts.slice(0,5).map(data => {
+                {posts.map(data => {
                   return (
                     <div key={data.id}>
                       <PostRow
                         heading={data.title}
                         text={data.post.metaDescription}
                         slug={`zh-hant/${data.post.slug}`}
-                        date={data.post.date}
-                        image={data.featuredImage[0].formats.large.childImageSharp.fluid}
+                        date={data.date}
+                        image={data.featuredImage.childImageSharp.fluid}
                       />
                       <Line color={setColor.lightGrey} />
                     </div>
@@ -101,17 +124,19 @@ const Title = styled.div`
     width: 5vw;
     margin-top: ${setRem(80)};`};
 `
-
 const getPosts = graphql`
 {
   featured: allStrapiZhtwPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
     nodes {
       id
+      date(formatString: "MMMM DD, YYYY")
       author {
         author
         slug
       }
       category {
+        category
+        slug
         zhtwCategory
         zhtwSlug
       }
@@ -124,49 +149,131 @@ const getPosts = graphql`
         video
       }
       tags {
-        zhtwTag
-        zhtwSlug
-      }
-      featuredImage {
-        formats {
-          large {
-            childImageSharp {
-              fluid {
-                src
-              }
-            }
-          }
-        }
+        tag
+        slug
       }
       title
-    }
-  }
-  posts: allStrapiCategories(filter: {zhtw_posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
-    nodes {
-      id
-      zhtwSlug
-      zhtwCategory
-      zhtw_posts {
-        id
-        author
-        featuredImage {
-          formats {
-          large {
-            childImageSharp {
-              fluid {
-                src
-              }
-            }
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
         }
-        }
-        title
-        post {
-          date(formatString: "MMMM DD, YYYY")
-          metaDescription
-          slug
+      }
+    }
+  }
+  newsUpdate: allStrapiZhtwPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "news-update"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
         }
       }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  events: allStrapiZhtwPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "events"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  furtherReading: allStrapiZhtwPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "further-reading"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  technology: allStrapiZhtwPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "technology"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  pressRelease: allStrapiZhtwPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "press-release"}}}) {
+    nodes {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+
+          }
+        }
+      }
+      category {
+        category
+      }
+      post {
+        metaDescription
+        slug
+      }
+      id
+    }
+  }
+  categories: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
+    nodes {
+      category
+      slug
+      zhtwCategory
+      zhtwSlug
     }
   }
 }
