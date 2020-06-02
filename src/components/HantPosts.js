@@ -30,6 +30,11 @@ const Posts = () => {
     pressRelease: { nodes: pressRelease },
   } = useStaticQuery(getPosts)
 
+  const {
+    file: {childImageSharp : file },
+  } = useStaticQuery(getPosts)
+
+
 
   return (
     <Grid>
@@ -47,7 +52,7 @@ const Posts = () => {
                 heading={item.title}
                 text={item.post.metaDescription}
                 slug={`/zh-hant/${item.post.slug}`}
-                image={item.featuredImage.childImageSharp.fluid}
+                image={(item.featuredImage !== null) ? item.featuredImage.childImageSharp.fluid : file.fluid}
                 category={item.category.zhtwCategory}
                 date={item.date}
                 featured
@@ -79,7 +84,7 @@ const Posts = () => {
                         text={data.post.metaDescription}
                         slug={`zh-hant/${data.post.slug}`}
                         date={data.date}
-                        image={data.featuredImage.childImageSharp.fluid}
+                        image={(data.featuredImage !== null) ? data.featuredImage.childImageSharp.fluid : file.fluid}
                       />
                       <Line color={setColor.lightGrey} />
                     </div>
@@ -274,6 +279,13 @@ const getPosts = graphql`
       slug
       zhtwCategory
       zhtwSlug
+    }
+  }
+  file(absolutePath: {eq: "/config/workspace/mxc-blog/src/images/defaultImg.png"}) {
+    childImageSharp {
+      fluid {
+        src
+      }
     }
   }
 }

@@ -30,7 +30,9 @@ const Posts = () => {
     pressRelease: { nodes: pressRelease },
   } = useStaticQuery(getPosts)
  
-
+  const {
+    file: {childImageSharp : file },
+  } = useStaticQuery(getPosts)
 
 
   return (
@@ -48,7 +50,7 @@ const Posts = () => {
                 heading={item.title}
                 text={item.post.metaDescription}
                 slug={`/ko/${item.post.slug}`}
-                image={item.featuredImage.childImageSharp.fluid}
+                image={(item.featuredImage !== null) ? item.featuredImage.childImageSharp.fluid : file.fluid}
                 category={item.category.koCategory}
                 date={item.date}
                 featured
@@ -80,7 +82,7 @@ const Posts = () => {
                         text={data.post.metaDescription}
                         slug={`/ko/${data.post.slug}`}
                         date={data.date}
-                        image={data.featuredImage.childImageSharp.fluid}
+                        image={(data.featuredImage !== null) ? data.featuredImage.childImageSharp.fluid : file.fluid}
                       />
                       <Line color={setColor.lightGrey} />
                     </div>
@@ -273,6 +275,13 @@ const getPosts = graphql`
       slug
       koSlug
       koCategory
+    }
+  }
+  file(absolutePath: {eq: "/config/workspace/mxc-blog/src/images/defaultImg.png"}) {
+    childImageSharp {
+      fluid {
+        src
+      }
     }
   }
 }
