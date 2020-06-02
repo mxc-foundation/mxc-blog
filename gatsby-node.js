@@ -73,6 +73,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
   /* Create Post Pages*/
+
   data.allStrapiPosts.nodes.forEach(node => {
     createPage({
       path: node.post.slug,
@@ -118,6 +119,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   /* Create Categories Pages */
+
   data.categories.nodes.forEach(node => {
     createPage({
       path: `/categories/${node.slug}`,

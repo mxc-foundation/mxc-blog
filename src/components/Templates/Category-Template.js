@@ -30,7 +30,7 @@ const CategoryTemplate = ({ data }) => {
                       heading={post.title}
                       text={post.post.metaDescription}
                       image={(post.featuredImage !== null) ? post.featuredImage.childImageSharp.fluid : data.file.childImageSharp.fluid}
-                      slug={`zh-hans/${post.post.slug}`}
+                      slug={`${post.post.slug}`}
                       date={post.post.date}
                     />
                     <Line color={setColor.lightGrey} />
