@@ -144,10 +144,10 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: `/zh-hans/categories/${node.zhchSlug}`,
       component: path.resolve(
-        "./src/components/Templates/Category-Template.js"
+        "./src/components/Templates/Category-Template-Hans.js"
       ),
       context: {
-        slug: node.zhchSlug,
+        slug: node.slug,
       },
     })
   })
@@ -155,10 +155,10 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: `/zh-hant/categories/${node.zhtwSlug}`,
       component: path.resolve(
-        "./src/components/Templates/Category-Template.js"
+        "./src/components/Templates/Category-Template-Hant.js"
       ),
       context: {
-        slug: node.zhtwSlug,
+        slug: node.slug,
       },
     })
   })

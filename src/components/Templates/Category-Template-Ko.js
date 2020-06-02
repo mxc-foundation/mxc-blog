@@ -14,14 +14,14 @@ const CategoryTemplate = ({ data }) => {
         return (
           <div key={item.id}>
           <SEO 
-          title={item.category} 
-          pageUrl={`https://blog.mxc.org/${item.slug}`}
+          title={item.koCategory} 
+          pageUrl={`https://blog.mxc.org/ko/${item.koSlug}`}
           />
           <Grid>
             <div />
             <FeaturedRow>
               <Title>
-                <h1>{item.category}</h1>
+                <h1>{item.koCategory}</h1>
               </Title>
               {data.posts.nodes.map(post => {
                 return (
@@ -30,7 +30,7 @@ const CategoryTemplate = ({ data }) => {
                       heading={post.title}
                       text={post.post.metaDescription}
                       image={(post.featuredImage !== null) ? post.featuredImage.childImageSharp.fluid : data.file.childImageSharp.fluid}
-                      slug={`zh-hans/${post.post.slug}`}
+                      slug={`ko/${post.post.slug}`}
                       date={post.post.date}
                     />
                     <Line color={setColor.lightGrey} />
@@ -92,7 +92,7 @@ const Title = styled.div`
 
 export const query = graphql`
 query ($slug: String!) {
-  posts: allStrapiPosts(filter: {category: {slug: {eq: $slug}}, post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
+  posts: allStrapiZhtwPosts(filter: {category: {slug: {eq: $slug}}, post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
     nodes {
       date
       title

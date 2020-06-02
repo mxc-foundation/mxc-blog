@@ -8,13 +8,15 @@ import {graphql, useStaticQuery} from 'gatsby'
 
 const LangDropdown = () => {
 
-  /* get slug of current page */
+  /* get slug of current page x */
 
   const url = window.location.href.split("/")
 
   const decodeSlug = (url.slice(-1)[0].includes("%")) ? decodeURIComponent(url.slice(-1)[0]) : url.slice(-1)[0] 
   
   const slug = decodeSlug ? decodeSlug : "/"
+
+  console.log(slug)
 
   /* destructure Graphql Query */
   const {

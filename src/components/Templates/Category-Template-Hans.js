@@ -14,14 +14,14 @@ const CategoryTemplate = ({ data }) => {
         return (
           <div key={item.id}>
           <SEO 
-          title={item.category} 
-          pageUrl={`https://blog.mxc.org/${item.slug}`}
+          title={item.zhchCategory} 
+          pageUrl={`https://blog.mxc.org/zh-hans/${item.zhchSlug}`}
           />
           <Grid>
             <div />
             <FeaturedRow>
               <Title>
-                <h1>{item.category}</h1>
+                <h1>{item.zhchCategory}</h1>
               </Title>
               {data.posts.nodes.map(post => {
                 return (
@@ -92,7 +92,7 @@ const Title = styled.div`
 
 export const query = graphql`
 query ($slug: String!) {
-  posts: allStrapiPosts(filter: {category: {slug: {eq: $slug}}, post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
+  posts: allStrapiZhchPosts(filter: {category: {slug: {eq: $slug}}, post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
     nodes {
       date
       title
