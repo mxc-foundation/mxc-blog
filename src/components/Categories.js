@@ -24,10 +24,10 @@ const Categories = () => {
       <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
         {links.categories.nodes.map((item, index) => {
             const catList = url.includes("/ko") ? item.koCategory : url.includes("/zh-hans") ? item.zhchCategory : url.includes("/zh-hant") ? item.zhtwCategory : item.category
-            const catSlug = url.includes("/ko") ? item.koSlug : url.includes("/zh-hans") ? item.zhchSlug : url.includes("/zh-hant") ? item.zhtwSlug : item.slug
+            const catSlug = url.includes("/ko") ? `ko/categories/${item.koSlug}` : url.includes("/zh-hans") ? `zh-hans/categories/${item.zhchSlug}` : url.includes("/zh-hant") ? `zh-hant/categories/${item.zhtwSlug}` : `categories/${item.slug}`
           return (
             <MenuItem key={index}>
-              <Link to={`/categories/${catSlug}`}>{catList}</Link>
+              <Link to={`${catSlug}`}>{catList}</Link>
             </MenuItem>
           )
         })}

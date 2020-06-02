@@ -16,7 +16,6 @@ const LangDropdown = () => {
   
   const slug = decodeSlug ? decodeSlug : "/"
 
-  console.log(slug)
 
   /* destructure Graphql Query */
   const {
@@ -113,7 +112,6 @@ const thisPage = combinedArray[checkIndex]
     const toggleDropdown = () => {
       setDropdown(isOpen => !isOpen)
     }
-  
     return (
         <div>
             <Button type="button" onClick={toggleDropdown}>
