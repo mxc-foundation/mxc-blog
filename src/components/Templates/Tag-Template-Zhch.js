@@ -12,14 +12,14 @@ const TagTemplate = ({ data }) => {
     <Layout>
           <div key={data.tags.id}>
           <SEO 
-          title={data.tags.tag} 
-          pageUrl={`https://blog.mxc.org/tags/${data.tags.slug}`}
+          title={data.tags.zhchTag} 
+          pageUrl={`https://blog.mxc.org/zh-hans/tags/${data.tags.zhchSlug}`}
           />
           <Grid>
             <div />
             <FeaturedRow>
               <Title>
-                <h1>{data.tags.tag}</h1>
+                <h1>{data.tags.zhchTag}</h1>
               </Title>
               {data.posts.nodes.map(post => {
                 return (
@@ -28,7 +28,7 @@ const TagTemplate = ({ data }) => {
                       heading={post.title}
                       text={post.post.metaDescription}
                       image={(post.featuredImage !== null) ? post.featuredImage.childImageSharp.fluid : data.file.childImageSharp.fluid}
-                      slug={post.post.slug}
+                      slug={`zh-hans/${post.post.slug}`}
                       date={post.post.date}
                     />
                     <Line color={setColor.lightGrey} />
@@ -87,7 +87,7 @@ const Title = styled.div`
 
 export const query = graphql`
 query ($slug: String!) {
-  posts:allStrapiPosts(filter: {post: {publish: {eq: true}}, tags: {elemMatch: {slug: {eq: $slug}}}}, sort: {fields: date, order: DESC}) {
+  posts:allStrapiZhchPosts(filter: {post: {publish: {eq: true}}, tags: {elemMatch: {slug: {eq: $slug}}}}, sort: {fields: date, order: DESC}) {
     nodes {
       date
       title

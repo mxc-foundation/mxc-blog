@@ -176,7 +176,7 @@ exports.createPages = async ({ graphql, actions }) => {
   data.tags.nodes.forEach(node => {
     createPage({
       path: `/ko/tags/${node.koSlug}`,
-      component: path.resolve("./src/components/Templates/Tag-Template.js"),
+      component: path.resolve("./src/components/Templates/Tag-Template-Ko.js"),
       context: {
         slug: node.koSlug,
       },
@@ -185,7 +185,7 @@ exports.createPages = async ({ graphql, actions }) => {
   data.tags.nodes.forEach(node => {
     createPage({
       path: `/zh-hans/tags/${node.zhchSlug}`,
-      component: path.resolve("./src/components/Templates/Tag-Template.js"),
+      component: path.resolve("./src/components/Templates/Tag-Template-Zhch.js"),
       context: {
         slug: node.zhchSlug,
       },
@@ -194,7 +194,7 @@ exports.createPages = async ({ graphql, actions }) => {
   data.tags.nodes.forEach(node => {
     createPage({
       path: `/zh-hant/tags/${node.zhtwSlug}`,
-      component: path.resolve("./src/components/Templates/Tag-Template.js"),
+      component: path.resolve("./src/components/Templates/Tag-Template-Zhtw.js"),
       context: {
         slug: node.zhtwSlug,
       },

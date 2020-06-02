@@ -12,14 +12,14 @@ const TagTemplate = ({ data }) => {
     <Layout>
           <div key={data.tags.id}>
           <SEO 
-          title={data.tags.tag} 
-          pageUrl={`https://blog.mxc.org/tags/${data.tags.slug}`}
+          title={data.tags.koTag} 
+          pageUrl={`https://blog.mxc.org/ko/tags/${data.tags.koSlug}`}
           />
           <Grid>
             <div />
             <FeaturedRow>
               <Title>
-                <h1>{data.tags.tag}</h1>
+                <h1>{data.tags.koTag}</h1>
               </Title>
               {data.posts.nodes.map(post => {
                 return (
@@ -28,7 +28,7 @@ const TagTemplate = ({ data }) => {
                       heading={post.title}
                       text={post.post.metaDescription}
                       image={(post.featuredImage !== null) ? post.featuredImage.childImageSharp.fluid : data.file.childImageSharp.fluid}
-                      slug={post.post.slug}
+                      slug={`ko/${post.post.slug}`}
                       date={post.post.date}
                     />
                     <Line color={setColor.lightGrey} />
@@ -62,7 +62,7 @@ const FeaturedRow = styled.div`
     font-size: ${setRem(38)};
     color: ${setColor.mainBlack};
   }
-  .img {
+  .img {}
     height: 244px;
   }
   ${media.portraitTablet`
@@ -87,7 +87,7 @@ const Title = styled.div`
 
 export const query = graphql`
 query ($slug: String!) {
-  posts:allStrapiPosts(filter: {post: {publish: {eq: true}}, tags: {elemMatch: {slug: {eq: $slug}}}}, sort: {fields: date, order: DESC}) {
+  posts:allStrapiKoPosts(filter: {post: {publish: {eq: true}}, tags: {elemMatch: {slug: {eq: $slug}}}}, sort: {fields: date, order: DESC}) {
     nodes {
       date
       title
