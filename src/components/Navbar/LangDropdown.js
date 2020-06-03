@@ -8,9 +8,10 @@ import {graphql, useStaticQuery} from 'gatsby'
 
 const LangDropdown = () => {
 
-  /* get slug of current page x */
 
-  const url = window.location.href.split("/")
+  /* get slug of current page x */
+ 
+  const url = typeof window !== `undefined` ? window.location.href.split("/") : "/"
 
   const decodeSlug = (url.slice(-1)[0].includes("%")) ? decodeURIComponent(url.slice(-1)[0]) : url.slice(-1)[0] 
   
@@ -18,17 +19,11 @@ const LangDropdown = () => {
 
 
   /* destructure Graphql Query */
-  const {
-    posts: { nodes: posts },
-  } = useStaticQuery(query)
 
-  const {
-    categories: { nodes: categories }, 
-  } = useStaticQuery(query)
-
-  const {
-    tags: { nodes: tags },
-  } = useStaticQuery(query)
+  const getData = useStaticQuery(query)
+  const posts = getData.posts.nodes
+  const categories = getData.categories.nodes
+  const tags = getData.tags.nodes
 
 /* make a nicer array of graphql data */
 
@@ -105,6 +100,7 @@ const hansSlug = combinedArray.findIndex(i => i.hans === slug)
 const hantSlug = combinedArray.findIndex(i => i.hant === slug)
 const checkIndex = (enSlug !== -1) ? enSlug : (koSlug !== -1) ? koSlug : (hansSlug !== -1) ? hansSlug : (hantSlug !== -1) ? hantSlug : "failed"
 const thisPage = combinedArray[checkIndex]
+
 
 /* set up state */
 
@@ -215,6 +211,8 @@ const query = graphql`
   tags: allStrapiTags {
     nodes {
       slug
+      zhchSlug
+      zhtwSlug
       koSlug
       zhchTag
       zhtwTag

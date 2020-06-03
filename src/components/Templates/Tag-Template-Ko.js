@@ -10,7 +10,7 @@ import SEO from "../Globals/SEO"
 const TagTemplate = ({ data }) => {
   return (
     <Layout>
-          <div key={data.tags.id}>
+          <div>
           <SEO 
           title={data.tags.koTag} 
           pageUrl={`https://blog.mxc.org/ko/tags/${data.tags.koSlug}`}
@@ -123,7 +123,7 @@ query ($slug: String!) {
       }
     }
   }
-  tags:strapiTags(slug: {eq: $slug}) {
+  tags:strapiTags(koSlug: {eq: $slug}) {
     koSlug
     koTag
     slug

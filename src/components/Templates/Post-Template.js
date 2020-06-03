@@ -24,7 +24,7 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-
+console.log(data)
   return (
     <Layout>
       <SEO 
@@ -66,8 +66,8 @@ const Post_Template = ({ data }) => {
           <Bottom>
             <Left>
               <Author>
-                <Link to={`/${data.post.author.slug}`}>
-                  {data.post.author.author}
+                <Link to={(data.post.author !== null) ? `/${data.post.author.slug}` : "mxc-foundation"}>
+                  {(data.post.author !== null) ? data.post.author.author : "MXC Foundation"}
                 </Link>
               </Author>
               <Social>

@@ -16,7 +16,9 @@ import styled from "styled-components"
 import { setColor, setRem, media } from "../../styles"
 
 const Footer = () => {
-const url = window.location.href
+
+  const url = typeof window !== `undefined` ? window.location.href : "/"
+
 const setCompany = url.includes("/ko") ? KoCompany : url.includes("/zh-hans") ? HansCompany : url.includes("/zh-hant") ? HantCompany : Company
 const setCommunity = url.includes("/ko") ? KoCommunity : url.includes("/zh-hans") ? HansCommunity : url.includes("/zh-hant") ? HantCommunity : Community
 const setResources = url.includes("/ko") ? KoResources : url.includes("/zh-hans") ? HansResources : url.includes("/zh-hant") ? HantResources : Resources

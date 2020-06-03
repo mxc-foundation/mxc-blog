@@ -124,7 +124,7 @@ const Title = styled.div`
   margin-top: ${setRem(40)};
   ${media.tablet`
     border-top: 3px solid ${setColor.mainBlack}; 
-    width: 5vw;
+    width: 10vw;
     margin-top: ${setRem(80)};`};
 `
 const getPosts = graphql`

@@ -10,7 +10,7 @@ import SEO from "../Globals/SEO"
 const TagTemplate = ({ data }) => {
   return (
     <Layout>
-          <div key={data.tags.id}>
+          <div>
           <SEO 
           title={data.tags.tag} 
           pageUrl={`https://blog.mxc.org/tags/${data.tags.slug}`}

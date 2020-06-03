@@ -30,6 +30,7 @@ const getLogo = graphql`
   }
 `
 
+
 const Navbar = () => {
   const data = useStaticQuery(getLogo)
   const [isOpen, setNav] = useState(false)
@@ -37,7 +38,8 @@ const Navbar = () => {
     setNav(isOpen => !isOpen)
   }
 
-const url = window.location.href
+const url = typeof window !== `undefined` ? window.location.href : "/"
+
 const menu = url.includes("/ko") ? linksKo : url.includes("/zh-hans") ? linksHans : url.includes("/zh-hant") ? linksHant : links
 
   return (

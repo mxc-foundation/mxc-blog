@@ -8,9 +8,10 @@ import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
 const TagTemplate = ({ data }) => {
+  console.log(data)
   return (
     <Layout>
-          <div key={data.tags.id}>
+          <div>
           <SEO 
           title={data.tags.zhchTag} 
           pageUrl={`https://blog.mxc.org/zh-hans/tags/${data.tags.zhchSlug}`}
@@ -123,7 +124,7 @@ query ($slug: String!) {
       }
     }
   }
-  tags:strapiTags(slug: {eq: $slug}) {
+  tags:strapiTags(zhchSlug: {eq: $slug}) {
     koSlug
     koTag
     slug
