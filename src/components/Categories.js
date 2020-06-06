@@ -8,11 +8,14 @@ import { Link } from "gatsby"
 
 const Categories = () => {
   const links = useStaticQuery(getCategories)
+
+  console.log(links)
+
   const [isOpen, setNav] = useState(false)
   const toggleNav = () => {
     setNav(isOpen => !isOpen)
   }
-  const url = window.location.href
+  const url = typeof window !== `undefined` ? window.location.href : "/"
 
   return (
     <div>
@@ -84,9 +87,7 @@ export const MenuItem = styled.li`
 `
 const getCategories = graphql`
   query {
-    categories: allStrapiCategories(
-      filter: { posts: { elemMatch: { post: { publish: { eq: true } } } } }
-    ) {
+    categories: allStrapiCategories {
       nodes {
         slug
         category

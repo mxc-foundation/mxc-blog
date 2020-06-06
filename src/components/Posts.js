@@ -270,7 +270,7 @@ const getPosts = graphql`
       id
     }
   }
-  categories: allStrapiCategories(filter: {posts: {elemMatch: {post: {publish: {eq: true}}}}}) {
+  categories: allStrapiCategories {
     nodes {
       category
       slug
