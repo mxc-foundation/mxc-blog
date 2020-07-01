@@ -13,33 +13,37 @@ const CategoryTemplate = ({ data }) => {
       {data.categories.nodes.map(item => {
         return (
           <div key={item.id}>
-          <SEO 
-          title={item.zhtwCategory} 
-          pageUrl={`https://blog.mxc.org/zh-hant/${item.zhtwSlug}`}
-          />
-          <Grid>
-            <div />
-            <FeaturedRow>
-              <Title>
-                <h1>{item.zhtwCategory}</h1>
-              </Title>
-              {data.posts.nodes.map(post => {
-                return (
-                  <div key={post.id}>
-                    <PostRow
-                      heading={post.title}
-                      text={post.post.metaDescription}
-                      image={(post.featuredImage !== null) ? post.featuredImage.childImageSharp.fluid : data.file.childImageSharp.fluid}
-                      slug={`zh-hant/${post.post.slug}`}
-                      date={post.post.date}
-                    />
-                    <Line color={setColor.lightGrey} />
-                  </div>
-                )
-              })}
-            </FeaturedRow>
-            <div />
-          </Grid>
+            <SEO
+              title={item.zhtwCategory}
+              pageUrl={`https://blog.mxc.org/zh-hant/${item.zhtwSlug}`}
+            />
+            <Grid>
+              <div />
+              <FeaturedRow>
+                <Title>
+                  <h1>{item.zhtwCategory}</h1>
+                </Title>
+                {data.posts.nodes.map(post => {
+                  return (
+                    <div key={post.id}>
+                      <PostRow
+                        heading={post.title}
+                        text={post.post.metaDescription}
+                        image={
+                          post.featuredImage !== null
+                            ? post.featuredImage.childImageSharp.fluid
+                            : data.file.childImageSharp.fluid
+                        }
+                        slug={`zh-hant/${post.post.slug}`}
+                        date={post.post.date}
+                      />
+                      <Line color={setColor.lightGrey} />
+                    </div>
+                  )
+                })}
+              </FeaturedRow>
+              <div />
+            </Grid>
           </div>
         )
       })}
@@ -91,53 +95,57 @@ const Title = styled.div`
 `
 
 export const query = graphql`
-query ($slug: String!) {
-  posts: allStrapiZhtwPosts(filter: {category: {slug: {eq: $slug}}, post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
-    nodes {
-      date
-      title
-      post {
-        date(formatString: "MMMM DD, YYYY")
-        metaDescription
-        slug
+  query($slug: String!) {
+    posts: allStrapiZhtwPosts(
+      filter: {
+        category: { slug: { eq: $slug } }
+        post: { publish: { eq: true } }
       }
-      featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+      sort: { fields: date, order: DESC }
+    ) {
+      nodes {
+        date
+        title
+        post {
+          date(formatString: "MMMM DD, YYYY")
+          metaDescription
+          slug
+        }
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
           }
         }
+        id
+        category {
+          zhchCategory
+          zhchSlug
+        }
       }
-      id
-      category {
+    }
+    categories: allStrapiCategories(filter: { slug: { eq: $slug } }) {
+      nodes {
+        category
         zhchCategory
         zhchSlug
+        zhtwCategory
+        zhtwSlug
+        koSlug
+        koCategory
+        slug
+        id
+      }
+    }
+    file(relativePath: { eq: "defaultImg.png" }) {
+      childImageSharp {
+        fluid {
+          src
+        }
       }
     }
   }
-  categories: allStrapiCategories(filter: {slug: {eq: $slug}}) {
-    nodes {
-      category
-      zhchCategory
-      zhchSlug
-      zhtwCategory
-      zhtwSlug
-      koSlug
-      koCategory
-      slug
-      id
-    }
-  }
-  file: file(absolutePath: {eq: "/config/workspace/mxc-blog/src/images/defaultImg.png"}) {
-    childImageSharp {
-      fluid {
-        ...GatsbyImageSharpFluid_withWebp_tracedSVG
-      }
-    }
-  }
-}
-
-
 `
 
 export default CategoryTemplate

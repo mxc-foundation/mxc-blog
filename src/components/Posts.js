@@ -11,12 +11,18 @@ const Posts = () => {
   const {
     newsUpdate: { nodes: newsUpdate },
   } = useStaticQuery(getPosts)
+
+  const {
+    useCase: { nodes: useCase },
+  } = useStaticQuery(getPosts)
+  console.log(useCase)
   const {
     featured: { nodes: featured },
   } = useStaticQuery(getPosts)
   const {
-    categories: { nodes: categories },
+    categoriesPost: { nodes: categoriesPost },
   } = useStaticQuery(getPosts)
+
   const {
     events: { nodes: events },
   } = useStaticQuery(getPosts)
@@ -29,12 +35,10 @@ const Posts = () => {
   const {
     pressRelease: { nodes: pressRelease },
   } = useStaticQuery(getPosts)
- 
+
   const {
-    file: {childImageSharp : file },
+    file: { childImageSharp: file },
   } = useStaticQuery(getPosts)
-
-
 
   return (
     <Grid>
@@ -51,7 +55,11 @@ const Posts = () => {
                 heading={item.title}
                 text={item.post.metaDescription}
                 slug={item.post.slug}
-                image={(item.featuredImage !== null) ? item.featuredImage.childImageSharp.fluid : file.fluid}
+                image={
+                  item.featuredImage !== null
+                    ? item.featuredImage.childImageSharp.fluid
+                    : file.fluid
+                }
                 category={item.category.category}
                 date={item.date}
                 featured
@@ -60,39 +68,129 @@ const Posts = () => {
             </div>
           )
         })}
-
-        {categories.map(item => {
-          const posts = (item.slug === "news-update") ? newsUpdate : 
-              (item.slug === "further-reading") ? furtherReading : 
-              (item.slug === "events") ? events : 
-              (item.slug === "press-release") ? pressRelease : 
-              (item.slug === "technology") ? 
-              technology : " "
-             
-          return (
-            <div key={item.id}>
-              <Category
-                category={item.category}
-                url={`/categories/${item.slug}`}
-              >
-                {posts.map(data => {
-                  return (
-                    <div key={data.id}>
-                      <PostRow
-                        heading={data.title}
-                        text={data.post.metaDescription}
-                        slug={data.post.slug}
-                        date={data.date}
-                        image={(data.featuredImage !== null) ? data.featuredImage.childImageSharp.fluid : file.fluid}
-                      />
-                      <Line color={setColor.lightGrey} />
-                    </div>
-                  )
-                })}
-              </Category>
-            </div>
-          )
-        })}
+        <Category category="News Update" url={`/categories/news-update`}>
+          {newsUpdate.map(data => {
+            return (
+              <div key={data.id}>
+                <PostRow
+                  heading={data.title}
+                  text={data.post.metaDescription}
+                  slug={data.post.slug}
+                  date={data.date}
+                  image={
+                    data.featuredImage !== null
+                      ? data.featuredImage.childImageSharp.fluid
+                      : file.fluid
+                  }
+                />
+                <Line color={setColor.lightGrey} />
+              </div>
+            )
+          })}
+        </Category>
+        <Category category="Events" url={`/categories/events`}>
+          {events.map(data => {
+            return (
+              <div key={data.id}>
+                <PostRow
+                  heading={data.title}
+                  text={data.post.metaDescription}
+                  slug={data.post.slug}
+                  date={data.date}
+                  image={
+                    data.featuredImage !== null
+                      ? data.featuredImage.childImageSharp.fluid
+                      : file.fluid
+                  }
+                />
+                <Line color={setColor.lightGrey} />
+              </div>
+            )
+          })}
+        </Category>
+        <Category
+          category="Further Reading"
+          url={`/categories/further-reading`}
+        >
+          {furtherReading.map(data => {
+            return (
+              <div key={data.id}>
+                <PostRow
+                  heading={data.title}
+                  text={data.post.metaDescription}
+                  slug={data.post.slug}
+                  date={data.date}
+                  image={
+                    data.featuredImage !== null
+                      ? data.featuredImage.childImageSharp.fluid
+                      : file.fluid
+                  }
+                />
+                <Line color={setColor.lightGrey} />
+              </div>
+            )
+          })}
+        </Category>
+        <Category category="Press Releases" url={`/categories/press-release`}>
+          {pressRelease.map(data => {
+            return (
+              <div key={data.id}>
+                <PostRow
+                  heading={data.title}
+                  text={data.post.metaDescription}
+                  slug={data.post.slug}
+                  date={data.date}
+                  image={
+                    data.featuredImage !== null
+                      ? data.featuredImage.childImageSharp.fluid
+                      : file.fluid
+                  }
+                />
+                <Line color={setColor.lightGrey} />
+              </div>
+            )
+          })}
+        </Category>
+        <Category category="Technology" url={`/categories/technology`}>
+          {technology.map(data => {
+            return (
+              <div key={data.id}>
+                <PostRow
+                  heading={data.title}
+                  text={data.post.metaDescription}
+                  slug={data.post.slug}
+                  date={data.date}
+                  image={
+                    data.featuredImage !== null
+                      ? data.featuredImage.childImageSharp.fluid
+                      : file.fluid
+                  }
+                />
+                <Line color={setColor.lightGrey} />
+              </div>
+            )
+          })}
+        </Category>
+        <Category category="Use Cases" url={`/categories/use-case`}>
+          {useCase.map(data => {
+            return (
+              <div key={data.id}>
+                <PostRow
+                  heading={data.title}
+                  text={data.post.metaDescription}
+                  slug={data.post.slug}
+                  date={data.date}
+                  image={
+                    data.featuredImage !== null
+                      ? data.featuredImage.childImageSharp.fluid
+                      : file.fluid
+                  }
+                />
+                <Line color={setColor.lightGrey} />
+              </div>
+            )
+          })}
+        </Category>
       </FeaturedRow>
       <div />
     </Grid>
@@ -129,163 +227,208 @@ const Title = styled.div`
     margin-top: ${setRem(80)};`};
 `
 const getPosts = graphql`
-{
-  featured: allStrapiPosts(sort: {order: DESC, fields: post___date}, filter: {post: {featured: {eq: true}, publish: {eq: true}}}) {
-    nodes {
-      id
-      date(formatString: "MMMM DD, YYYY")
-      author {
-        author
-        slug
-      }
-      category {
-        category
-        slug
-      }
-      post {
+  {
+    featured: allStrapiPosts(
+      sort: { order: DESC, fields: post___date }
+      filter: { post: { featured: { eq: true }, publish: { eq: true } } }
+    ) {
+      nodes {
+        id
         date(formatString: "MMMM DD, YYYY")
-        metaDescription
-        featured
-        publish
-        slug
-        video
-      }
-      tags {
-        tag
-        slug
-      }
-      title
-      featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        author {
+          author
+          slug
+        }
+        category {
+          category
+          slug
+        }
+        post {
+          date(formatString: "MMMM DD, YYYY")
+          metaDescription
+          featured
+          publish
+          slug
+          video
+        }
+        tags {
+          tag
+          slug
+        }
+        title
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
           }
         }
       }
     }
-  }
-  newsUpdate: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "news-update"}}}) {
-    nodes {
-      title
-      date(formatString: "MMMM DD, YYYY")
-      featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+    newsUpdate: allStrapiPosts(
+      sort: { fields: date, order: DESC }
+      limit: 5
+      filter: { category: { slug: { eq: "news-update" } } }
+    ) {
+      nodes {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
           }
         }
+        category {
+          category
+        }
+        post {
+          metaDescription
+          slug
+        }
+        id
       }
-      category {
+    }
+    events: allStrapiPosts(
+      sort: { fields: date, order: DESC }
+      limit: 5
+      filter: { category: { slug: { eq: "events" } } }
+    ) {
+      nodes {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+        category {
+          category
+        }
+        post {
+          metaDescription
+          slug
+        }
+        id
+      }
+    }
+    furtherReading: allStrapiPosts(
+      sort: { fields: date, order: DESC }
+      limit: 5
+      filter: { category: { slug: { eq: "further-reading" } } }
+    ) {
+      nodes {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+        category {
+          category
+        }
+        post {
+          metaDescription
+          slug
+        }
+        id
+      }
+    }
+    technology: allStrapiPosts(
+      sort: { fields: date, order: DESC }
+      limit: 5
+      filter: { category: { slug: { eq: "technology" } } }
+    ) {
+      nodes {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+        category {
+          category
+        }
+        post {
+          metaDescription
+          slug
+        }
+        id
+      }
+    }
+    pressRelease: allStrapiPosts(
+      sort: { fields: date, order: DESC }
+      limit: 5
+      filter: { category: { slug: { eq: "press-release" } } }
+    ) {
+      nodes {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+        category {
+          category
+        }
+        post {
+          metaDescription
+          slug
+        }
+        id
+      }
+    }
+    useCase: allStrapiPosts(
+      sort: { fields: date, order: DESC }
+      limit: 5
+      filter: { category: { slug: { eq: "use-case" } } }
+    ) {
+      nodes {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        featuredImage {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+        category {
+          category
+        }
+        post {
+          metaDescription
+          slug
+        }
+        id
+      }
+    }
+    categoriesPost: allStrapiCategories {
+      nodes {
         category
-      }
-      post {
-        metaDescription
         slug
       }
-      id
     }
-  }
-  events: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "events"}}}) {
-    nodes {
-      title
-      date(formatString: "MMMM DD, YYYY")
-      featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
-          }
+    file(relativePath: { eq: "defaultImg.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
-      category {
-        category
-      }
-      post {
-        metaDescription
-        slug
-      }
-      id
     }
   }
-  furtherReading: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "further-reading"}}}) {
-    nodes {
-      title
-      date(formatString: "MMMM DD, YYYY")
-      featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
-          }
-        }
-      }
-      category {
-        category
-      }
-      post {
-        metaDescription
-        slug
-      }
-      id
-    }
-  }
-  technology: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "technology"}}}) {
-    nodes {
-      title
-      date(formatString: "MMMM DD, YYYY")
-      featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
-          }
-        }
-      }
-      category {
-        category
-      }
-      post {
-        metaDescription
-        slug
-      }
-      id
-    }
-  }
-  pressRelease: allStrapiPosts(sort: {fields: date, order: DESC}, limit: 5, filter: {category: {slug: {eq: "press-release"}}}) {
-    nodes {
-      title
-      date(formatString: "MMMM DD, YYYY")
-      featuredImage {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
-
-          }
-        }
-      }
-      category {
-        category
-      }
-      post {
-        metaDescription
-        slug
-      }
-      id
-    }
-  }
-  categories: allStrapiCategories {
-    nodes {
-      category
-      slug
-    }
-  }
-  file(absolutePath: {eq: "/config/workspace/mxc-blog/src/images/defaultImg.png"}) {
-    childImageSharp {
-      fluid {
-        src
-      }
-    }
-  }
-}
-
-
 `
 
 export default Posts
