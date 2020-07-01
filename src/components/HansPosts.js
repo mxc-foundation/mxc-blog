@@ -51,7 +51,7 @@ const Posts = () => {
               <PostRow
                 heading={item.title}
                 text={item.post.metaDescription}
-                slug={`/zh-hans/${item.post.slug}`}
+                slug={`zh-hans/${item.post.slug}`}
                 image={
                   item.featuredImage !== null
                     ? item.featuredImage.childImageSharp.fluid
@@ -93,7 +93,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={data.post.slug}
+                  slug={`zh-hans/${data.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -116,7 +116,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={data.post.slug}
+                  slug={`zh-hans/${data.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -136,7 +136,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={data.post.slug}
+                  slug={`zh-hans/${data.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -156,7 +156,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={data.post.slug}
+                  slug={`zh-hans/${data.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -176,7 +176,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={data.post.slug}
+                  slug={`zh-hans/${data.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
