@@ -10,31 +10,13 @@ import Category from "./Globals/Category"
 const Posts = () => {
   const {
     newsUpdate: { nodes: newsUpdate },
-  } = useStaticQuery(getPosts)
-  const {
-    useCase: { nodes: useCase },
-  } = useStaticQuery(getPosts)
-  const {
     featured: { nodes: featured },
-  } = useStaticQuery(getPosts)
-  const {
-    categories: { nodes: categories },
-  } = useStaticQuery(getPosts)
-  const {
     events: { nodes: events },
-  } = useStaticQuery(getPosts)
-  const {
     furtherReading: { nodes: furtherReading },
-  } = useStaticQuery(getPosts)
-  const {
     technology: { nodes: technology },
-  } = useStaticQuery(getPosts)
-  const {
     pressRelease: { nodes: pressRelease },
-  } = useStaticQuery(getPosts)
-
-  const {
     file: { childImageSharp: file },
+    useCase: { nodes: useCase },
   } = useStaticQuery(getPosts)
 
   return (
