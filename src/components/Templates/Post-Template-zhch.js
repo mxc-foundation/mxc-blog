@@ -24,19 +24,24 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-
   return (
     <Layout>
-      <SEO 
-      title={data.post.title} 
-      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
-      image={data.post.featuredImage.absolutePath} 
-      language="en" 
-      description={data.post.post.metaDescription} 
-      hansPost={data.post.post.slug ? data.post.post.slug : " "}
-      koPost={data.postLang.ko_post ? data.postLang.ko_post.post.slug : " "} 
-      hantPost={data.postLang.zhtw_post ? data.postLang.zhtw_post.post.slug : " "} 
-      enPost={data.post.enPost ? data.post.enPost.post.slug : " "}
+      <SEO
+        title={data.post.title}
+        pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
+        image={
+          data.post.featuredImage !== null
+            ? data.post.featuredImage.absolutePath
+            : "/"
+        }
+        language="en"
+        description={data.post.post.metaDescription}
+        hansPost={data.post.post.slug ? data.post.post.slug : " "}
+        koPost={data.postLang.ko_post ? data.postLang.ko_post.post.slug : " "}
+        hantPost={
+          data.postLang.zhtw_post ? data.postLang.zhtw_post.post.slug : " "
+        }
+        enPost={data.post.enPost ? data.post.enPost.post.slug : " "}
       />
       <Grid>
         <div></div>
@@ -66,7 +71,7 @@ const Post_Template = ({ data }) => {
           <Bottom>
             <Left>
               <Author>
-              <Link to={`/${data.post.author.slug}`}>
+                <Link to={`/${data.post.author.slug}`}>
                   {data.post.author.author}
                 </Link>
               </Author>
@@ -98,7 +103,7 @@ const Post_Template = ({ data }) => {
               {data.post.tags.map((item, index) => {
                 return (
                   <Link to={`/zh-hans/tags/${item.zhchSlug}`} key={index}>
-                    <Tag >{item.zhchTag}</Tag>
+                    <Tag>{item.zhchTag}</Tag>
                   </Link>
                 )
               })}
@@ -147,7 +152,7 @@ export const query = graphql`
         }
       }
     }
-    postLang: strapiPosts(post: {slug: {eq: $enSlug}}) {
+    postLang: strapiPosts(post: { slug: { eq: $enSlug } }) {
       zhch_post {
         post {
           slug

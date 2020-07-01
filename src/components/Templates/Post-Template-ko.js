@@ -24,24 +24,43 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-console.log(data)
   return (
     <Layout>
-    <SEO 
-      title={data.post.title} 
-      pageUrl={`https://blog.mxc.org/ko/${data.post.post.title}`} 
-      image={data.post.featuredImage.absolutePath} 
-      language="en" 
-      description={data.post.post.metaDescription} 
-      koPost={data.post.post.slug ? `https://blog.mxc.org/${data.post.post.slug}` : " "}
-      hantPost={data.postLang.zhtw_post ? `https://blog.mxc.org/${data.postLang.zhtw_post.post.slug}` : " "} 
-      hansPost={data.postLang.zhch_post ? `https://blog.mxc.org/${data.postLang.zhch_post.post.slug}` : " "} 
-      enPost={data.post.enPost ? `https://blog.mxc.org/${data.post.enPost.post.slug}` : " "}
+      <SEO
+        title={data.post.title}
+        pageUrl={`https://blog.mxc.org/ko/${data.post.post.title}`}
+        image={
+          data.post.featuredImage !== null
+            ? data.post.featuredImage.absolutePath
+            : "/"
+        }
+        language="en"
+        description={data.post.post.metaDescription}
+        koPost={
+          data.post.post.slug
+            ? `https://blog.mxc.org/${data.post.post.slug}`
+            : " "
+        }
+        hantPost={
+          data.postLang.zhtw_post
+            ? `https://blog.mxc.org/${data.postLang.zhtw_post.post.slug}`
+            : " "
+        }
+        hansPost={
+          data.postLang.zhch_post
+            ? `https://blog.mxc.org/${data.postLang.zhch_post.post.slug}`
+            : " "
+        }
+        enPost={
+          data.post.enPost
+            ? `https://blog.mxc.org/${data.post.enPost.post.slug}`
+            : " "
+        }
       />
       <Grid>
         <div></div>
         <div>
-        {data.post.post.video ? (
+          {data.post.post.video ? (
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
@@ -98,7 +117,7 @@ console.log(data)
               {data.post.tags.map((item, index) => {
                 return (
                   <Link to={`/ko/tags/${item.koSlug}`} key={index}>
-                    <Tag >{item.koTag}</Tag>
+                    <Tag>{item.koTag}</Tag>
                   </Link>
                 )
               })}
@@ -112,57 +131,54 @@ console.log(data)
 }
 
 export const query = graphql`
-query ($slug: String!, $enSlug: String!) {
-  post: strapiKoPosts(post: {slug: {eq: $slug}}) {
-    category {
-      koCategory
-      koSlug
-    }
-    featuredImage {
-
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
-            }
-          
-        
+  query($slug: String!, $enSlug: String!) {
+    post: strapiKoPosts(post: { slug: { eq: $slug } }) {
+      category {
+        koCategory
+        koSlug
+      }
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      title
+      post {
+        content
+        date(formatString: "MMMM DD, YYYY")
+        metaDescription
+        video
+        slug
+      }
+      tags {
+        koTag
+        koSlug
+      }
+      author {
+        author
+        slug
+      }
+      enPost {
+        post {
+          slug
+        }
       }
     }
-    title
-    post {
-      content
-      date(formatString: "MMMM DD, YYYY")
-      metaDescription
-      video
-      slug
-    }
-    tags {
-      koTag
-      koSlug
-    }
-    author {
-      author
-      slug
-    }
-    enPost {
-      post {
-        slug
+    postLang: strapiPosts(post: { slug: { eq: $enSlug } }) {
+      ko_post {
+        post {
+          slug
+        }
+      }
+      ko_post {
+        post {
+          slug
+        }
       }
     }
   }
-  postLang: strapiPosts(post: {slug: {eq: $enSlug}}) {
-    ko_post {
-      post {
-        slug
-      }
-    }
-    ko_post {
-      post {
-        slug
-      }
-    }
-  }
-}
 `
 
 export default Post_Template

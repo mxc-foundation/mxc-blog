@@ -9,8 +9,6 @@ import { Link } from "gatsby"
 const Categories = () => {
   const links = useStaticQuery(getCategories)
 
-  console.log(links)
-
   const [isOpen, setNav] = useState(false)
   const toggleNav = () => {
     setNav(isOpen => !isOpen)
@@ -26,8 +24,20 @@ const Categories = () => {
       </FlexBox>
       <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
         {links.categories.nodes.map((item, index) => {
-            const catList = url.includes("/ko") ? item.koCategory : url.includes("/zh-hans") ? item.zhchCategory : url.includes("/zh-hant") ? item.zhtwCategory : item.category
-            const catSlug = url.includes("/ko") ? `ko/categories/${item.koSlug}` : url.includes("/zh-hans") ? `zh-hans/categories/${item.zhchSlug}` : url.includes("/zh-hant") ? `zh-hant/categories/${item.zhtwSlug}` : `categories/${item.slug}`
+          const catList = url.includes("/ko")
+            ? item.koCategory
+            : url.includes("/zh-hans")
+            ? item.zhchCategory
+            : url.includes("/zh-hant")
+            ? item.zhtwCategory
+            : item.category
+          const catSlug = url.includes("/ko")
+            ? `ko/categories/${item.koSlug}`
+            : url.includes("/zh-hans")
+            ? `zh-hans/categories/${item.zhchSlug}`
+            : url.includes("/zh-hant")
+            ? `zh-hant/categories/${item.zhtwSlug}`
+            : `categories/${item.slug}`
           return (
             <MenuItem key={index}>
               <Link to={`${catSlug}`}>{catList}</Link>

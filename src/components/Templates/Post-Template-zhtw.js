@@ -24,19 +24,24 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-  
   return (
     <Layout>
-      <SEO 
-      title={data.post.title} 
-      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
-      image={data.post.featuredImage.absolutePath} 
-      language="en" 
-      description={data.post.post.metaDescription} 
-      hantPost={data.post.post.slug ? data.post.post.slug : " "}
-      koPost={data.postLang.ko_post ? data.postLang.ko_post.post.slug : " "} 
-      hansPost={data.postLang.zhch_post ? data.postLang.zhch_post.post.slug : " "} 
-      enPost={data.post.enPost ? data.post.enPost.post.slug : " "}
+      <SEO
+        title={data.post.title}
+        pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
+        image={
+          data.post.featuredImage !== null
+            ? data.post.featuredImage.absolutePath
+            : "/"
+        }
+        language="en"
+        description={data.post.post.metaDescription}
+        hantPost={data.post.post.slug ? data.post.post.slug : " "}
+        koPost={data.postLang.ko_post ? data.postLang.ko_post.post.slug : " "}
+        hansPost={
+          data.postLang.zhch_post ? data.postLang.zhch_post.post.slug : " "
+        }
+        enPost={data.post.enPost ? data.post.enPost.post.slug : " "}
       />
 
       <Grid>
@@ -46,11 +51,7 @@ const Post_Template = ({ data }) => {
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
-              <Image
-                fluid={
-                  data.post.featuredImage.childImageSharp.fluid
-                }
-              />
+              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
             </FeaturedImage>
           )}
 
@@ -103,7 +104,7 @@ const Post_Template = ({ data }) => {
               {data.post.tags.map((item, index) => {
                 return (
                   <Link to={`/zh-hant/tags/${item.zhtwSlug}`} key={index}>
-                    <Tag >{item.zhtwTag}</Tag>
+                    <Tag>{item.zhtwTag}</Tag>
                   </Link>
                 )
               })}
@@ -117,63 +118,60 @@ const Post_Template = ({ data }) => {
 }
 
 export const query = graphql`
-query ($slug: String!, $enSlug: String!) {
-  post: strapiZhtwPosts(post: {slug: {eq: $slug}}) {
-    category {
-      zhtwCategory
-      zhtwSlug
-    }
-    featuredImage {
-
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
-            }
+  query($slug: String!, $enSlug: String!) {
+    post: strapiZhtwPosts(post: { slug: { eq: $slug } }) {
+      category {
+        zhtwCategory
+        zhtwSlug
+      }
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
-          absolutePath
-      
-    
-    }
-    title
-    post {
-      content
-      date(formatString: "MMMM DD, YYYY")
-      metaDescription
-      video
-      slug
-    }
-    tags {
-      zhtwTag
-      zhtwSlug
-    }
-    author {
-      author
-      slug
-    }
-    enPost {
+        }
+        absolutePath
+      }
+      title
       post {
+        content
+        date(formatString: "MMMM DD, YYYY")
+        metaDescription
+        video
         slug
+      }
+      tags {
+        zhtwTag
+        zhtwSlug
+      }
+      author {
+        author
+        slug
+      }
+      enPost {
+        post {
+          slug
+        }
+      }
+    }
+    postLang: strapiPosts(post: { slug: { eq: $enSlug } }) {
+      zhch_post {
+        post {
+          slug
+        }
+      }
+      zhtw_post {
+        post {
+          slug
+        }
+      }
+      ko_post {
+        post {
+          slug
+        }
       }
     }
   }
-  postLang: strapiPosts(post: {slug: {eq: $enSlug}}) {
-    zhch_post {
-      post {
-        slug
-      }
-    }
-    zhtw_post {
-      post {
-        slug
-      }
-    }
-    ko_post {
-      post {
-        slug
-      }
-    }
-  }
-}
 `
 
 export default Post_Template

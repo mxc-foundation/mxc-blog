@@ -15,7 +15,6 @@ const Posts = () => {
   const {
     useCase: { nodes: useCase },
   } = useStaticQuery(getPosts)
-  console.log(useCase)
   const {
     featured: { nodes: featured },
   } = useStaticQuery(getPosts)

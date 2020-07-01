@@ -24,19 +24,22 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-console.log(data)
   return (
     <Layout>
-      <SEO 
-      title={data.post.title} 
-      pageUrl={`https://blog.mxc.org/${data.post.post.slug}`} 
-      image={data.post.featuredImage.absolutePath} 
-      language="en" 
-      description={data.post.post.metaDescription} 
-      enPost={data.post.post.slug ? data.post.post.slug : " "}
-      koPost={data.post.ko_post ? data.post.ko_post.post.slug : " "} 
-      hansPost={data.post.zhch_post ? data.post.zhch_post.post.slug : " "} 
-      hantPost={data.post.zhtw_post ? data.post.zhtw_post.post.slug : " "}
+      <SEO
+        title={data.post.title}
+        pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
+        image={
+          data.post.featuredImage !== null
+            ? data.post.featuredImage.absolutePath
+            : "/"
+        }
+        language="en"
+        description={data.post.post.metaDescription}
+        enPost={data.post.post.slug ? data.post.post.slug : " "}
+        koPost={data.post.ko_post ? data.post.ko_post.post.slug : " "}
+        hansPost={data.post.zhch_post ? data.post.zhch_post.post.slug : " "}
+        hantPost={data.post.zhtw_post ? data.post.zhtw_post.post.slug : " "}
       />
       <Grid>
         <div></div>
@@ -45,7 +48,13 @@ console.log(data)
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
-              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
+              <Image
+                fluid={
+                  data.post.featuredImage !== null
+                    ? data.post.featuredImage.childImageSharp.fluid
+                    : data.file.childImageSharp.fluid
+                }
+              />
             </FeaturedImage>
           )}
 
@@ -66,8 +75,16 @@ console.log(data)
           <Bottom>
             <Left>
               <Author>
-                <Link to={(data.post.author !== null) ? `/${data.post.author.slug}` : "mxc-foundation"}>
-                  {(data.post.author !== null) ? data.post.author.author : "MXC Foundation"}
+                <Link
+                  to={
+                    data.post.author !== null
+                      ? `/${data.post.author.slug}`
+                      : "mxc-foundation"
+                  }
+                >
+                  {data.post.author !== null
+                    ? data.post.author.author
+                    : "MXC Foundation"}
                 </Link>
               </Author>
               <Social>
@@ -124,7 +141,7 @@ export const query = graphql`
           fluid {
             ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
-       }
+        }
       }
       title
       post {
@@ -155,6 +172,13 @@ export const query = graphql`
       ko_post {
         post {
           slug
+        }
+      }
+    }
+    file(relativePath: { eq: "defaultImg.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
