@@ -8140,6 +8140,19 @@ gatsby-page-utils@^0.2.8:
     lodash "^4.17.15"
     micromatch "^3.1.10"
 
+gatsby-plugin-cookiehub-banner@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-cookiehub-banner/-/gatsby-plugin-cookiehub-banner-0.1.0.tgz#44809334ca5c9bd6d456a12e1dccc9caf2500813"
+  integrity sha512-CRsYNhhViU9X8v1Xe1dFAtxDBpibZa8shuM13B8hZdaeCE+KDbOubuKSHY5vhhGnKNVomLfqPX4Xbl4UbT0+PQ==
+
+gatsby-plugin-gdpr-tracking@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-gdpr-tracking/-/gatsby-plugin-gdpr-tracking-1.1.0.tgz#3d1b1ee079fec6d2f30453c388faefc7c93e3d4f"
+  integrity sha512-tTRBvj6JrxFCJcZWbPnPO5L/25LK7HrgEClt6BatdJFhIp7RR2CiRKBcUPHKQo/9y39KccwLHov1HZ5R2o87Dw==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    js-cookie "^2.2.1"
+
 gatsby-plugin-google-analytics@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.3.3.tgz#e86f67295853ab9f3e1d5ab24f17bce23e91694e"
@@ -11211,7 +11224,7 @@ js-base64@^2.1.8:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.2.tgz#313b6274dda718f714d00b3330bbae6e38e90209"
   integrity sha512-Vg8czh0Q7sFBSUMWWArX/miJeBWYBPpdU/3M/DKSaekLMqrqVPaedp+5mZhie/r0lgrcaYBfwXatEew6gwgiQQ==
 
-js-cookie@^2.2.0:
+js-cookie@^2.2.0, js-cookie@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
   integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
