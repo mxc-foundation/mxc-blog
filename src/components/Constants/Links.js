@@ -4,11 +4,11 @@ export default [
     text: "Home",
   },
   {
-    path: "https://www.mxc.org/token",
+    path: "https://www.mxc.org/mxc-token",
     text: "Token",
   },
   {
-    path: "https://www.mxc.org/supernode",
+    path: "https://www.mxc.org/mxc-supernode",
     text: "Supernode",
   },
   {
