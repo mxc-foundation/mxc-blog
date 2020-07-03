@@ -14,6 +14,7 @@ import HansResources from "../Constants/HansFooterResources"
 import HantResources from "../Constants/HantFooterResources"
 import styled from "styled-components"
 import { setColor, setRem, media } from "../../styles"
+import { ConsentManager, openConsentManager } from '@segment/consent-manager'
 
 const Footer = () => {
 
@@ -60,6 +61,11 @@ const setResources = url.includes("/ko") ? KoResources : url.includes("/zh-hans"
             )
           })}
         </Menu>
+      </Column>
+      <Column>
+      <button type="button" onClick={openConsentManager}>
+  Data Collection and Cookie Preferences
+</button>
       </Column>
     </StyledFooter>
   )
