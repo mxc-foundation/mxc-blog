@@ -38,15 +38,6 @@ require("dotenv").config({
             controlCookieName: 'gatsby-plugin-google-analytics-gdpr_cookies-enabled',
             cookieFlags: 'secure;samesite=none' // <--- default
         },
-        googleAds: {
-          // The property ID; the tracking code won't be generated without it.
-          trackingId: 'YOUR_GOOGLE_ADS_TRACKING_ID',
-          // Setting this parameter is optional
-          anonymize: true, // <--- default
-          // Name of the cookie, that enables the tracking if it is true
-          controlCookieName: 'gdpr-marketing-enabled', // <--- default
-          cookieFlags: 'secure;samesite=none' // <--- default
-        },
         hotjar: {
           // The Hotjar ID; the tracking code won't be generated without it.
           trackingId: process.env.HOTJAR,
@@ -65,7 +56,7 @@ require("dotenv").config({
           // The ID is part of the CookieHub URL: https://cookiehub.net/cc/YOUR_COOKIEHUB_ID.js
           cookieHubId: process.env.COOKIE_HUB,
           // Optional parameter (default false) - Use new v2 API.
-          cookieHubV2Api: false,
+          cookieHubV2Api: true,
           // Categories configured with CookieHub
           categories: [
           { 
