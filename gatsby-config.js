@@ -23,27 +23,63 @@ require("dotenv").config({
     `gatsby-plugin-sitemap`,
 
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-gdpr-tracking',
       options: {
-        // The property ID; the tracking code won't be generated without it
-        trackingId: process.env.GOOGLE_ANALYTICS,
-        // Defines where to place the tracking script - `true` in the head and `false` in the body
-        head: false,
-        // Setting this parameter is optional
-        anonymize: true,
-        // Setting this parameter is also optional
-        respectDNT: true,
-        // Avoids sending pageview hits from custom paths
-        exclude: ["/preview/**", "/do-not-track/me/too/"],
-        // Delays sending pageview hits on route update (in milliseconds)
-        pageTransitionDelay: 0,
-        defer: false,
-        // Any additional optional fields
-        sampleRate: 5,
-        siteSpeedSampleRate: 10,
-        cookieDomain: "mxc.org",
+        // logging to the console, if debug is true
+        debug: false, 
+        googleAnalytics: { 
+            // The property ID; the tracking code won't be generated without it.
+            trackingId: process.env.GOOGLE_ANALYTICS,
+            // Defines it google analytics should be started with out the cookie consent
+            autoStart: false, // <--- default
+            // Setting this parameter is optional
+            anonymize: true, // <--- default
+            // Name of the cookie, that enables the tracking if it is true
+            controlCookieName: 'gatsby-plugin-google-analytics-gdpr_cookies-enabled',
+            cookieFlags: 'secure;samesite=none' // <--- default
+        },
+        googleAds: {
+          // The property ID; the tracking code won't be generated without it.
+          trackingId: 'YOUR_GOOGLE_ADS_TRACKING_ID',
+          // Setting this parameter is optional
+          anonymize: true, // <--- default
+          // Name of the cookie, that enables the tracking if it is true
+          controlCookieName: 'gdpr-marketing-enabled', // <--- default
+          cookieFlags: 'secure;samesite=none' // <--- default
+        },
+        hotjar: {
+          // The Hotjar ID; the tracking code won't be generated without it.
+          trackingId: process.env.HOTJAR,
+          // Your Hotjar snippet version
+          snippetVersion: '6', // <--- default
+          // Name of the cookie, that enables the tracking if it is true
+          controlCookieName: 'marketing-enabled' // <--- default
+        },
+        // Defines the environments where the tracking should be available  - default is ["production"]
+        environments: ['production', 'development']
       },
     },
+    {
+      resolve: `gatsby-plugin-cookiehub-banner`,
+      options: {
+          // The ID is part of the CookieHub URL: https://cookiehub.net/cc/YOUR_COOKIEHUB_ID.js
+          cookieHubId: process.env.COOKIE_HUB,
+          // Optional parameter (default false) - Use new v2 API.
+          cookieHubV2Api: false,
+          // Categories configured with CookieHub
+          categories: [
+          { 
+              categoryName: 'analytics', // Unique id of the category which is set by Cookiehub.
+              cookieName: 'gatsby-plugin-google-analytics-gdpr_cookies-enabled' // Your custom cookie name
+          },
+          { 
+              categoryName: 'marketing',
+              cookieName: 'marketing-enabled'
+          }
+          ]
+      }
+  },
+
     {
       resolve: `gatsby-source-filesystem`,
       options: {
