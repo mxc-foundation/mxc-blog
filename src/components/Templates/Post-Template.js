@@ -31,7 +31,7 @@ const Post_Template = ({ data }) => {
         pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
         image={
           data.post.featuredImage !== null
-            ? data.post.featuredImage.absolutePath
+            ? data.post.featuredImage.relativePath
             : "/"
         }
         language="en"
@@ -136,7 +136,7 @@ export const query = graphql`
         slug
       }
       featuredImage {
-        absolutePath
+        relativePath
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid_withWebp_tracedSVG
