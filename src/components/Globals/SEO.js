@@ -21,6 +21,9 @@ const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, h
     const {site} = useStaticQuery(getData)
     const {siteDesc, siteTitle, siteUrl, siteImage, twitterUsername} = site.siteMetadata
 
+    console.log(siteImage)
+    console.log(image)
+
     return (
         <Helmet htmlAttributes={{lang: language}} title={`${title} | ${siteTitle}`}>
             <meta name="description" content={description || siteDesc} />
@@ -32,7 +35,7 @@ const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, h
             <meta name="twitter:creator" content={twitterUsername} />
             <meta name="twitter:title" content={title || siteTitle} />
             <meta name="twitter:description" content={description || siteDesc} />
-            <meta name="twitter:image" content={`${pageUrl}${image}` || `${siteUrl}${siteImage}`} />
+            <meta name="twitter:image" content={`${siteUrl}${image}` || `${siteUrl}${siteImage}`} />
             
             {/*Facebook Card */}
 
