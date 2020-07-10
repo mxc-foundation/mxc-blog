@@ -24,6 +24,7 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
+  console.log(data.post.featuredImage.childImageSharp.fluid.src)
   return (
     <Layout>
       <SEO
@@ -31,8 +32,8 @@ const Post_Template = ({ data }) => {
         pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
         image={
           data.post.featuredImage !== null
-            ? data.post.featuredImage.childImageSharp.fluid
-            : data.file.childImageSharp.fluid
+            ? data.post.featuredImage.childImageSharp.fluid.src
+            : data.file.childImageSharp.fluid.src
         }
         language="en"
         description={data.post.post.metaDescription}

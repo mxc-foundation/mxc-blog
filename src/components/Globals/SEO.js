@@ -21,9 +21,6 @@ const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, h
     const {site} = useStaticQuery(getData)
     const {siteDesc, siteTitle, siteUrl, siteImage, twitterUsername} = site.siteMetadata
 
-    console.log(siteImage)
-    console.log(image)
-
     return (
         <Helmet htmlAttributes={{lang: language}} title={`${title} | ${siteTitle}`}>
             <meta name="description" content={description || siteDesc} />
