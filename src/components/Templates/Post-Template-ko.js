@@ -31,8 +31,8 @@ const Post_Template = ({ data }) => {
         pageUrl={`https://blog.mxc.org/ko/${data.post.post.title}`}
         image={
           data.post.featuredImage !== null
-            ? data.post.featuredImage.absolutePath
-            : "/"
+          ? data.post.featuredImage.childImageSharp.fluid.src
+          : data.file.childImageSharp.fluid.src
         }
         language="en"
         description={data.post.post.metaDescription}

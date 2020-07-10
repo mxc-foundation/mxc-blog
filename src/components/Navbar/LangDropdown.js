@@ -100,7 +100,6 @@ const hansSlug = combinedArray.findIndex(i => i.hans === slug)
 const hantSlug = combinedArray.findIndex(i => i.hant === slug)
 const checkIndex = (enSlug !== -1) ? enSlug : (koSlug !== -1) ? koSlug : (hansSlug !== -1) ? hansSlug : (hantSlug !== -1) ? hantSlug : "failed"
 const thisPage = combinedArray[checkIndex]
-console.log('thisPage', thisPage);
 
 /* set up state */
 
@@ -114,7 +113,7 @@ console.log('thisPage', thisPage);
             Language <FaCaretDown/>
             </Button>
             <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
-              <Link to={`/`} className="list">
+              <Link to={`/${thisPage.en}`} className="list">
               <MenuItem >
                 English
               </MenuItem>

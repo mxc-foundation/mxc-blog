@@ -16,7 +16,7 @@ require("dotenv").config({
     author: "MXC Foundation gGmbH",
     twitterUsername: "@mxcfoundation",
     image: "/defaultImg.png",
-    siteUrl: "https://blog.mxc.org",
+    siteUrl: "https://stahldom-blog-test.netlify.app/",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
