@@ -24,7 +24,7 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-  console.log(data.post.featuredImage.childImageSharp.fluid.src)
+
   return (
     <Layout>
       <SEO
