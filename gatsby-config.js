@@ -16,11 +16,19 @@ require("dotenv").config({
     author: "MXC Foundation gGmbH",
     twitterUsername: "@mxcfoundation",
     image: "/defaultImg.png",
-    siteUrl: "https://stahldom-blog-test.netlify.app/",
+    siteUrl: process.env.SITE_URL,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: process.env.SITE_URL,
+        sitemap: `${process.env.SITE_URL}/sitemap.xml`,
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
 
     {
       resolve: 'gatsby-plugin-gdpr-tracking',
