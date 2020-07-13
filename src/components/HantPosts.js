@@ -35,9 +35,14 @@ const Posts = () => {
                 text={item.post.metaDescription}
                 slug={`zh-hant/${item.post.slug}`}
                 image={
-                  item.featuredImage !== null
+                  /*item.featuredImage !== null
                     ? item.featuredImage.childImageSharp.fluid
-                    : file.fluid
+                    : file.fluid */
+                    item.featuredImage === null
+                    ? file.fluid :
+                    item.featuredImage === undefined ?
+                    file.fluid :
+                    item.featuredImage.childImageSharp.fluid
                 }
                 category={item.category.zhtwCategory}
                 date={item.date}

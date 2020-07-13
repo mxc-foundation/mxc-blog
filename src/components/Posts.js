@@ -35,9 +35,11 @@ const Posts = () => {
                 text={item.post.metaDescription}
                 slug={item.post.slug}
                 image={
-                  item.featuredImage !== null
-                    ? item.featuredImage.childImageSharp.fluid
-                    : file.fluid
+                  item.featuredImage === null
+                  ? file.fluid :
+                  item.featuredImage === undefined ?
+                  file.fluid :
+                  item.featuredImage.childImageSharp.fluid
                 }
                 category={item.category.category}
                 date={item.date}

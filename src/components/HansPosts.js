@@ -35,9 +35,11 @@ const Posts = () => {
                 text={item.post.metaDescription}
                 slug={`zh-hans/${item.post.slug}`}
                 image={
-                  item.featuredImage !== null
-                    ? item.featuredImage.childImageSharp.fluid
-                    : file.fluid
+                  item.featuredImage === null
+                  ? file.fluid :
+                  item.featuredImage === undefined ?
+                  file.fluid :
+                  item.featuredImage.childImageSharp.fluid
                 }
                 category={item.category.zhchCategory}
                 date={item.date}
@@ -55,7 +57,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={data.post.slug}
+                  slug={`zh-hans/${data.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null

@@ -24,16 +24,21 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
+
   return (
+    
     <Layout>
       <SEO
         title={data.post.title}
         pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
         image={
-          data.post.featuredImage !== null
-          ? data.post.featuredImage.childImageSharp.fluid.src
-          : data.file.childImageSharp.fluid.src
-        }
+          /*data.post.featuredImage !== null
+            ? data.post.featuredImage.childImageSharp.fluid.src
+            : data.file.childImageSharp.fluid.src
+        */
+        data.post.featuredImage === null
+            ? data.file.childImageSharp.fluid.src
+            : data.post.featuredImage === undefined ? data.file.childImageSharp.fluid.src : data.post.featuredImage.childImageSharp.fluid.src }
         language="en"
         description={data.post.post.metaDescription}
         hansPost={data.post.post.slug ? data.post.post.slug : " "}
@@ -50,7 +55,9 @@ const Post_Template = ({ data }) => {
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
-              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
+              <Image fluid={data.post.featuredImage === null
+            ? data.file.childImageSharp.fluid.src
+            : data.post.featuredImage === undefined ? data.file.childImageSharp.fluid.src : data.post.featuredImage.childImageSharp.fluid.src} />
             </FeaturedImage>
           )}
 
@@ -166,6 +173,13 @@ export const query = graphql`
       ko_post {
         post {
           slug
+        }
+      }
+    }
+    file(relativePath: { eq: "defaultImg.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }

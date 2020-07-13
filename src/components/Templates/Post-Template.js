@@ -31,9 +31,11 @@ const Post_Template = ({ data }) => {
         title={data.post.title}
         pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
         image={
-          data.post.featuredImage !== null
-            ? data.post.featuredImage.childImageSharp.fluid.src
-            : data.file.childImageSharp.fluid.src
+          data.post.featuredImage === null
+            ? data.file.childImageSharp.fluid.src
+            : data.post.featuredImage === undefined 
+            ? data.file.childImageSharp.fluid.src 
+            : data.post.featuredImage.childImageSharp.fluid.src
         }
         language="en"
         description={data.post.post.metaDescription}
