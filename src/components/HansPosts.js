@@ -55,7 +55,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={data.post.slug}
+                  slug={`zh-hans/${data.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
