@@ -24,7 +24,9 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
+  console.log(data);
   return (
+    
     <Layout>
       <SEO
         title={data.post.title}
@@ -169,6 +171,13 @@ export const query = graphql`
       ko_post {
         post {
           slug
+        }
+      }
+    }
+    file(relativePath: { eq: "defaultImg.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }

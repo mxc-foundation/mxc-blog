@@ -37,7 +37,7 @@ const Posts = () => {
                 image={
                   item.featuredImage === null
                   ? file.fluid :
-                  item.featuredImage === "undefined" ?
+                  item.featuredImage === undefined ?
                   file.fluid :
                   item.featuredImage.childImageSharp.fluid
                 }
