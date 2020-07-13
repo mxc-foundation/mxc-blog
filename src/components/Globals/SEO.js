@@ -21,6 +21,7 @@ const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, h
     const {site} = useStaticQuery(getData)
     const {siteDesc, siteTitle, siteUrl, siteImage, twitterUsername} = site.siteMetadata
 
+
     return (
         <Helmet htmlAttributes={{lang: language}} title={`${title} | ${siteTitle}`}>
             <meta name="description" content={description || siteDesc} />
@@ -52,7 +53,7 @@ const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, h
           <link rel="alternate" href={`https://blog.mxc.org/${enPost}`} hreflang="en"/>
 
 
-        
+
         </Helmet>
     )
 }

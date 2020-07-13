@@ -66,7 +66,9 @@ const Post_Template = ({ data }) => {
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
-              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
+              <Image fluid={data.post.featuredImage === null
+            ? data.file.childImageSharp.fluid.src
+            : data.post.featuredImage === undefined ? data.file.childImageSharp.fluid.src : data.post.featuredImage.childImageSharp.fluid.src} />
             </FeaturedImage>
           )}
 

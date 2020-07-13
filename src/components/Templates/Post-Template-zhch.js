@@ -24,7 +24,7 @@ import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
 const Post_Template = ({ data }) => {
-  console.log(data);
+
   return (
     
     <Layout>
@@ -55,7 +55,9 @@ const Post_Template = ({ data }) => {
             <Video url={data.post.post.video} />
           ) : (
             <FeaturedImage>
-              <Image fluid={data.post.featuredImage.childImageSharp.fluid} />
+              <Image fluid={data.post.featuredImage === null
+            ? data.file.childImageSharp.fluid.src
+            : data.post.featuredImage === undefined ? data.file.childImageSharp.fluid.src : data.post.featuredImage.childImageSharp.fluid.src} />
             </FeaturedImage>
           )}
 
