@@ -61,6 +61,9 @@ const setResources = url.includes("/ko") ? KoResources : url.includes("/zh-hans"
           })}
         </Menu>
       </Column>
+      <Column>
+      This is a new column
+      </Column>
     </StyledFooter>
   )
 }
