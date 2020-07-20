@@ -22,6 +22,153 @@ require("dotenv").config({
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allStrapiKoPosts } }) => {
+              return allStrapiKoPosts.nodes.map(nodes => {
+                return Object.assign({}, nodes.post, {
+                  title: nodes.title,
+                  description: nodes.post.metaDescription,
+                  date: nodes.date,
+                  url: site.siteMetadata.siteUrl + `/ko/` + nodes.post.slug,
+                  guid: site.siteMetadata.siteUrl + `/ko/` + nodes.post.slug,
+                  custom_elements: [{ "content:encoded": nodes.post.content }],
+                })
+              })
+            },
+            query: `
+            {
+              allStrapiKoPosts(filter: {post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
+                nodes {
+                  date(formatString: "MMMM DD, YYYY")
+                  post {
+                    metaDescription
+                    slug
+                    content
+                  }
+                  title
+                }
+              }
+            }
+            
+            `,
+            output: "/ko/rss.xml",
+            title: "MXC Foundation RSS Feed",
+          },
+          {
+            serialize: ({ query: { site, allStrapiPosts } }) => {
+              return allStrapiPosts.nodes.map(nodes => {
+                return Object.assign({}, nodes.post, {
+                  title: nodes.title,
+                  description: nodes.post.metaDescription,
+                  date: nodes.date,
+                  url: site.siteMetadata.siteUrl + `/` + nodes.post.slug,
+                  guid: site.siteMetadata.siteUrl + `/` + nodes.post.slug,
+                  custom_elements: [{ "content:encoded": nodes.post.content }],
+                })
+              })
+            },
+            query: `
+            {
+              allStrapiPosts(filter: {post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
+                nodes {
+                  date(formatString: "MMMM DD, YYYY")
+                  post {
+                    metaDescription
+                    slug
+                    content
+                  }
+                  title
+                }
+              }
+            }
+            
+            `,
+            output: "/rss.xml",
+            title: "MXC Foundation RSS Feed",
+          },
+          {
+            serialize: ({ query: { site, allStrapiZhtwPosts } }) => {
+              return allStrapiZhtwPosts.nodes.map(nodes => {
+                return Object.assign({}, nodes.post, {
+                  title: nodes.title,
+                  description: nodes.post.metaDescription,
+                  date: nodes.date,
+                  url: site.siteMetadata.siteUrl + `/zh-hant/` + nodes.post.slug,
+                  guid: site.siteMetadata.siteUrl + `/zh-hant` + nodes.post.slug,
+                  custom_elements: [{ "content:encoded": nodes.post.content }],
+                })
+              })
+            },
+            query: `
+            {
+              allStrapiZhtwPosts(filter: {post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
+                nodes {
+                  date(formatString: "MMMM DD, YYYY")
+                  post {
+                    metaDescription
+                    slug
+                    content
+                  }
+                  title
+                }
+              }
+            }
+            
+            `,
+            output: "/zh-hant/rss.xml",
+            title: "MXC Foundation RSS Feed",
+          },
+          {
+            serialize: ({ query: { site, allStrapiZhchPosts } }) => {
+              return allStrapiZhchPosts.nodes.map(nodes => {
+                return Object.assign({}, nodes.post, {
+                  title: nodes.title,
+                  description: nodes.post.metaDescription,
+                  date: nodes.date,
+                  url: site.siteMetadata.siteUrl + `/zh-hans/` + nodes.post.slug,
+                  guid: site.siteMetadata.siteUrl + `/zh-hans/` + nodes.post.slug,
+                  custom_elements: [{ "content:encoded": nodes.post.content }],
+                })
+              })
+            },
+            query: `
+            {
+              allStrapiZhchPosts(filter: {post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
+                nodes {
+                  date(formatString: "MMMM DD, YYYY")
+                  post {
+                    metaDescription
+                    slug
+                    content
+                  }
+                  title
+                }
+              }
+            }
+            
+            `,
+            output: "/zh-hans/rss.xml",
+            title: "MXC Foundation RSS Feed",
+          },
+        ],
+      },
+    },
+    {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: process.env.SITE_URL,
