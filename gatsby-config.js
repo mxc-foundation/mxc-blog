@@ -22,6 +22,57 @@ require("dotenv").config({
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allStrapiPosts } }) => {
+              return allStrapiPosts.nodes.map(nodes => {
+                return Object.assign({}, nodes.post, {
+                  title: nodes.title,
+                  description: nodes.post.metaDescription,
+                  date: nodes.date,
+                  url: site.siteMetadata.siteUrl + `/` + nodes.post.slug,
+                  guid: site.siteMetadata.siteUrl + `/` + nodes.post.slug,
+                  custom_elements: [{ "content:encoded": nodes.post.content }],
+                })
+              })
+            },
+            query: `
+            {
+              allStrapiPosts(filter: {post: {publish: {eq: true}}}, sort: {fields: date, order: DESC}) {
+                nodes {
+                  date(formatString: "MMMM DD, YYYY")
+                  post {
+                    metaDescription
+                    slug
+                    content
+                  }
+                  title
+                }
+              }
+            }
+            
+            `,
+            output: "/rss.xml",
+            title: "MXC Foundation RSS Feed",
+          },
+        ],
+      },
+    },
+    {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: process.env.SITE_URL,
