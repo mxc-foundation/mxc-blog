@@ -1,5 +1,5 @@
 import React from "react"
-import { setColor, setRem, setFont, media } from "../styles"
+import { setColor, setRem, setFont, media} from "../styles"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
 import Line from "./Globals/Line"
@@ -33,7 +33,7 @@ const Posts = () => {
               <PostRow
                 heading={item.title}
                 text={item.post.metaDescription}
-                slug={`zh-hant/${item.post.slug}`}
+                slug={`zh-hant/${decodeURIComponent(item.post.slug)}`}
                 image={
                   /*item.featuredImage !== null
                     ? item.featuredImage.childImageSharp.fluid

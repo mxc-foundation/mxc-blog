@@ -107,28 +107,30 @@ const thisPage = combinedArray[checkIndex]
     const toggleDropdown = () => {
       setDropdown(isOpen => !isOpen)
     }
+
+    console.log(thisPage)
     return (
         <div>
             <Button type="button" onClick={toggleDropdown}>
             Language <FaCaretDown/>
             </Button>
             <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
-              <Link to={`/${thisPage.en}`} className="list">
+              <Link to={`/${thisPage.en !== "/" ? thisPage.en : ""}`} className="list">
               <MenuItem >
                 English
               </MenuItem>
               </Link> 
-              <Link to={`/zh-hans/${thisPage.hans}`} className="list">
+              <Link to={`/zh-hans/${thisPage.hans !== "/" ? thisPage.hans : ""}`} className="list">
               <MenuItem >
                 简体中文
               </MenuItem>
               </Link>  
-              <Link to={`/zh-hant/${thisPage.hant}`} className="list">
+              <Link to={`/zh-hant/${thisPage.hant !== "/" ? thisPage.hant : ""}`} className="list">
               <MenuItem >
                 繁體中文
               </MenuItem>
               </Link>  
-              <Link to={`/ko/${thisPage.ko}`} className="list">
+              <Link to={`/ko/${thisPage.ko !== "/" ? thisPage.ko : ""}`} className="list">
               <MenuItem >
                 한국어
               </MenuItem>
