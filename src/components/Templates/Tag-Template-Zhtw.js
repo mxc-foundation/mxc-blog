@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Layout from "../Layout"
 import { graphql } from "gatsby"
 import Line from "../Globals/Line"
-import { setColor, setRem, setFont, media } from "../../styles"
+import { setColor, setRem, setFont, media, } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
@@ -22,6 +22,7 @@ const TagTemplate = ({ data }) => {
               <h1>{data.tags.zhtwTag}</h1>
             </Title>
             {data.posts.nodes.map(post => {
+              console.log(post)
               return (
                 <div key={post.id}>
                   <PostRow
@@ -32,7 +33,7 @@ const TagTemplate = ({ data }) => {
                         ? post.featuredImage.childImageSharp.fluid
                         : data.file.childImageSharp.fluid
                     }
-                    slug={`zh-hant/${post.post.slug}`}
+                    slug={`zh-hant/${decodeURIComponent(post.post.slug)}`}
                     date={post.post.date}
                   />
                   <Line color={setColor.lightGrey} />
