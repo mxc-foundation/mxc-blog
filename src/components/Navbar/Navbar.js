@@ -12,9 +12,6 @@ import {
 } from "./Navbar.styled"
 import { FaBars } from "react-icons/fa"
 import links from "../Constants/Links"
-import linksKo from "../Constants/KoLinks"
-import linksHans from "../Constants/HansLinks"
-import linksHant from "../Constants/HantLinks"
 import styles from "./Navbar.module.css"
 import LangDropdown from "./LangDropdown"
 
@@ -32,15 +29,15 @@ const getLogo = graphql`
 
 
 const Navbar = () => {
-  const data = useStaticQuery(getLogo)
-  const [isOpen, setNav] = useState(false)
+  const data = useStaticQuery(getLogo);
+  const [isOpen, setNav] = useState(false);
   const toggleNav = () => {
-    setNav(isOpen => !isOpen)
+    setNav(isOpen => !isOpen);
   }
 
-const url = typeof window !== `undefined` ? window.location.href : "/"
+  //const url = typeof window !== `undefined` ? window.location.href : "/";
 
-const menu = url.includes("/ko") ? linksKo : url.includes("/zh-hans") ? linksHans : url.includes("/zh-hant") ? linksHant : links
+  const menu = links;
 
   return (
     <Grid>
