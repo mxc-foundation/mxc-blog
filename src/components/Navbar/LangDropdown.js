@@ -29,15 +29,9 @@ const LangDropdown = () => {
 
 const postArray = posts.map((item, index) => {
   const en = item.post.slug || "/";
-  const ko = item.ko_post ? item.ko_post.post.slug : "/"
-  const hans = item.zhch_post ? item.zhch_post.post.slug : "/"
-  const hant = item.zhtw_post ? item.zhtw_post.post.slug : "/"
 
   const array = {
     "en" : en,
-    "ko" : ko,
-    "hans" : hans,
-    "hant" : hant
   }
 
   return array
@@ -46,15 +40,9 @@ const postArray = posts.map((item, index) => {
 /* Modify Categories Array*/
 const categoriesArray = categories.map((item, index) => {
   const en = item.slug || "/";
-  const ko = item.koSlug ? item.koSlug : "/"
-  const hans = item.zhchSlug ? item.zhchSlug : "/"
-  const hant = item.zhtwSlug ? item.zhtwSlug : "/"
 
   const array = {
-    "en" : en,
-    "ko" : ko,
-    "hans" : hans,
-    "hant" : hant
+    "en" : en
   }
 
   return array
@@ -64,15 +52,9 @@ const categoriesArray = categories.map((item, index) => {
 
 const tagsArray = tags.map((item, index) => {
   const en = item.slug || "/";
-  const ko = item.koSlug ? item.koSlug : "/"
-  const hans = item.zhchSlug ? item.zhchSlug : "/"
-  const hant = item.zhtwSlug ? item.zhtwSlug : "/"
 
   const array = {
-    "en" : en,
-    "ko" : ko,
-    "hans" : hans,
-    "hant" : hant
+    "en" : en
   }
 
   return array
@@ -82,28 +64,22 @@ const tagsArray = tags.map((item, index) => {
 /* Create Home pages array*/
 
 const homeArray = {
-  "en" : "/",
-  "ko" : "/",
-  "hans" : "/",
-  "hant" : "/"
+  "en" : "/"
 }
 
 /* Consolidate the Arrays */
 
-const combinedArray = postArray.concat(categoriesArray, tagsArray, homeArray)
+const combinedArray = postArray.concat(categoriesArray, tagsArray, homeArray);
 
 /* Identify location of successful slug */
 
-const enSlug = combinedArray.findIndex(i => i.en === slug)
-const koSlug = combinedArray.findIndex(i => i.ko === slug)
-const hansSlug = combinedArray.findIndex(i => i.hans === slug)
-const hantSlug = combinedArray.findIndex(i => i.hant === slug)
-const checkIndex = (enSlug !== -1) ? enSlug : (koSlug !== -1) ? koSlug : (hansSlug !== -1) ? hansSlug : (hantSlug !== -1) ? hantSlug : "failed"
-const thisPage = combinedArray[checkIndex]
+const enSlug = combinedArray.findIndex(i => i.en === slug);
+const checkIndex = (enSlug !== -1) ? enSlug : "failed";
+const thisPage = combinedArray[checkIndex];
 
 /* set up state */
 
-    const [isOpen, setDropdown] = useState(false)
+    const [isOpen, setDropdown] = useState(false);
     const toggleDropdown = () => {
       setDropdown(isOpen => !isOpen)
     }
@@ -120,17 +96,17 @@ const thisPage = combinedArray[checkIndex]
                 English
               </MenuItem>
               </Link> 
-              <Link to={`/zh-hans/${thisPage.hans !== "/" ? thisPage.hans : ""}`} className="list">
+              <Link to={`#`} className="list">
               <MenuItem >
                 简体中文
               </MenuItem>
               </Link>  
-              <Link to={`/zh-hant/${thisPage.hant !== "/" ? thisPage.hant : ""}`} className="list">
+              <Link to={`#`} className="list">
               <MenuItem >
                 繁體中文
               </MenuItem>
               </Link>  
-              <Link to={`/ko/${thisPage.ko !== "/" ? thisPage.ko : ""}`} className="list">
+              <Link to={`#`} className="list">
               <MenuItem >
                 한국어
               </MenuItem>

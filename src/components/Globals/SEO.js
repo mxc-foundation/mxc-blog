@@ -7,7 +7,6 @@ query {
     site {
       siteMetadata {
         siteTitle:title
-        siteUrl
         siteImage: image
         siteDesc: description
         author
@@ -17,7 +16,7 @@ query {
   }
 `
 
-const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, hantPost, koPost }) => {
+const SEO = ({ title, description, language, image, pageUrl, enPost }) => {
     const {site} = useStaticQuery(getData)
     const {siteDesc, siteTitle, siteUrl, siteImage, twitterUsername} = site.siteMetadata
 
@@ -47,9 +46,6 @@ const SEO = ({ title, description, language, image, pageUrl, enPost, hansPost, h
             <meta property="og:url" content={ pageUrl || siteUrl} />
 
             {/*Language References*/}
-          <link rel="alternate" href={`https://blog.mxc.org/zh-hans/${hansPost}`} hreflang="zh-cn"/>
-          <link rel="alternate" href={`https://blog.mxc.org/zh-hant/${hantPost}`} hreflang="zh-tw"/>
-          <link rel="alternate" href={`https://blog.mxc.org/ko/${koPost}`} hreflang="ko-kr"/>
           <link rel="alternate" href={`https://blog.mxc.org/${enPost}`} hreflang="en"/>
 
 

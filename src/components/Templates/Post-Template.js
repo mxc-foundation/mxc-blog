@@ -40,9 +40,6 @@ const Post_Template = ({ data }) => {
         language="en"
         description={data.post.post.metaDescription}
         enPost={data.post.post.slug ? data.post.post.slug : " "}
-        koPost={data.post.ko_post ? data.post.ko_post.post.slug : " "}
-        hansPost={data.post.zhch_post ? data.post.zhch_post.post.slug : " "}
-        hantPost={data.post.zhtw_post ? data.post.zhtw_post.post.slug : " "}
       />
       <Grid>
         <div></div>
