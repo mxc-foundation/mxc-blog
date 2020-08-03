@@ -127,6 +127,7 @@ exports.createPages = async ({ graphql, actions }) => {
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
+        lang: 'en',
         slug: node.slug,
       },
     })
@@ -138,6 +139,7 @@ exports.createPages = async ({ graphql, actions }) => {
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
+        lang: 'ko',
         slug: node.koSlug,
       },
     })
@@ -146,9 +148,10 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: `/zh-hans/categories/${node.zhchSlug}`,
       component: path.resolve(
-        "./src/components/Templates/Category-Template-Hans.js"
+        "./src/components/Templates/Category-Template.js"
       ),
       context: {
+        lang: 'hans',
         slug: node.slug,
       },
     })
@@ -157,9 +160,10 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: `/zh-hant/categories/${node.zhtwSlug}`,
       component: path.resolve(
-        "./src/components/Templates/Category-Template-Hant.js"
+        "./src/components/Templates/Category-Template.js"
       ),
       context: {
+        lang: 'hant',
         slug: node.slug,
       },
     })

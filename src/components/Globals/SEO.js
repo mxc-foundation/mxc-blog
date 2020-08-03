@@ -7,7 +7,6 @@ query {
     site {
       siteMetadata {
         siteTitle:title
-        siteUrl
         siteImage: image
         siteDesc: description
         author

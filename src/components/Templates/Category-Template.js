@@ -7,21 +7,50 @@ import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
-const CategoryTemplate = ({ data }) => {
+const localeSettings = {
+  en: {
+    name: 'en',
+    categoryPropName: 'category',
+    slugPropName: 'slug',
+    relativePath: ''
+  },
+  hant: {
+    name: 'hant',
+    categoryPropName: 'zhtwCategory',
+    slugPropName: 'zhtwSlug',
+    relativePath: 'zh-hant/'
+  },
+  hans: {
+    name: 'hans',
+    categoryPropName: 'zhchCategory',
+    slugPropName: 'zhchSlug',
+    relativePath: 'zh-hans/'
+  },
+  ko: {
+    name: 'ko',
+    categoryPropName: 'koCategory',
+    slugPropName: 'koSlug',
+    relativePath: 'ko/'
+  }
+};
+
+const CategoryTemplate = ({ data, pageContext: { lang = 'en', slug } }) => {
+  const locl = localeSettings[lang];
+console.log('lang', lang);
   return (
     <Layout>
       {data.categories.nodes.map(item => {
         return (
           <div key={item.id}>
             <SEO
-              title={item.category}
-              pageUrl={`https://blog.mxc.org/${item.slug}`}
+              title={item[locl.categoryPropName]}
+              pageUrl={`https://blog.mxc.org/${item[locl.slugPropName]}`}
             />
             <Grid>
               <div />
               <FeaturedRow>
                 <Title>
-                  <h1>{item.category}</h1>
+                  <h1>{item[locl.categoryPropName]}</h1>
                 </Title>
                 {data.posts.nodes.map(post => {
                   return (
@@ -34,7 +63,7 @@ const CategoryTemplate = ({ data }) => {
                             ? post.featuredImage.childImageSharp.fluid
                             : data.file.childImageSharp.fluid
                         }
-                        slug={`${post.post.slug}`}
+                        slug={`${locl.relativePath}${post.post.slug}`}
                         date={post.post.date}
                       />
                       <Line color={setColor.lightGrey} />
