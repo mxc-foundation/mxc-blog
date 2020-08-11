@@ -85,7 +85,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.allStrapiZhchPosts.nodes.forEach(node => {
     createPage({
-      path: `/zh-hans/${node.post.slug}`,
+      path: `/zh-hans/${node.enPost.slug}`,
       component: path.resolve(
         "./src/components/Templates/Post-Template-zhch.js"
       ),
@@ -97,7 +97,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.allStrapiZhtwPosts.nodes.forEach(node => {
     createPage({
-      path: `/zh-hant/${node.post.slug}`,
+      path: `/zh-hant/${node.enPost.slug}`,
       component: path.resolve(
         "./src/components/Templates/Post-Template-zhtw.js"
       ),
@@ -109,7 +109,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.allStrapiKoPosts.nodes.forEach(node => {
     createPage({
-      path: `/ko/${node.post.slug}`,
+      path: `/ko/${node.enPost.slug}`,
       component: path.resolve("./src/components/Templates/Post-Template-ko.js"),
       context: {
         slug: node.post.slug,
@@ -128,42 +128,46 @@ exports.createPages = async ({ graphql, actions }) => {
       ),
       context: {
         lang: 'en',
+        test: 'allStrapiPosts',
         slug: node.slug,
       },
     })
   })
   data.categories.nodes.forEach(node => {
     createPage({
-      path: `/ko/categories/${node.koSlug}`,
+      path: `/ko/categories/${node.slug}`,
       component: path.resolve(
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
         lang: 'ko',
+        test: 'allStrapiKoPosts',
         slug: node.koSlug,
       },
     })
   })
   data.categories.nodes.forEach(node => {
     createPage({
-      path: `/zh-hans/categories/${node.zhchSlug}`,
+      path: `/zh-hans/categories/${node.slug}`,
       component: path.resolve(
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
         lang: 'hans',
+        test: 'allStrapiZhchPosts',
         slug: node.slug,
       },
     })
   })
   data.categories.nodes.forEach(node => {
     createPage({
-      path: `/zh-hant/categories/${node.zhtwSlug}`,
+      path: `/zh-hant/categories/${node.slug}`,
       component: path.resolve(
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
         lang: 'hant',
+        test: 'allStrapiZhtwPosts',
         slug: node.slug,
       },
     })
@@ -181,7 +185,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.tags.nodes.forEach(node => {
     createPage({
-      path: `/ko/tags/${node.koSlug}`,
+      path: `/ko/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template-Ko.js"),
       context: {
         slug: node.koSlug,
@@ -190,7 +194,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.tags.nodes.forEach(node => {
     createPage({
-      path: `/zh-hans/tags/${node.zhchSlug}`,
+      path: `/zh-hans/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template-Zhch.js"),
       context: {
         slug: node.zhchSlug,
@@ -199,7 +203,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.tags.nodes.forEach(node => {
     createPage({
-      path: `/zh-hant/tags/${node.zhtwSlug}`,
+      path: `/zh-hant/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template-Zhtw.js"),
       context: {
         slug: node.zhtwSlug,

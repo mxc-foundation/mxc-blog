@@ -36,7 +36,7 @@ const localeSettings = {
 
 const CategoryTemplate = ({ data, pageContext: { lang = 'en', slug } }) => {
   const locl = localeSettings[lang];
-console.log('lang', lang);
+
   return (
     <Layout>
       {data.categories.nodes.map(item => {
@@ -52,19 +52,19 @@ console.log('lang', lang);
                 <Title>
                   <h1>{item[locl.categoryPropName]}</h1>
                 </Title>
-                {data.posts.nodes.map(post => {
+                {data[lang].edges.map(post => {
                   return (
-                    <div key={post.id}>
+                    <div key={post.node.id}>
                       <PostRow
-                        heading={post.title}
-                        text={post.post.metaDescription}
+                        heading={post.node.title}
+                        text={post.node.post.metaDescription}
                         image={
-                          post.featuredImage !== null
-                            ? post.featuredImage.childImageSharp.fluid
+                          post.node.featuredImage !== null
+                            ? post.node.featuredImage.childImageSharp.fluid
                             : data.file.childImageSharp.fluid
                         }
-                        slug={`${locl.relativePath}${post.post.slug}`}
-                        date={post.post.date}
+                        slug={`${locl.relativePath}${post.node.post.slug}`}
+                        date={post.node.post.date}
                       />
                       <Line color={setColor.lightGrey} />
                     </div>
@@ -125,32 +125,107 @@ const Title = styled.div`
 
 export const query = graphql`
   query($slug: String!) {
-    posts: allStrapiPosts(
-      filter: {
-        category: { slug: { eq: $slug } }
-        post: { publish: { eq: true } }
-      }
-      sort: { fields: date, order: DESC }
-    ) {
-      nodes {
-        date
-        title
-        post {
-          date(formatString: "MMMM DD, YYYY")
-          metaDescription
-          slug
-        }
-        featuredImage {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+    en: allStrapiPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $slug}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
             }
           }
+          category {
+            category
+          }
+          title
         }
-        id
-        category {
-          zhchCategory
-          zhchSlug
+      }
+    }
+    hans: allStrapiZhchPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $slug}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
+          }
+          category {
+            category
+          }
+          title
+        }
+      }
+    }
+    hant: allStrapiZhtwPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $slug}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
+          }
+          category {
+            category
+          }
+          title
+        }
+      }
+    }
+    ko: allStrapiKoPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $slug}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
+          }
+          category {
+            category
+          }
+          title
         }
       }
     }
@@ -175,6 +250,6 @@ export const query = graphql`
       }
     }
   }
-`
+`  
 
 export default CategoryTemplate
