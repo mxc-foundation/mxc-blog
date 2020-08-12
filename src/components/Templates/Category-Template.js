@@ -63,7 +63,7 @@ const CategoryTemplate = ({ data, pageContext: { lang = 'en', slug } }) => {
                             ? post.node.featuredImage.childImageSharp.fluid
                             : data.file.childImageSharp.fluid
                         }
-                        slug={`${locl.relativePath}${post.node.post.slug}`}
+                        slug={`${locl.relativePath}${lang==='en'?post.node.post.slug:post.node.enPost.slug}`}
                         date={post.node.post.date}
                       />
                       <Line color={setColor.lightGrey} />
@@ -163,6 +163,11 @@ export const query = graphql`
             date(formatString: "MMMM DD, YYYY")
             slug
           }
+          enPost {
+            post {
+              slug
+            }
+          }
           featuredImage {
             childImageSharp {
               fluid {
@@ -189,6 +194,11 @@ export const query = graphql`
             date(formatString: "MMMM DD, YYYY")
             slug
           }
+          enPost {
+            post {
+              slug
+            }
+          }
           featuredImage {
             childImageSharp {
               fluid {
@@ -214,6 +224,11 @@ export const query = graphql`
             metaDescription
             date(formatString: "MMMM DD, YYYY")
             slug
+          }
+          enPost {
+            post {
+              slug
+            }
           }
           featuredImage {
             childImageSharp {

@@ -85,7 +85,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.allStrapiZhchPosts.nodes.forEach(node => {
     createPage({
-      path: `/zh-hans/${node.enPost.slug}`,
+      path: `/zh-hans/${node.enPost.post.slug}`,
       component: path.resolve(
         "./src/components/Templates/Post-Template-zhch.js"
       ),
@@ -97,7 +97,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.allStrapiZhtwPosts.nodes.forEach(node => {
     createPage({
-      path: `/zh-hant/${node.enPost.slug}`,
+      path: `/zh-hant/${node.enPost.post.slug}`,
       component: path.resolve(
         "./src/components/Templates/Post-Template-zhtw.js"
       ),
@@ -109,7 +109,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
   data.allStrapiKoPosts.nodes.forEach(node => {
     createPage({
-      path: `/ko/${node.enPost.slug}`,
+      path: `/ko/${node.enPost.post.slug}`,
       component: path.resolve("./src/components/Templates/Post-Template-ko.js"),
       context: {
         slug: node.post.slug,
