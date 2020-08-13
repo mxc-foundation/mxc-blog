@@ -34,8 +34,13 @@ const localeSettings = {
   }
 };
 
-const CategoryTemplate = ({ data, pageContext: { lang = 'en', slug } }) => {
+const CategoryTemplate = ({ data, pageContext: { lang = 'en', category } }) => {
   const locl = localeSettings[lang];
+  let slug = "";
+  if(data[lang].edges){
+    slug =lang==='en'? data[lang].edges[0].node.post.slug:data[lang].edges[0].node.enPost.post.slug;
+
+  }
 
   return (
     <Layout>
@@ -63,7 +68,7 @@ const CategoryTemplate = ({ data, pageContext: { lang = 'en', slug } }) => {
                             ? post.node.featuredImage.childImageSharp.fluid
                             : data.file.childImageSharp.fluid
                         }
-                        slug={`${locl.relativePath}${lang==='en'?post.node.post.slug:post.node.enPost.slug}`}
+                        slug={`${locl.relativePath}${slug}`} 
                         date={post.node.post.date}
                       />
                       <Line color={setColor.lightGrey} />
@@ -124,10 +129,10 @@ const Title = styled.div`
 `
 
 export const query = graphql`
-  query($slug: String!) {
+  query($category: String!) {
     en: allStrapiPosts(
       sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $slug}}}) 
+      filter: {category: {slug: {eq: $category}}}) 
       {
       edges {
         node {
@@ -153,7 +158,7 @@ export const query = graphql`
     }
     hans: allStrapiZhchPosts(
       sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $slug}}}) 
+      filter: {category: {slug: {eq: $category}}}) 
       {
       edges {
         node {
@@ -184,7 +189,7 @@ export const query = graphql`
     }
     hant: allStrapiZhtwPosts(
       sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $slug}}}) 
+      filter: {category: {slug: {eq: $category}}}) 
       {
       edges {
         node {
@@ -215,7 +220,7 @@ export const query = graphql`
     }
     ko: allStrapiKoPosts(
       sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $slug}}}) 
+      filter: {category: {slug: {eq: $category}}}) 
       {
       edges {
         node {
@@ -244,7 +249,7 @@ export const query = graphql`
         }
       }
     }
-    categories: allStrapiCategories(filter: { slug: { eq: $slug } }) {
+    categories: allStrapiCategories(filter: { slug: { eq: $category } }) {
       nodes {
         category
         zhchCategory

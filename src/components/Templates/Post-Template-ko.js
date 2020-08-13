@@ -176,11 +176,6 @@ export const query = graphql`
           slug
         }
       }
-      ko_post {
-        post {
-          slug
-        }
-      }
     }
     file(relativePath: { eq: "defaultImg.png" }) {
       childImageSharp {

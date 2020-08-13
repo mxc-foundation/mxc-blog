@@ -129,7 +129,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'en',
         test: 'allStrapiPosts',
-        slug: node.slug,
+        category: node.slug,
       },
     })
   })
@@ -142,7 +142,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'ko',
         test: 'allStrapiKoPosts',
-        slug: node.koSlug,
+        category: node.koSlug,
       },
     })
   })
@@ -155,7 +155,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hans',
         test: 'allStrapiZhchPosts',
-        slug: node.slug,
+        category: node.slug,
       },
     })
   })
@@ -168,7 +168,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hant',
         test: 'allStrapiZhtwPosts',
-        slug: node.slug,
+        category: node.slug,
       },
     })
   })
