@@ -22,8 +22,12 @@ import Video from "../Globals/Video"
 import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
 import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
+import { localeSettings } from "../Globals/LocalSettings";
 
-const Post_Template = ({ data }) => {
+
+const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
+  const locl = localeSettings[lang];
+  data = {file: data.file, post: data[locl.name]==null?data['en']:data[locl.name]};
 
   return (
     <Layout>
@@ -173,6 +177,108 @@ export const query = graphql`
         }
       }
       ko_post {
+        post {
+          slug
+        }
+      }
+    }
+    hans: strapiZhchPosts(enPost: {post: {slug: {eq: $slug}}}) { 
+      category {
+        zhchCategory
+        zhchSlug
+      }
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      title
+      post {
+        content
+        date(formatString: "MMMM DD, YYYY")
+        metaDescription
+        video
+        slug
+      }
+      tags {
+        zhchTag
+        zhchSlug
+      }
+      author {
+        author
+        slug
+      }
+      enPost {
+        post {
+          slug
+        }
+      }
+    }
+    hant: strapiZhchPosts(enPost: {post: {slug: {eq: $slug}}}) {
+      category {
+        zhchCategory
+        zhchSlug
+      }
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      title
+      post {
+        content
+        date(formatString: "MMMM DD, YYYY")
+        metaDescription
+        video
+        slug
+      }
+      tags {
+        zhchTag
+        zhchSlug
+      }
+      author {
+        author
+        slug
+      }
+      enPost {
+        post {
+          slug
+        }
+      }
+    }
+    ko: strapiKoPosts(enPost: {post: {slug: {eq: $slug}}}) {
+      category {
+        koCategory
+        koSlug
+      }
+      featuredImage {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+          }
+        }
+      }
+      title
+      post {
+        content
+        date(formatString: "MMMM DD, YYYY")
+        metaDescription
+        video
+        slug
+      }
+      tags {
+        koTag
+        koSlug
+      }
+      author {
+        author
+        slug
+      }
+      enPost {
         post {
           slug
         }

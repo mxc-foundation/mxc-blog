@@ -79,6 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: node.post.slug,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
+        lang: 'en',
         slug: node.post.slug,
       },
     })
@@ -86,34 +87,30 @@ exports.createPages = async ({ graphql, actions }) => {
   data.allStrapiZhchPosts.nodes.forEach(node => {
     createPage({
       path: `/zh-hans/${node.enPost.post.slug}`,
-      component: path.resolve(
-        "./src/components/Templates/Post-Template-zhch.js"
-      ),
+      component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        slug: node.post.slug,
-        enSlug: node.enPost.post.slug,
+        lang: 'hans',
+        slug: node.enPost.post.slug,
       },
     })
   })
   data.allStrapiZhtwPosts.nodes.forEach(node => {
     createPage({
       path: `/zh-hant/${node.enPost.post.slug}`,
-      component: path.resolve(
-        "./src/components/Templates/Post-Template-zhtw.js"
-      ),
+      component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        slug: node.post.slug,
-        enSlug: node.enPost.post.slug,
+        lang: 'hant',
+        slug: node.enPost.post.slug,
       },
     })
   })
   data.allStrapiKoPosts.nodes.forEach(node => {
     createPage({
       path: `/ko/${node.enPost.post.slug}`,
-      component: path.resolve("./src/components/Templates/Post-Template-ko.js"),
+      component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        slug: node.post.slug,
-        enSlug: node.enPost.post.slug,
+        lang: 'ko',
+        slug: node.enPost.post.slug,
       },
     })
   })
@@ -128,7 +125,6 @@ exports.createPages = async ({ graphql, actions }) => {
       ),
       context: {
         lang: 'en',
-        test: 'allStrapiPosts',
         category: node.slug,
       },
     })
@@ -141,7 +137,6 @@ exports.createPages = async ({ graphql, actions }) => {
       ),
       context: {
         lang: 'ko',
-        test: 'allStrapiKoPosts',
         category: node.koSlug,
       },
     })
@@ -154,7 +149,6 @@ exports.createPages = async ({ graphql, actions }) => {
       ),
       context: {
         lang: 'hans',
-        test: 'allStrapiZhchPosts',
         category: node.slug,
       },
     })
@@ -167,7 +161,6 @@ exports.createPages = async ({ graphql, actions }) => {
       ),
       context: {
         lang: 'hant',
-        test: 'allStrapiZhtwPosts',
         category: node.slug,
       },
     })

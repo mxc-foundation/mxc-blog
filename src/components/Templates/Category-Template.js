@@ -6,33 +6,9 @@ import Line from "../Globals/Line"
 import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
+import { localeSettings } from "../Globals/LocalSettings";
 
-const localeSettings = {
-  en: {
-    name: 'en',
-    categoryPropName: 'category',
-    slugPropName: 'slug',
-    relativePath: ''
-  },
-  hant: {
-    name: 'hant',
-    categoryPropName: 'zhtwCategory',
-    slugPropName: 'zhtwSlug',
-    relativePath: 'zh-hant/'
-  },
-  hans: {
-    name: 'hans',
-    categoryPropName: 'zhchCategory',
-    slugPropName: 'zhchSlug',
-    relativePath: 'zh-hans/'
-  },
-  ko: {
-    name: 'ko',
-    categoryPropName: 'koCategory',
-    slugPropName: 'koSlug',
-    relativePath: 'ko/'
-  }
-};
+
 
 const CategoryTemplate = ({ data, pageContext: { lang = 'en', category } }) => {
   const locl = localeSettings[lang];
@@ -41,7 +17,7 @@ const CategoryTemplate = ({ data, pageContext: { lang = 'en', category } }) => {
     slug =lang==='en'? data[lang].edges[0].node.post.slug:data[lang].edges[0].node.enPost.post.slug;
 
   }
-
+debugger;
   return (
     <Layout>
       {data.categories.nodes.map(item => {
