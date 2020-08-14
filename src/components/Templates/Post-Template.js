@@ -22,43 +22,37 @@ import Video from "../Globals/Video"
 import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
 import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
-import { localeSettings } from "../Globals/LocalSettings";
 
 
 const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
-  const locl = localeSettings[lang];
-  data = {file: data.file, post: data[locl.name]==null?data['en']:data[locl.name]};
-
+ 
   return (
     <Layout>
       <SEO
-        title={data.post.title}
-        pageUrl={`https://blog.mxc.org/${data.post.post.slug}`}
+        title={data[lang].title}
+        pageUrl={`https://blog.mxc.org/${data[lang].post.slug}`}
         image={
-          data.post.featuredImage === null
+          data[lang].featuredImage === null
             ? data.file.childImageSharp.fluid.src
-            : data.post.featuredImage === undefined 
+            : data[lang].featuredImage === undefined 
             ? data.file.childImageSharp.fluid.src 
-            : data.post.featuredImage.childImageSharp.fluid.src
+            : data[lang].featuredImage.childImageSharp.fluid.src
         }
         language="en"
-        description={data.post.post.metaDescription}
-        enPost={data.post.post.slug ? data.post.post.slug : " "}
-        koPost={data.post.ko_post ? data.post.ko_post.post.slug : " "}
-        hansPost={data.post.zhch_post ? data.post.zhch_post.post.slug : " "}
-        hantPost={data.post.zhtw_post ? data.post.zhtw_post.post.slug : " "}
+        description={data[lang].post.metaDescription}
+        post={data[lang].post.slug ? data[lang].post.slug : " "}
       />
       <Grid>
         <div></div>
         <div>
-          {data.post.post.video ? (
-            <Video url={data.post.post.video} />
+          {data[lang].post.video ? (
+            <Video url={data[lang].post.video} />
           ) : (
             <FeaturedImage>
               <Image
                 fluid={
-                  data.post.featuredImage !== null
-                    ? data.post.featuredImage.childImageSharp.fluid
+                  data[lang].featuredImage !== null
+                    ? data[lang].featuredImage.childImageSharp.fluid
                     : data.file.childImageSharp.fluid
                 }
               />
@@ -67,16 +61,16 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
 
           <Meta>
             <Category>
-              <Link to={`/categories/${data.post.category.slug}`}>
-                {data.post.category.category}
+              <Link to={`/categories/${data[lang].category.slug}`}>
+                {data[lang].category.category}
               </Link>
             </Category>
-            <Date>{data.post.post.date}</Date>
+            <Date>{data[lang].post.date}</Date>
           </Meta>
-          <h1>{data.post.title}</h1>
+          <h1>{data[lang].title}</h1>
           <Content>
-            <h4>{data.post.post.metaDescription}</h4>
-            <ReactMarkdown source={data.post.post.content} />
+            <h4>{data[lang].post.metaDescription}</h4>
+            <ReactMarkdown source={data[lang].post.content} />
           </Content>
           <Line color={setColor.lightGrey} />
           <Bottom>
@@ -84,13 +78,13 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
               <Author>
                 <Link
                   to={
-                    data.post.author !== null
-                      ? `/${data.post.author.slug}`
+                    data[lang].author !== null
+                      ? `/${data[lang].author.slug}`
                       : "mxc-foundation"
                   }
                 >
-                  {data.post.author !== null
-                    ? data.post.author.author
+                  {data[lang].author !== null
+                    ? data[lang].author.author
                     : "MXC Foundation"}
                 </Link>
               </Author>
@@ -103,14 +97,14 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
                   <FaTwitterSquare size={30} className="iconRight" />
                 </a>
                 <a
-                  href={`https://telegram.me/share/url?url=https://blog.mxc.org/${data.post.slug}`}
+                  href={`https://telegram.me/share/url?url=https://blog.mxc.org/${data[lang].slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaTelegram size={30} className="icon" />
                 </a>
                 <a
-                  href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${data.post.slug}`}
+                  href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${data[lang].slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -119,7 +113,7 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
               </Social>
             </Left>
             <Tags>
-              {data.post.tags.map((item, index) => {
+              {data[lang].tags.map((item, index) => {
                 return (
                   <Link to={`/tags/${item.slug}`} key={index}>
                     <Tag>{item.tag}</Tag>
@@ -137,7 +131,7 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    post: strapiPosts(post: { slug: { eq: $slug } }) {
+    en: strapiPosts(post: { slug: { eq: $slug } }) {
       category {
         category
         slug
