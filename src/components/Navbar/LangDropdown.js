@@ -1,24 +1,35 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { graphql, useStaticQuery } from "gatsby"
 import { FaCaretDown } from 'react-icons/fa'
 import styles from './LangDropdown.module.css'
 import { setColor, setRem } from '../../styles'
 import { Link } from 'gatsby'
 
 const LangDropdown = () => {
+  const posts = useStaticQuery(getPosts);
+
 
   /* get slug of current page x */
   const url = typeof window !== `undefined` ? window.location.href.split("/") : "/"
   const path = url.slice(3, url.length);
   const offset = path[0] === 'zh-hans' ? 1 : path[0] === 'zh-hant' ? 1 : path[0] === 'ko' ? 1 : 0;
   const slug = path.slice(offset).join('/');
-
+  debugger
+  /* 
+  posts.allStrapiPosts.nodes.map((post) => {
+    if(slug!= "" && slug === post.en.slug){
+      console.log(post.en.slug);
+      console.log(post.ko);
+    } 
+  }); */
+  
   /* set up state */
   const [isOpen, setDropdown] = useState(false)
   const toggleDropdown = () => {
     setDropdown(isOpen => !isOpen)
   }
-
+  
   return (
     <div>
       <Button type="button" onClick={toggleDropdown}>
@@ -85,6 +96,37 @@ const Button = styled.div`
 
 cursor: pointer;
 
+`
+
+const getPosts = graphql`
+  query {
+    allStrapiPosts {
+      nodes {
+        hans: zhch_post {
+          post {
+            slug
+            publish
+          }
+        }
+        hant:zhtw_post {
+          post {
+            slug
+            publish
+          }
+        }
+        ko: ko_post {
+          post {
+            slug
+            publish
+          }
+        }
+        en: post {
+          slug
+          publish
+        }
+      }
+    }
+  }
 `
 
 export default LangDropdown

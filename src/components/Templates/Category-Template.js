@@ -12,12 +12,8 @@ import { localeSettings } from "../Globals/LocalSettings";
 
 const CategoryTemplate = ({ data, pageContext: { lang = 'en', category } }) => {
   const locl = localeSettings[lang];
-  let slug = "";
-  if(data[lang].edges){
-    slug =lang==='en'? data[lang].edges[0].node.post.slug:data[lang].edges[0].node.enPost.post.slug;
+  
 
-  }
-debugger;
   return (
     <Layout>
       {data.categories.nodes.map(item => {
@@ -34,11 +30,19 @@ debugger;
                   <h1>{item[locl.categoryPropName]}</h1>
                 </Title>
                 {data[lang].edges.map(post => {
+                  let slug = "";
+                  if(data[lang].edges.length > 0){
+                    slug =lang==='en'
+                    ? post.node.post.slug
+                    : post.node.enPost 
+                      ? post.node.enPost.post.slug
+                      : "";
+                  }
                   return (
                     <div key={post.node.id}>
                       <PostRow
                         heading={post.node.title}
-                        text={post.node.post.metaDescription}
+                        text={post.node.post.metaDescription?post.node.post.metaDescription:""}
                         image={
                           post.node.featuredImage !== null
                             ? post.node.featuredImage.childImageSharp.fluid
