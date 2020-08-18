@@ -9,20 +9,23 @@ import { Link } from 'gatsby'
 const LangDropdown = () => {
   const posts = useStaticQuery(getPosts);
 
-
   /* get slug of current page x */
   const url = typeof window !== `undefined` ? window.location.href.split("/") : "/"
   const path = url.slice(3, url.length);
   const offset = path[0] === 'zh-hans' ? 1 : path[0] === 'zh-hant' ? 1 : path[0] === 'ko' ? 1 : 0;
   const slug = path.slice(offset).join('/');
-  debugger
-  /* 
-  posts.allStrapiPosts.nodes.map((post) => {
-    if(slug!= "" && slug === post.en.slug){
-      console.log(post.en.slug);
-      console.log(post.ko);
+  
+  let ko;
+  let hans;
+  let hant;
+  posts.allStrapiPosts.nodes.forEach((post) => {
+    if(slug !== "" && slug === post.en.slug){
+      hans = post.hans ? true: false; 
+      hant = post.hant ? true: false; 
+      ko = post.ko ? true: false; 
     } 
-  }); */
+  }); 
+
   
   /* set up state */
   const [isOpen, setDropdown] = useState(false)
@@ -41,21 +44,24 @@ const LangDropdown = () => {
             English
               </MenuItem>
         </Link>
+        {hans &&
         <Link to={`/zh-hans/${slug}`} className="list">
           <MenuItem >
             简体中文
               </MenuItem>
-        </Link>
+        </Link>}
+        {hant &&
         <Link to={`/zh-hant/${slug}`} className="list">
           <MenuItem >
             繁體中文
               </MenuItem>
-        </Link>
+        </Link>}
+        {ko &&
         <Link to={`/ko/${slug}`} className="list">
           <MenuItem >
             한국어
               </MenuItem>
-        </Link>
+        </Link>}
 
       </StyledMenu>
     </div>
