@@ -15,18 +15,17 @@ const LangDropdown = () => {
   const offset = path[0] === 'zh-hans' ? 1 : path[0] === 'zh-hant' ? 1 : path[0] === 'ko' ? 1 : 0;
   const slug = path.slice(offset).join('/');
   
-  let ko;
-  let hans;
-  let hant;
+  let ko = true;
+  let hans = true;
+  let hant = true;
   posts.allStrapiPosts.nodes.forEach((post) => {
-    if(slug !== "" && slug === post.en.slug){
+    if(slug !== "" && path[0] !== "category" && slug === post.en.slug){
       hans = post.hans ? true: false; 
       hant = post.hant ? true: false; 
       ko = post.ko ? true: false; 
     } 
   }); 
 
-  
   /* set up state */
   const [isOpen, setDropdown] = useState(false)
   const toggleDropdown = () => {
