@@ -138,7 +138,7 @@ export const query = graphql`
     }
     hans: allStrapiZhchPosts(
       sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: "null"}}}}) 
+      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
       {
       edges {
         node {
@@ -169,7 +169,7 @@ export const query = graphql`
     }
     hant: allStrapiZhtwPosts(
       sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: "null"}}}}) 
+      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
       {
       edges {
         node {
@@ -200,7 +200,7 @@ export const query = graphql`
     }
     ko: allStrapiKoPosts(
       sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: "null"}}}}) 
+      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
       {
       edges {
         node {

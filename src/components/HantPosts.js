@@ -33,7 +33,7 @@ const Posts = () => {
               <PostRow
                 heading={item.title}
                 text={item.post.metaDescription}
-                slug={`zh-hant/${decodeURIComponent(item.post.slug)}`}
+                slug={`zh-hant/${item.enPost.post.slug}`}
                 image={
                   /*item.featuredImage !== null
                     ? item.featuredImage.childImageSharp.fluid
@@ -60,7 +60,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={`zh-hant/${data.post.slug}`}
+                  slug={`zh-hant/${data.enPost.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -80,7 +80,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={`zh-hant/${data.post.slug}`}
+                  slug={`zh-hant/${data.enPost.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -103,7 +103,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={`zh-hant/${data.post.slug}`}
+                  slug={`zh-hant/${data.enPost.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -123,7 +123,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={`zh-hant/${data.post.slug}`}
+                  slug={`zh-hant/${data.enPost.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -143,7 +143,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={`zh-hant/${data.post.slug}`}
+                  slug={`zh-hant/${data.enPost.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -163,7 +163,7 @@ const Posts = () => {
                 <PostRow
                   heading={data.title}
                   text={data.post.metaDescription}
-                  slug={`zh-hant/${data.post.slug}`}
+                  slug={`zh-hant/${data.enPost.post.slug}`}
                   date={data.date}
                   image={
                     data.featuredImage !== null
@@ -215,7 +215,7 @@ const getPosts = graphql`
   {
     featured: allStrapiZhtwPosts(
       sort: { order: DESC, fields: post___date }
-      filter: { post: { featured: { eq: true }, publish: { eq: true } } }
+      filter: { post: { featured: { eq: true }, publish: { eq: true } }, enPost: {post: {slug: {ne: null}}} }
     ) {
       nodes {
         id
@@ -243,6 +243,11 @@ const getPosts = graphql`
           slug
         }
         title
+        enPost {
+          post {
+            slug
+          }
+        }
         featuredImage {
           childImageSharp {
             fluid {
@@ -255,7 +260,7 @@ const getPosts = graphql`
     newsUpdate: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "news-update" } } }
+      filter: { category: { slug: { eq: "news-update" } } , enPost: {post: {slug: {ne: null}}}}
     ) {
       nodes {
         title
@@ -273,6 +278,11 @@ const getPosts = graphql`
         post {
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         id
       }
@@ -280,7 +290,7 @@ const getPosts = graphql`
     events: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "events" } } }
+      filter: { category: { slug: { eq: "events" } }, enPost: {post: {slug: {ne: null}}} }
     ) {
       nodes {
         title
@@ -298,6 +308,11 @@ const getPosts = graphql`
         post {
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         id
       }
@@ -305,7 +320,7 @@ const getPosts = graphql`
     furtherReading: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "further-reading" } } }
+      filter: { category: { slug: { eq: "further-reading" } }, enPost: {post: {slug: {ne: null}}} }
     ) {
       nodes {
         title
@@ -323,6 +338,11 @@ const getPosts = graphql`
         post {
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         id
       }
@@ -330,7 +350,7 @@ const getPosts = graphql`
     technology: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "technology" } } }
+      filter: { category: { slug: { eq: "technology" } }, enPost: {post: {slug: {ne: null}}} }
     ) {
       nodes {
         title
@@ -348,6 +368,11 @@ const getPosts = graphql`
         post {
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         id
       }
@@ -355,7 +380,7 @@ const getPosts = graphql`
     pressRelease: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "press-release" } } }
+      filter: { category: { slug: { eq: "press-release" } }, enPost: {post: {slug: {ne: null}}} }
     ) {
       nodes {
         title
@@ -373,6 +398,11 @@ const getPosts = graphql`
         post {
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         id
       }
@@ -380,7 +410,7 @@ const getPosts = graphql`
     useCase: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "use-case" } } }
+      filter: { category: { slug: { eq: "use-case" } }, enPost: {post: {slug: {ne: null}}} }
     ) {
       nodes {
         title
@@ -398,6 +428,11 @@ const getPosts = graphql`
         post {
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         id
       }
