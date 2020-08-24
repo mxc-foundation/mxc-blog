@@ -4,6 +4,21 @@ on:
   push:
 
 jobs:
+  create-envfile:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1
+      with:
+        envkey_DEBUG: false
+        envkey_STRAPI_USER: ${{ secrets.STRAPI_USER }}
+        envkey_STRAPI_PASSWORD: ${{ secrets.STRAPI_PASSWORD }}
+        envkey_GOOGLE_ANALYTICS: ${{ secrets.GOOGLE_ANALYTICS }}
+        envkey_HOTJAR: ${{ secrets.HOTJAR }}
+        envkey_COOKIE_HUB: ${{ secrets.COOKIE_HUB }}
+        envkey_SITE_URL: ${{ secrets.SITE_URL }}
+        file_name: .env.production
+
   build:
     runs-on: ubuntu-latest
     steps:
