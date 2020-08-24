@@ -12,7 +12,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest",
-    "dev": "GATSBY_CONCURRENT_DOWNLOAD=1 gatsby develop"
+    "dev": "GATSBY_CONCURRENT_DOWNLOAD=1 gatsby develop",
   },
   "dependencies": {
     "@segment/consent-manager": "1.0.1",
