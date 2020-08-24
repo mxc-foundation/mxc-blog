@@ -18,6 +18,9 @@ jobs:
         envkey_COOKIE_HUB: ${{ secrets.COOKIE_HUB }}
         envkey_SITE_URL: ${{ secrets.SITE_URL }}
         file_name: .env.production
+    - name: checking
+    - run: cat .env.production
+
 
   build:
     runs-on: ubuntu-latest
