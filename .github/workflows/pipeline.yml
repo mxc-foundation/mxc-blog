@@ -1,27 +1,15 @@
-name: pipeline
+name: Gatsby Publish
 
 on:
-  pull_request:
-    branches:
-      - master
+  push:
 
 jobs:
-  linkChecker:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Link Checker
-      id: lc
-      uses: peter-evans/link-checker@v1
-      with:
-        args: -v -r docs
-
-  publish:
-    needs: linkChecker
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v1
+      - uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          node-version: 12
-      - run: cd docs && yarn install && yarn run deploy
+          access-token: ${{ secrets.GH_TOKEN }}
+          deploy-branch: gh-pages
+          gatsby-args: --prefix-paths
