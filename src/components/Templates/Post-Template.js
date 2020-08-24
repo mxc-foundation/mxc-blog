@@ -97,14 +97,14 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
                   <FaTwitterSquare size={30} className="iconRight" />
                 </a>
                 <a
-                  href={`https://telegram.me/share/url?url=https://blog.mxc.org/${data[lang].slug}`}
+                  href={`https://telegram.me/share/url?url=https://blog.mxc.org/${lang==="en"?data[lang].post.slug:data[lang].enPost.post.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaTelegram size={30} className="icon" />
                 </a>
                 <a
-                  href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${data[lang].slug}`}
+                  href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${lang==="en"?data[lang].post.slug:data[lang].enPost.post.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
