@@ -137,7 +137,7 @@ We used a number of helper functions while developing this site. You here's a li
 
 ## Build for Production
 
-To build for production locally, you'll need to create a `.env.production` file and include the following variables:
+1. To build for production locally, you'll need to create a `.env.production` file and include the following variables:
 ```
   STRAPI_USER=
    STRAPI_PASSWORD=
@@ -146,5 +146,5 @@ To build for production locally, you'll need to create a `.env.production` file 
    COOKIE_HUB=
    SITE_URL=
 ```
-
-Once this file is ready, run `gatsby build` in the root directory.
+2. Once this file is ready, run `gatsby build` in the root directory.
+3. Use `gatsby serve` to run the build locally
