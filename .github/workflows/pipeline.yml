@@ -11,5 +11,3 @@ jobs:
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
           access-token: ${{ secrets.GH_TOKEN }}
-          deploy-branch: gh-pages
-          gatsby-args: --prefix-paths

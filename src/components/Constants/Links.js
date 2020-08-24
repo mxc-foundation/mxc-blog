@@ -1,6 +1,7 @@
 export function getTopMenu(lang) {
-  const token = lang === "en" ? "mxc-token": "token";
-  const Supernode = lang === "en" ? "mxc-supernode": "supernode";
+  const token = lang === "" ? "mxc-token": "token";
+  const supernode = lang === "" ? "mxc-supernode": "supernode";
+  const about = lang === "" ? "mxc-about": "about";
   return [
     {
       path: "https://www.mxc.org/",
@@ -11,7 +12,7 @@ export function getTopMenu(lang) {
       text: "Token",
     },
     {
-      path: "https://www.mxc.org/"+Supernode,
+      path: "https://www.mxc.org/"+supernode,
       text: "Supernode",
     },
     {
@@ -19,7 +20,7 @@ export function getTopMenu(lang) {
       text: "Blog",
     },
     {
-      path: "https://www.mxc.org/about",
+      path: "https://www.mxc.org/"+about,
       text: "About",
     },
   ];
