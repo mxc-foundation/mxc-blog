@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://localhost:8000/sitemap.xml
-Host: https://localhost:8000
+Sitemap: https://mxc-foundation.github.io/mxc-blog/sitemap.xml
+Host: https://mxc-foundation.github.io
