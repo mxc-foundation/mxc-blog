@@ -6,36 +6,50 @@ import Line from "../Globals/Line"
 import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
+import { localeSettings } from "../Globals/LocalSettings";
 
-const CategoryTemplate = ({ data }) => {
+
+
+const CategoryTemplate = ({ data, pageContext: { lang = 'en', category } }) => {
+  const locl = localeSettings[lang];
+  
+
   return (
     <Layout>
       {data.categories.nodes.map(item => {
         return (
           <div key={item.id}>
             <SEO
-              title={item.category}
-              pageUrl={`https://blog.mxc.org/${item.slug}`}
+              title={item[locl.categoryPropName]}
+              pageUrl={`https://blog.mxc.org/${item[locl.slugPropName]}`}
             />
             <Grid>
               <div />
               <FeaturedRow>
                 <Title>
-                  <h1>{item.category}</h1>
+                  <h1>{item[locl.categoryPropName]}</h1>
                 </Title>
-                {data.posts.nodes.map(post => {
+                {data[lang].edges.map(post => {
+                  let slug = "";
+                  if(data[lang].edges.length > 0){
+                    slug =lang==='en'
+                    ? post.node.post.slug
+                    : post.node.enPost 
+                      ? post.node.enPost.post.slug
+                      : "";
+                  }
                   return (
-                    <div key={post.id}>
+                    <div key={post.node.id}>
                       <PostRow
-                        heading={post.title}
-                        text={post.post.metaDescription}
+                        heading={post.node.title}
+                        text={post.node.post.metaDescription?post.node.post.metaDescription:""}
                         image={
-                          post.featuredImage !== null
-                            ? post.featuredImage.childImageSharp.fluid
+                          post.node.featuredImage !== null
+                            ? post.node.featuredImage.childImageSharp.fluid
                             : data.file.childImageSharp.fluid
                         }
-                        slug={`${post.post.slug}`}
-                        date={post.post.date}
+                        slug={`${locl.relativePath}${slug}`} 
+                        date={post.node.post.date}
                       />
                       <Line color={setColor.lightGrey} />
                     </div>
@@ -95,37 +109,127 @@ const Title = styled.div`
 `
 
 export const query = graphql`
-  query($slug: String!) {
-    posts: allStrapiPosts(
-      filter: {
-        category: { slug: { eq: $slug } }
-        post: { publish: { eq: true } }
-      }
-      sort: { fields: date, order: DESC }
-    ) {
-      nodes {
-        date
-        title
-        post {
-          date(formatString: "MMMM DD, YYYY")
-          metaDescription
-          slug
-        }
-        featuredImage {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+  query($category: String!) {
+    en: allStrapiPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $category}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
             }
           }
-        }
-        id
-        category {
-          zhchCategory
-          zhchSlug
+          category {
+            category
+          }
+          title
         }
       }
     }
-    categories: allStrapiCategories(filter: { slug: { eq: $slug } }) {
+    hans: allStrapiZhchPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          enPost {
+            post {
+              slug
+            }
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
+          }
+          category {
+            category
+          }
+          title
+        }
+      }
+    }
+    hant: allStrapiZhtwPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          enPost {
+            post {
+              slug
+            }
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
+          }
+          category {
+            category
+          }
+          title
+        }
+      }
+    }
+    ko: allStrapiKoPosts(
+      sort: {order: DESC, fields: date}, 
+      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
+      {
+      edges {
+        node {
+          id
+          post {
+            metaDescription
+            date(formatString: "MMMM DD, YYYY")
+            slug
+          }
+          enPost {
+            post {
+              slug
+            }
+          }
+          featuredImage {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
+            }
+          }
+          category {
+            category
+          }
+          title
+        }
+      }
+    }
+    categories: allStrapiCategories(filter: { slug: { eq: $category } }) {
       nodes {
         category
         zhchCategory
@@ -146,6 +250,6 @@ export const query = graphql`
       }
     }
   }
-`
+`  
 
 export default CategoryTemplate

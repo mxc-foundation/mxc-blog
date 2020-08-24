@@ -31,13 +31,7 @@ const Categories = () => {
             : url.includes("/zh-hant")
             ? item.zhtwCategory
             : item.category
-          const catSlug = url.includes("/ko")
-            ? `ko/categories/${item.koSlug}`
-            : url.includes("/zh-hans")
-            ? `zh-hans/categories/${item.zhchSlug}`
-            : url.includes("/zh-hant")
-            ? `zh-hant/categories/${item.zhtwSlug}`
-            : `categories/${item.slug}`
+          const catSlug = `categories/${item.slug}`
           return (
             <MenuItem key={index}>
               <Link to={`${catSlug}`}>{catList}</Link>

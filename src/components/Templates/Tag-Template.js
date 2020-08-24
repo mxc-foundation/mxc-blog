@@ -7,21 +7,24 @@ import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
-const TagTemplate = ({ data }) => {
+const TagTemplate = ({ data, pageContext: { lang = 'en', slug } }) => {
+  const lanPath = lang === 'en' ? "": lang+"/";
+  const lanTag = lang === 'en' ? "tag": lang === 'ko' ? "koTag":lang === 'hans' ? "zhchTag" : "zhtwTag";
+
   return (
     <Layout>
       <div>
         <SEO
-          title={data.tags.tag}
-          pageUrl={`https://blog.mxc.org/tags/${data.tags.slug}`}
+          title={data.tags[lanTag]}
+          pageUrl={`https://blog.mxc.org/${lanPath}tags/${data.tags.slug}`}
         />
         <Grid>
           <div />
           <FeaturedRow>
             <Title>
-              <h1>{data.tags.tag}</h1>
+              <h1>{data.tags[lanTag]}</h1>
             </Title>
-            {data.posts.nodes.map(post => {
+            {data[lang].nodes.map(post => {
               return (
                 <div key={post.id}>
                   <PostRow
@@ -32,7 +35,7 @@ const TagTemplate = ({ data }) => {
                         ? post.featuredImage.childImageSharp.fluid
                         : data.file.childImageSharp.fluid
                     }
-                    slug={post.post.slug}
+                    slug={`${lanPath}post.post.slug`}
                     date={post.post.date}
                   />
                   <Line color={setColor.lightGrey} />
@@ -91,7 +94,112 @@ const Title = styled.div`
 
 export const query = graphql`
   query($slug: String!) {
-    posts: allStrapiPosts(
+    en: allStrapiPosts(
+      filter: {
+        post: { publish: { eq: true } }
+        tags: { elemMatch: { slug: { eq: $slug } } }
+      }
+      sort: { fields: date, order: DESC }
+    ) {
+      nodes {
+        date
+        title
+        post {
+          date(formatString: "MMMM DD, YYYY")
+          metaDescription
+          slug
+        }
+        featuredImage {
+          childImageSharp {
+            fluid {
+              src
+            }
+          }
+        }
+        id
+        category {
+          zhchCategory
+          zhchSlug
+          slug
+          category
+          koSlug
+          koCategory
+          zhtwCategory
+          zhtwSlug
+        }
+      }
+    }
+    ko: allStrapiKoPosts(
+      filter: {
+        post: { publish: { eq: true } }
+        tags: { elemMatch: { slug: { eq: $slug } } }
+      }
+      sort: { fields: date, order: DESC }
+    ) {
+      nodes {
+        date
+        title
+        post {
+          date(formatString: "MMMM DD, YYYY")
+          metaDescription
+          slug
+        }
+        featuredImage {
+          childImageSharp {
+            fluid {
+              src
+            }
+          }
+        }
+        id
+        category {
+          zhchCategory
+          zhchSlug
+          slug
+          category
+          koSlug
+          koCategory
+          zhtwCategory
+          zhtwSlug
+        }
+      }
+    }
+    hans: allStrapiZhchPosts(
+      filter: {
+        post: { publish: { eq: true } }
+        tags: { elemMatch: { slug: { eq: $slug } } }
+      }
+      sort: { fields: date, order: DESC }
+    ) {
+      nodes {
+        date
+        title
+        post {
+          date(formatString: "MMMM DD, YYYY")
+          metaDescription
+          slug
+        }
+        featuredImage {
+          childImageSharp {
+            fluid {
+              src
+            }
+          }
+        }
+        id
+        category {
+          zhchCategory
+          zhchSlug
+          slug
+          category
+          koSlug
+          koCategory
+          zhtwCategory
+          zhtwSlug
+        }
+      }
+    }
+    hant: allStrapiZhtwPosts(
       filter: {
         post: { publish: { eq: true } }
         tags: { elemMatch: { slug: { eq: $slug } } }

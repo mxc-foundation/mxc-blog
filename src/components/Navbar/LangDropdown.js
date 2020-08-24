@@ -1,144 +1,79 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { graphql, useStaticQuery } from "gatsby"
 import { FaCaretDown } from 'react-icons/fa'
 import styles from './LangDropdown.module.css'
 import { setColor, setRem } from '../../styles'
 import { Link } from 'gatsby'
-import {graphql, useStaticQuery} from 'gatsby'
 
 const LangDropdown = () => {
-
+  const posts = useStaticQuery(getPosts);
 
   /* get slug of current page x */
- 
   const url = typeof window !== `undefined` ? window.location.href.split("/") : "/"
-
-  const decodeSlug = (url.slice(-1)[0].includes("%")) ? decodeURIComponent(url.slice(-1)[0]) : url.slice(-1)[0] 
+  const path = url.slice(3, url.length);
+  const offset = path[0] === 'zh-hans' ? 1 : path[0] === 'zh-hant' ? 1 : path[0] === 'ko' ? 1 : 0;
+  let slug = path.slice(offset);
   
-  const slug = decodeSlug ? decodeSlug : "/"
-
-
-  /* destructure Graphql Query */
-
-  const getData = useStaticQuery(query)
-  const posts = getData.posts.nodes
-  const categories = getData.categories.nodes
-  const tags = getData.tags.nodes
-
-/* make a nicer array of graphql data */
-
-const postArray = posts.map((item, index) => {
-  const en = item.post.slug || "/";
-  const ko = item.ko_post ? item.ko_post.post.slug : "/"
-  const hans = item.zhch_post ? item.zhch_post.post.slug : "/"
-  const hant = item.zhtw_post ? item.zhtw_post.post.slug : "/"
-
-  const array = {
-    "en" : en,
-    "ko" : ko,
-    "hans" : hans,
-    "hant" : hant
+  let tempSlug = slug;
+  slug = "";
+  if(tempSlug.length>0){
+    tempSlug.forEach((slug) => {
+      slug += slug + "/";
+    })
   }
+  slug = slug.substring(0, slug.length-1);
 
-  return array
-})
+  let ko = true;
+  let hans = true;
+  let hant = true;
+  posts.allStrapiPosts.nodes.forEach((post) => {
+    if(slug !== "" && path[0] !== "category" && slug === post.en.slug){
+      hans = post.hans ? true: false; 
+      hant = post.hant ? true: false; 
+      ko = post.ko ? true: false; 
+    } 
+  }); 
 
-/* Modify Categories Array*/
-const categoriesArray = categories.map((item, index) => {
-  const en = item.slug || "/";
-  const ko = item.koSlug ? item.koSlug : "/"
-  const hans = item.zhchSlug ? item.zhchSlug : "/"
-  const hant = item.zhtwSlug ? item.zhtwSlug : "/"
-
-  const array = {
-    "en" : en,
-    "ko" : ko,
-    "hans" : hans,
-    "hant" : hant
+  /* set up state */
+  const [isOpen, setDropdown] = useState(false)
+  const toggleDropdown = () => {
+    setDropdown(isOpen => !isOpen)
   }
-
-  return array
-})
-
-/* Modify Tags Array*/
-
-const tagsArray = tags.map((item, index) => {
-  const en = item.slug || "/";
-  const ko = item.koSlug ? item.koSlug : "/"
-  const hans = item.zhchSlug ? item.zhchSlug : "/"
-  const hant = item.zhtwSlug ? item.zhtwSlug : "/"
-
-  const array = {
-    "en" : en,
-    "ko" : ko,
-    "hans" : hans,
-    "hant" : hant
-  }
-
-  return array
-})
-
-
-/* Create Home pages array*/
-
-const homeArray = {
-  "en" : "/",
-  "ko" : "/",
-  "hans" : "/",
-  "hant" : "/"
-}
-
-/* Consolidate the Arrays */
-
-const combinedArray = postArray.concat(categoriesArray, tagsArray, homeArray)
-
-/* Identify location of successful slug */
-
-const enSlug = combinedArray.findIndex(i => i.en === slug)
-const koSlug = combinedArray.findIndex(i => i.ko === slug)
-const hansSlug = combinedArray.findIndex(i => i.hans === slug)
-const hantSlug = combinedArray.findIndex(i => i.hant === slug)
-const checkIndex = (enSlug !== -1) ? enSlug : (koSlug !== -1) ? koSlug : (hansSlug !== -1) ? hansSlug : (hantSlug !== -1) ? hantSlug : "failed"
-const thisPage = combinedArray[checkIndex]
-
-/* set up state */
-
-    const [isOpen, setDropdown] = useState(false)
-    const toggleDropdown = () => {
-      setDropdown(isOpen => !isOpen)
-    }
-
-    console.log(thisPage)
-    return (
-        <div>
-            <Button type="button" onClick={toggleDropdown}>
-            Language <FaCaretDown/>
-            </Button>
-            <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
-              <Link to={`/${thisPage.en !== "/" ? thisPage.en : ""}`} className="list">
-              <MenuItem >
-                English
+  
+  return (
+    <div>
+      <Button type="button" onClick={toggleDropdown}>
+        Language <FaCaretDown />
+      </Button>
+      <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
+        <Link to={`/${slug}`} className="list">
+          <MenuItem >
+            English
               </MenuItem>
-              </Link> 
-              <Link to={`/zh-hans/${thisPage.hans !== "/" ? thisPage.hans : ""}`} className="list">
-              <MenuItem >
-                简体中文
+        </Link>
+        {hans &&
+        <Link to={`/zh-hans/${slug}`} className="list">
+          <MenuItem >
+            简体中文
               </MenuItem>
-              </Link>  
-              <Link to={`/zh-hant/${thisPage.hant !== "/" ? thisPage.hant : ""}`} className="list">
-              <MenuItem >
-                繁體中文
+        </Link>}
+        {hant &&
+        <Link to={`/zh-hant/${slug}`} className="list">
+          <MenuItem >
+            繁體中文
               </MenuItem>
-              </Link>  
-              <Link to={`/ko/${thisPage.ko !== "/" ? thisPage.ko : ""}`} className="list">
-              <MenuItem >
-                한국어
+        </Link>}
+        {ko &&
+        <Link to={`/ko/${slug}`} className="list">
+          <MenuItem >
+            한국어
               </MenuItem>
-              </Link>  
-          
-          </StyledMenu>
-        </div>
-    )
+        </Link>}
+
+      </StyledMenu>
+    </div>
+  )
 }
 
 const StyledMenu = styled.ul`
@@ -177,50 +112,35 @@ cursor: pointer;
 
 `
 
-const query = graphql`
-{
-  posts: allStrapiPosts {
-    nodes {
-      post {
-        slug
-      }
-      zhch_post {
-        post {
-          slug
+const getPosts = graphql`
+  query {
+    allStrapiPosts {
+      nodes {
+        hans: zhch_post {
+          post {
+            slug
+            publish
+          }
         }
-      }
-      zhtw_post {
-        post {
-          slug
+        hant:zhtw_post {
+          post {
+            slug
+            publish
+          }
         }
-      }
-      ko_post {
-        post {
+        ko: ko_post {
+          post {
+            slug
+            publish
+          }
+        }
+        en: post {
           slug
+          publish
         }
       }
     }
   }
-  categories:allStrapiCategories {
-    nodes {
-      slug
-      koSlug
-      zhchSlug
-      zhtwSlug
-    }
-  }
-  tags: allStrapiTags {
-    nodes {
-      slug
-      zhchSlug
-      zhtwSlug
-      koSlug
-      zhchTag
-      zhtwTag
-    }
-  }
-}
-
 `
 
 export default LangDropdown

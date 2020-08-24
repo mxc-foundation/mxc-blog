@@ -79,41 +79,38 @@ exports.createPages = async ({ graphql, actions }) => {
       path: node.post.slug,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
+        lang: 'en',
         slug: node.post.slug,
       },
     })
   })
   data.allStrapiZhchPosts.nodes.forEach(node => {
     createPage({
-      path: `/zh-hans/${node.post.slug}`,
-      component: path.resolve(
-        "./src/components/Templates/Post-Template-zhch.js"
-      ),
+      path: `/zh-hans/${node.enPost.post.slug}`,
+      component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        slug: node.post.slug,
-        enSlug: node.enPost.post.slug,
+        lang: 'hans',
+        slug: node.enPost.post.slug,
       },
     })
   })
   data.allStrapiZhtwPosts.nodes.forEach(node => {
     createPage({
-      path: `/zh-hant/${node.post.slug}`,
-      component: path.resolve(
-        "./src/components/Templates/Post-Template-zhtw.js"
-      ),
+      path: `/zh-hant/${node.enPost.post.slug}`,
+      component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        slug: node.post.slug,
-        enSlug: node.enPost.post.slug,
+        lang: 'hant',
+        slug: node.enPost.post.slug,
       },
     })
   })
   data.allStrapiKoPosts.nodes.forEach(node => {
     createPage({
-      path: `/ko/${node.post.slug}`,
-      component: path.resolve("./src/components/Templates/Post-Template-ko.js"),
+      path: `/ko/${node.enPost.post.slug}`,
+      component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        slug: node.post.slug,
-        enSlug: node.enPost.post.slug,
+        lang: 'ko',
+        slug: node.enPost.post.slug,
       },
     })
   })
@@ -127,40 +124,44 @@ exports.createPages = async ({ graphql, actions }) => {
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        slug: node.slug,
+        lang: 'en',
+        category: node.slug,
       },
     })
   })
   data.categories.nodes.forEach(node => {
     createPage({
-      path: `/ko/categories/${node.koSlug}`,
+      path: `/ko/categories/${node.slug}`,
       component: path.resolve(
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        slug: node.koSlug,
+        lang: 'ko',
+        category: node.koSlug,
       },
     })
   })
   data.categories.nodes.forEach(node => {
     createPage({
-      path: `/zh-hans/categories/${node.zhchSlug}`,
+      path: `/zh-hans/categories/${node.slug}`,
       component: path.resolve(
-        "./src/components/Templates/Category-Template-Hans.js"
+        "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        slug: node.slug,
+        lang: 'hans',
+        category: node.slug,
       },
     })
   })
   data.categories.nodes.forEach(node => {
     createPage({
-      path: `/zh-hant/categories/${node.zhtwSlug}`,
+      path: `/zh-hant/categories/${node.slug}`,
       component: path.resolve(
-        "./src/components/Templates/Category-Template-Hant.js"
+        "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        slug: node.slug,
+        lang: 'hant',
+        category: node.slug,
       },
     })
   })
@@ -171,34 +172,38 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
+        lang: 'en',
         slug: node.slug,
       },
     })
   })
   data.tags.nodes.forEach(node => {
     createPage({
-      path: `/ko/tags/${node.koSlug}`,
-      component: path.resolve("./src/components/Templates/Tag-Template-Ko.js"),
+      path: `/ko/tags/${node.slug}`,
+      component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
-        slug: node.koSlug,
+        lang: 'ko',
+        slug: node.slug,
       },
     })
   })
   data.tags.nodes.forEach(node => {
     createPage({
-      path: `/zh-hans/tags/${node.zhchSlug}`,
-      component: path.resolve("./src/components/Templates/Tag-Template-Zhch.js"),
+      path: `/zh-hans/tags/${node.slug}`,
+      component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
-        slug: node.zhchSlug,
+        lang: 'hans',
+        slug: node.slug,
       },
     })
   })
   data.tags.nodes.forEach(node => {
     createPage({
-      path: `/zh-hant/tags/${node.zhtwSlug}`,
-      component: path.resolve("./src/components/Templates/Tag-Template-Zhtw.js"),
+      path: `/zh-hant/tags/${node.slug}`,
+      component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
-        slug: node.zhtwSlug,
+        lang: 'hant',
+        slug: node.slug,
       },
     })
   })
