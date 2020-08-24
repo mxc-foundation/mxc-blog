@@ -19,6 +19,7 @@ jobs:
         envkey_SITE_URL: ${{ secrets.SITE_URL }}
         file_name: .env.production
     - name: checking
+      uses: actions/checkout@v1
     - run: cat .env.production
 
 
