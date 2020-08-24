@@ -14,16 +14,16 @@ const LangDropdown = () => {
   const path = url.slice(3, url.length);
   const offset = path[0] === 'zh-hans' ? 1 : path[0] === 'zh-hant' ? 1 : path[0] === 'ko' ? 1 : 0;
   let slug = path.slice(offset);
-  
+
   let tempSlug = slug;
   slug = "";
   if(tempSlug.length>0){
-    tempSlug.forEach((slug) => {
-      slug += slug + "/";
+    tempSlug.forEach((ts) => {
+      slug += ts + "/";
     })
   }
   slug = slug.substring(0, slug.length-1);
-
+  
   let ko = true;
   let hans = true;
   let hant = true;
