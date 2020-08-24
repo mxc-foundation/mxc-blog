@@ -20,7 +20,7 @@ jobs:
         file_name: .env.production
     - name: checking
       uses: actions/checkout@v1
-    - run: cat .env.production
+    - run: export
 
 
   build:
