@@ -6,11 +6,29 @@ import styles from "./Categories.module.css"
 
 import { media, setColor, setRem, setFlex } from "../styles"
 
+const getCategories = graphql`
+  query {
+    categories: allStrapiCategories {
+      nodes {
+        slug
+        category
+        zhtwCategory
+        zhtwSlug
+        koCategory
+        koSlug
+        zhchCategory
+        zhchSlug
+      }
+    }
+  }
+`
+
 const Categories = () => {
   const links = useStaticQuery(getCategories)
 
   const [isOpen, setNav] = useState(false)
   const toggleNav = () => {
+    // eslint-disable-next-line no-shadow
     setNav(isOpen => !isOpen)
   }
   const url = typeof window !== `undefined` ? window.location.href : "/"
@@ -23,7 +41,9 @@ const Categories = () => {
         </MobileMenu>
       </FlexBox>
       <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
-        {links.categories.nodes.map((item, index) => {
+        {links.categories.nodes.map(item => {
+          /* ToDo: Move checkUrl function to utils */
+
           const catList = url.includes("/ko")
             ? item.koCategory
             : url.includes("/zh-hans")
@@ -31,9 +51,10 @@ const Categories = () => {
             : url.includes("/zh-hant")
             ? item.zhtwCategory
             : item.category
+
           const catSlug = `categories/${item.slug}`
           return (
-            <MenuItem key={index}>
+            <MenuItem key={catSlug}>
               <Link to={`${catSlug}`}>{catList}</Link>
             </MenuItem>
           )
@@ -88,22 +109,6 @@ export const StyledMenu = styled.ul`
 `
 export const MenuItem = styled.li`
   padding: 1rem 2rem;
-`
-const getCategories = graphql`
-  query {
-    categories: allStrapiCategories {
-      nodes {
-        slug
-        category
-        zhtwCategory
-        zhtwSlug
-        koCategory
-        koSlug
-        zhchCategory
-        zhchSlug
-      }
-    }
-  }
 `
 
 export default Categories
