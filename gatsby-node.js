@@ -4,6 +4,8 @@ const path = require("path")
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+  const today = new Date();
+  const yyyymmdd = today.toISOString().slice(0,10);
 
   const { data } = await graphql(`
     query {
@@ -72,6 +74,16 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+  
+  createPage({
+    path: "/test",
+    component: path.resolve("./src/components/Templates/Index-Template.js"),
+    context: {
+      lang: 'en',
+      slug: "",
+      today: '2020-08-22'
+    },
+  })
   /* Create Post Pages*/
 
   data.allStrapiPosts.nodes.forEach(node => {
@@ -81,6 +93,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'en',
         slug: node.post.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -91,6 +104,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hans',
         slug: node.enPost.post.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -101,6 +115,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hant',
         slug: node.enPost.post.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -111,6 +126,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'ko',
         slug: node.enPost.post.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -126,6 +142,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'en',
         category: node.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -138,6 +155,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'ko',
         category: node.koSlug,
+        today: yyyymmdd
       },
     })
   })
@@ -150,6 +168,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hans',
         category: node.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -162,6 +181,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hant',
         category: node.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -174,6 +194,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'en',
         slug: node.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -184,6 +205,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'ko',
         slug: node.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -194,6 +216,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hans',
         slug: node.slug,
+        today: yyyymmdd
       },
     })
   })
@@ -204,6 +227,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: 'hant',
         slug: node.slug,
+        today: yyyymmdd
       },
     })
   })
