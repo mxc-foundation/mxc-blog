@@ -6,6 +6,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const today = new Date();
   const yyyymmdd = today.toISOString().slice(0,10);
+  const LANGUAGE_SET = ['en', 'ko', 'hans', 'hant' ];
+  const ROOT_PATH = ['', 'ko', 'zh-hans', 'zh-hant' ];
 
   const { data } = await graphql(`
     query {
@@ -74,16 +76,18 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
-  
-  createPage({
-    path: "/test",
-    component: path.resolve("./src/components/Templates/Index-Template.js"),
-    context: {
-      lang: 'en',
-      slug: "",
-      today: '2020-08-22'
-    },
+
+  LANGUAGE_SET.forEach((lang, index) => {
+    createPage({
+      path: "/"+ROOT_PATH[index],
+      component: path.resolve("./src/components/Templates/Index-Template.js"),
+      context: {
+        lang: lang,
+        today: yyyymmdd
+      },
+    })
   })
+  
   /* Create Post Pages*/
 
   data.allStrapiPosts.nodes.forEach(node => {
