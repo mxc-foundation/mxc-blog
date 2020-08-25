@@ -24,4 +24,5 @@ module.exports = {
   testEnvironment: "jest-environment-jsdom",
   setupFiles: [`<rootDir>/test/loadershim.js`],
   setupFilesAfterEnv: ["<rootDir>/test/setup-test-env.js"],
+  projects: ["./test/jest.lint.js"],
 }
