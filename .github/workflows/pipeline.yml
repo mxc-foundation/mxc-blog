@@ -27,7 +27,7 @@ jobs:
 
       - name: Build # builds the docs site with --prefix-paths for gh-pages
         run: |
-          yarn build
+          yarn build --prefix-paths
         env:
           COOKIE_HUB: ${{ secrets.COOKIE_HUB }}
           GOOGLE_ANALYTICS: ${{ secrets.GOOGLE_ANALYTICS }}
