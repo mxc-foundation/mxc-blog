@@ -1,6 +1,6 @@
 const path = require("path")
 
-/*TODO: make it so that non EN posts can be present without an EN connection*/
+/* TODO: make it so that non EN posts can be present without an EN connection */
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -38,7 +38,12 @@ exports.createPages = async ({ graphql, actions }) => {
           slug
         }
       }
-      allStrapiZhchPosts(filter: {post: {publish: {eq: true}}, enPost: {post: {slug: {glob: "*"}}}}) {
+      allStrapiZhchPosts(
+        filter: {
+          post: { publish: { eq: true } }
+          enPost: { post: { slug: { glob: "*" } } }
+        }
+      ) {
         nodes {
           post {
             slug
@@ -50,7 +55,12 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allStrapiZhtwPosts(filter: {post: {publish: {eq: true}}, enPost: {post: {slug: {glob: "*"}}}}) {
+      allStrapiZhtwPosts(
+        filter: {
+          post: { publish: { eq: true } }
+          enPost: { post: { slug: { glob: "*" } } }
+        }
+      ) {
         nodes {
           post {
             slug
@@ -62,7 +72,12 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allStrapiKoPosts(filter: {post: {publish: {eq: true}}, enPost: {post: {slug: {glob: "*"}}}}) {
+      allStrapiKoPosts(
+        filter: {
+          post: { publish: { eq: true } }
+          enPost: { post: { slug: { glob: "*" } } }
+        }
+      ) {
         nodes {
           post {
             slug
@@ -95,7 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: node.post.slug,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        lang: 'en',
+        lang: "en",
         slug: node.post.slug,
         today: yyyymmdd
       },
@@ -106,7 +121,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/zh-hans/${node.enPost.post.slug}`,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        lang: 'hans',
+        lang: "hans",
         slug: node.enPost.post.slug,
         today: yyyymmdd
       },
@@ -117,7 +132,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/zh-hant/${node.enPost.post.slug}`,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        lang: 'hant',
+        lang: "hant",
         slug: node.enPost.post.slug,
         today: yyyymmdd
       },
@@ -128,7 +143,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/ko/${node.enPost.post.slug}`,
       component: path.resolve("./src/components/Templates/Post-Template.js"),
       context: {
-        lang: 'ko',
+        lang: "ko",
         slug: node.enPost.post.slug,
         today: yyyymmdd
       },
@@ -144,7 +159,7 @@ exports.createPages = async ({ graphql, actions }) => {
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        lang: 'en',
+        lang: "en",
         category: node.slug,
         today: yyyymmdd
       },
@@ -157,7 +172,7 @@ exports.createPages = async ({ graphql, actions }) => {
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        lang: 'ko',
+        lang: "ko",
         category: node.koSlug,
         today: yyyymmdd
       },
@@ -170,7 +185,7 @@ exports.createPages = async ({ graphql, actions }) => {
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        lang: 'hans',
+        lang: "hans",
         category: node.slug,
         today: yyyymmdd
       },
@@ -183,7 +198,7 @@ exports.createPages = async ({ graphql, actions }) => {
         "./src/components/Templates/Category-Template.js"
       ),
       context: {
-        lang: 'hant',
+        lang: "hant",
         category: node.slug,
         today: yyyymmdd
       },
@@ -196,7 +211,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
-        lang: 'en',
+        lang: "en",
         slug: node.slug,
         today: yyyymmdd
       },
@@ -207,7 +222,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/ko/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
-        lang: 'ko',
+        lang: "ko",
         slug: node.slug,
         today: yyyymmdd
       },
@@ -218,7 +233,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/zh-hans/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
-        lang: 'hans',
+        lang: "hans",
         slug: node.slug,
         today: yyyymmdd
       },
@@ -229,7 +244,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/zh-hant/tags/${node.slug}`,
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
-        lang: 'hant',
+        lang: "hant",
         slug: node.slug,
         today: yyyymmdd
       },
@@ -237,6 +252,4 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 }
 
-  /* RSS Feed*/
-
-  
+/* RSS Feed */

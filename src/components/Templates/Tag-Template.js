@@ -1,15 +1,22 @@
 import React from "react"
 import styled from "styled-components"
-import Layout from "../Layout"
 import { graphql } from "gatsby"
+import Layout from "../Layout"
 import Line from "../Globals/Line"
 import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
-const TagTemplate = ({ data, pageContext: { lang = 'en', slug } }) => {
-  const lanPath = lang === 'en' ? "": lang+"/";
-  const lanTag = lang === 'en' ? "tag": lang === 'ko' ? "koTag":lang === 'hans' ? "zhchTag" : "zhtwTag";
+const TagTemplate = ({ data, pageContext: { lang = "en", slug } }) => {
+  const lanPath = lang === "en" ? "" : `${lang}/`
+  const lanTag =
+    lang === "en"
+      ? "tag"
+      : lang === "ko"
+      ? "koTag"
+      : lang === "hans"
+      ? "zhchTag"
+      : "zhtwTag"
 
   return (
     <Layout>
@@ -61,7 +68,7 @@ const FeaturedRow = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   h1 {
     text-align: center;
     margin: 20px 0;

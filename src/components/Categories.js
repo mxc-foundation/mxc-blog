@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { media, setColor, setRem, setFlex } from "../styles"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery, Link } from "gatsby"
 import { FaAngleDown } from "react-icons/fa"
 import styles from "./Categories.module.css"
-import { Link } from "gatsby"
+
+import { media, setColor, setRem, setFlex } from "../styles"
 
 const Categories = () => {
   const links = useStaticQuery(getCategories)

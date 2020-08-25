@@ -1,14 +1,9 @@
 import React from "react"
+import { Link } from "gatsby"
+import styled from "styled-components"
 import Section from "./Section"
 import Title from "./Title"
-import { Link } from "gatsby"
-import {
-  setRem,
-  setBorder,
-  setColor,
-  media,
-} from "../../styles"
-import styled from "styled-components"
+import { setRem, setBorder, setColor, media } from "../../styles"
 import DisplayImage from "./DisplayImage"
 
 const PostRow = ({ text, heading, image, slug, featured, category, date }) => {

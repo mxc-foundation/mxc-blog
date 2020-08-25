@@ -6,7 +6,6 @@ const Section = styled.section`
   background: ${props => props.color};
   a {
     text-decoration: none;
-    
   }
 `
 

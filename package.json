@@ -12,13 +12,16 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest",
-    "dev": "GATSBY_CONCURRENT_DOWNLOAD=1 gatsby develop"
+    "dev": "GATSBY_CONCURRENT_DOWNLOAD=1 gatsby develop",
+    "lint" : "eslint .",
+    "validate": "npm-run-all --parallel format lint build"
   },
   "dependencies": {
     "@segment/consent-manager": "1.0.1",
     "@segment/in-eu": "^0.3.0",
     "babel-plugin-styled-components": "^1.10.7",
     "dotenv": "^8.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "gatsby": "^2.20.25",
     "gatsby-background-image": "^1.1.1",
     "gatsby-cli": "^2.12.60",
@@ -53,11 +56,20 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.6",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^25.4.0",
     "babel-preset-gatsby": "^0.3.3",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.4.0",
-    "prettier": "2.0.4",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.1.0",
     "react-test-renderer": "^16.13.1"
   },
   "repository": {
