@@ -10,6 +10,7 @@ require("dotenv").config({
 
 module.exports = {
   /* Your site config here */
+  pathPrefix: "/mxc-blog",
   siteMetadata: {
     title: "MXC Blog",
     description: "Our blog provides the latest information about the MXC Foundation, the MXC token, and relevant industry news regarding blockchain and the internet of things (IoT).",

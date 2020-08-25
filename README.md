@@ -21,13 +21,23 @@ This ReadMe needs to be updated with the following:
    ```shell
    npm install
    ```
+   
+  1. For this to build locally for development, you need to create a .env.development and add the keys to the following variables:
+   ```
+   STRAPI_USER=
+   STRAPI_PASSWORD=
+   GOOGLE_ANALYTICS=
+   HOTJAR=
+   COOKIE_HUB=
+   SITE_URL=
+  ```
 
 1. **Start developing.**
 
    Navigate into your new site’s directory and start it up.
 
    ```shell
-   cd my-hello-world-starter/
+   cd mxc-blog/
    gatsby develop
    ```
 
@@ -124,3 +134,17 @@ We used a number of helper functions while developing this site. You here's a li
   Create a border around an item. This use the CSS `border` element.
 
    Use ` ${setBorder()}` to create a border around an element with `2px black solid` as your defaults. You can customize these using `width="5",color="white",style="solid"`
+
+## Build for Production
+
+1. To build for production locally, you'll need to create a `.env.production` file and include the following variables:
+```
+  STRAPI_USER=
+   STRAPI_PASSWORD=
+   GOOGLE_ANALYTICS=
+   HOTJAR=
+   COOKIE_HUB=
+   SITE_URL=
+```
+2. Once this file is ready, run `gatsby build` in the root directory.
+3. Use `gatsby serve` to run the build locally

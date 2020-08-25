@@ -1,15 +1,43 @@
-name: Gatsby Publish
+name: github pages
 
 on:
   push:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
-      - uses: enriikke/gatsby-gh-pages-action@v2
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
         with:
-          access-token: ${{ secrets.GH_TOKEN }}
-          deploy-branch: gh-pages
-          gatsby-args: --prefix-paths
+          node-version: '12.x'
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.yarn
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: yarn install
+      # when jest is ready - run: yarn test
+
+      - name: Build # builds the docs site with --prefix-paths for gh-pages
+        run: |
+          yarn build --prefix-paths
+        env:
+          COOKIE_HUB: ${{ secrets.COOKIE_HUB }}
+          GOOGLE_ANALYTICS: ${{ secrets.GOOGLE_ANALYTICS }}
+          HOTJAR: ${{ secrets.HOTJAR }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+          STRAPI_USER: ${{ secrets.STRAPI_USER }}
+          STRAPI_PASSWORD: ${{ secrets.STRAPI_PASSWORD }}
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
