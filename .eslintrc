@@ -8,8 +8,13 @@
     }
   },
   "extends": ["airbnb", "prettier", "prettier/react"],
+  "env": {
+    "jest": true,
+    "browser": true
+  },
   "rules": {
     "valid-typeof": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-nested-ternary": "off"
   }
 }
