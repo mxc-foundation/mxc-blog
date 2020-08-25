@@ -34,4 +34,4 @@ export const PrimaryBtn = styled.button`
   text-decoration: none;
 `
 
-/* Add to ReadMe -- how to set margin, how to set "as" prop*/
+/* Add to ReadMe -- how to set margin, how to set "as" prop */

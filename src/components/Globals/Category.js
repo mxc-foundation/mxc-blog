@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import { FaChevronRight } from "react-icons/fa"
+import { Link } from "gatsby"
 import Section from "./Section"
 import Title from "./Title"
-import { Link } from "gatsby"
 import { setRem, setColor, setTransition, media } from "../../styles"
 
 const Category = ({ children, category, url }) => {

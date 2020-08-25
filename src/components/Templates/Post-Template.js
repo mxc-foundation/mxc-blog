@@ -1,7 +1,9 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
-import Layout from "../Layout"
 import Image from "gatsby-image"
+import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
+import ReactMarkdown from "react-markdown"
+import Layout from "../Layout"
 import {
   Content,
   Author,
@@ -19,13 +21,9 @@ import {
 import Line from "../Globals/Line"
 import { setColor } from "../../styles"
 import Video from "../Globals/Video"
-import { FaTwitterSquare, FaTelegram, FaLinkedin } from "react-icons/fa"
-import ReactMarkdown from "react-markdown"
 import SEO from "../Globals/SEO"
 
-
-const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
- 
+const Post_Template = ({ data, pageContext: { lang = "en", slug } }) => {
   return (
     <Layout>
       <SEO
@@ -34,8 +32,8 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
         image={
           data[lang].featuredImage === null
             ? data.file.childImageSharp.fluid.src
-            : data[lang].featuredImage === undefined 
-            ? data.file.childImageSharp.fluid.src 
+            : data[lang].featuredImage === undefined
+            ? data.file.childImageSharp.fluid.src
             : data[lang].featuredImage.childImageSharp.fluid.src
         }
         language="en"
@@ -43,7 +41,7 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
         post={data[lang].post.slug ? data[lang].post.slug : " "}
       />
       <Grid>
-        <div></div>
+        <div />
         <div>
           {data[lang].post.video ? (
             <Video url={data[lang].post.video} />
@@ -97,14 +95,22 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
                   <FaTwitterSquare size={30} className="iconRight" />
                 </a>
                 <a
-                  href={`https://telegram.me/share/url?url=https://blog.mxc.org/${lang==="en"?data[lang].post.slug:data[lang].enPost.post.slug}`}
+                  href={`https://telegram.me/share/url?url=https://blog.mxc.org/${
+                    lang === "en"
+                      ? data[lang].post.slug
+                      : data[lang].enPost.post.slug
+                  }`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaTelegram size={30} className="icon" />
                 </a>
                 <a
-                  href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${lang==="en"?data[lang].post.slug:data[lang].enPost.post.slug}`}
+                  href={`http://www.linkedin.com/shareArticle?mini=true&url=https://blog.mxc.org/${
+                    lang === "en"
+                      ? data[lang].post.slug
+                      : data[lang].enPost.post.slug
+                  }`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -123,7 +129,7 @@ const Post_Template = ({ data, pageContext: { lang = 'en', slug } }) => {
             </Tags>
           </Bottom>
         </div>
-        <div></div>
+        <div />
       </Grid>
     </Layout>
   )
@@ -176,7 +182,7 @@ export const query = graphql`
         }
       }
     }
-    hans: strapiZhchPosts(enPost: {post: {slug: {eq: $slug}}}) { 
+    hans: strapiZhchPosts(enPost: { post: { slug: { eq: $slug } } }) {
       category {
         zhchCategory
         zhchSlug
@@ -210,7 +216,7 @@ export const query = graphql`
         }
       }
     }
-    hant: strapiZhchPosts(enPost: {post: {slug: {eq: $slug}}}) {
+    hant: strapiZhchPosts(enPost: { post: { slug: { eq: $slug } } }) {
       category {
         zhchCategory
         zhchSlug
@@ -244,7 +250,7 @@ export const query = graphql`
         }
       }
     }
-    ko: strapiKoPosts(enPost: {post: {slug: {eq: $slug}}}) {
+    ko: strapiKoPosts(enPost: { post: { slug: { eq: $slug } } }) {
       category {
         koCategory
         koSlug

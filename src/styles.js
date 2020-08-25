@@ -41,7 +41,7 @@ export const setTransition = ({
   time = "0.3s",
   timing = "ease-in-out",
 } = {}) => {
-  /*Add to ReadMe */
+  /* Add to ReadMe */
   return `transition: ${property} ${time} ${timing};`
 }
 

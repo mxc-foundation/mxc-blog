@@ -1,13 +1,12 @@
 import React from "react"
 import { Link } from "gatsby"
+import styled from "styled-components"
 import Company from "../Constants/FooterCompany"
 import Community from "../Constants/FooterCommunity"
 import Resources from "../Constants/FooterResources"
-import styled from "styled-components"
 import { setColor, setRem, media } from "../../styles"
 
 const Footer = () => {
-
   return (
     <StyledFooter>
       <Column>
@@ -46,9 +45,7 @@ const Footer = () => {
           })}
         </Menu>
       </Column>
-      <Column>
-      This is a new column
-      </Column>
+      <Column>This is a new column</Column>
     </StyledFooter>
   )
 }

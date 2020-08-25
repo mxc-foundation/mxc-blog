@@ -1,7 +1,7 @@
 import React from "react"
-import { setColor, setRem, setFont, media } from "../styles"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
+import { setColor, setRem, setFont, media } from "../styles"
 import Line from "./Globals/Line"
 import Categories from "./Categories"
 import PostRow from "./Globals/PostRow"
@@ -36,10 +36,10 @@ const Posts = () => {
                 slug={item.post.slug}
                 image={
                   item.featuredImage === null
-                  ? file.fluid :
-                  item.featuredImage === undefined ?
-                  file.fluid :
-                  item.featuredImage.childImageSharp.fluid
+                    ? file.fluid
+                    : item.featuredImage === undefined
+                    ? file.fluid
+                    : item.featuredImage.childImageSharp.fluid
                 }
                 category={item.category.category}
                 date={item.date}
@@ -49,7 +49,7 @@ const Posts = () => {
             </div>
           )
         })}
-        <Category category="News Update" url={`/categories/news-update`}>
+        <Category category="News Update" url="/categories/news-update">
           {newsUpdate.map(data => {
             return (
               <div key={data.id}>
@@ -69,7 +69,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Events" url={`/categories/events`}>
+        <Category category="Events" url="/categories/events">
           {events.map(data => {
             return (
               <div key={data.id}>
@@ -89,10 +89,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category
-          category="Further Reading"
-          url={`/categories/further-reading`}
-        >
+        <Category category="Further Reading" url="/categories/further-reading">
           {furtherReading.map(data => {
             return (
               <div key={data.id}>
@@ -112,7 +109,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Press Releases" url={`/categories/press-release`}>
+        <Category category="Press Releases" url="/categories/press-release">
           {pressRelease.map(data => {
             return (
               <div key={data.id}>
@@ -132,7 +129,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Technology" url={`/categories/technology`}>
+        <Category category="Technology" url="/categories/technology">
           {technology.map(data => {
             return (
               <div key={data.id}>
@@ -152,7 +149,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Use Cases" url={`/categories/use-case`}>
+        <Category category="Use Cases" url="/categories/use-case">
           {useCase.map(data => {
             return (
               <div key={data.id}>
@@ -189,7 +186,7 @@ const FeaturedRow = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   h1 {
     text-align: center;
     margin: 20px 0;

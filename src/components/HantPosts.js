@@ -1,7 +1,7 @@
 import React from "react"
-import { setColor, setRem, setFont, media} from "../styles"
 import styled from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
+import { setColor, setRem, setFont, media } from "../styles"
 import Line from "./Globals/Line"
 import Categories from "./Categories"
 import PostRow from "./Globals/PostRow"
@@ -35,14 +35,14 @@ const Posts = () => {
                 text={item.post.metaDescription}
                 slug={`zh-hant/${item.enPost.post.slug}`}
                 image={
-                  /*item.featuredImage !== null
+                  /* item.featuredImage !== null
                     ? item.featuredImage.childImageSharp.fluid
                     : file.fluid */
-                    item.featuredImage === null
-                    ? file.fluid :
-                    item.featuredImage === undefined ?
-                    file.fluid :
-                    item.featuredImage.childImageSharp.fluid
+                  item.featuredImage === null
+                    ? file.fluid
+                    : item.featuredImage === undefined
+                    ? file.fluid
+                    : item.featuredImage.childImageSharp.fluid
                 }
                 category={item.category.zhtwCategory}
                 date={item.date}
@@ -53,7 +53,7 @@ const Posts = () => {
           )
         })}
 
-        <Category category="News Update" url={`/categories/news-update`}>
+        <Category category="News Update" url="/categories/news-update">
           {newsUpdate.map(data => {
             return (
               <div key={data.id}>
@@ -73,7 +73,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Events" url={`/categories/events`}>
+        <Category category="Events" url="/categories/events">
           {events.map(data => {
             return (
               <div key={data.id}>
@@ -93,10 +93,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category
-          category="Further Reading"
-          url={`/categories/further-reading`}
-        >
+        <Category category="Further Reading" url="/categories/further-reading">
           {furtherReading.map(data => {
             return (
               <div key={data.id}>
@@ -116,7 +113,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Press Releases" url={`/categories/press-release`}>
+        <Category category="Press Releases" url="/categories/press-release">
           {pressRelease.map(data => {
             return (
               <div key={data.id}>
@@ -136,7 +133,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Technology" url={`/categories/technology`}>
+        <Category category="Technology" url="/categories/technology">
           {technology.map(data => {
             return (
               <div key={data.id}>
@@ -156,7 +153,7 @@ const Posts = () => {
             )
           })}
         </Category>
-        <Category category="Use Cases" url={`/categories/use-case`}>
+        <Category category="Use Cases" url="/categories/use-case">
           {useCase.map(data => {
             return (
               <div key={data.id}>
@@ -193,7 +190,7 @@ const FeaturedRow = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   h1 {
     text-align: center;
     margin: 20px 0;
@@ -215,7 +212,10 @@ const getPosts = graphql`
   {
     featured: allStrapiZhtwPosts(
       sort: { order: DESC, fields: post___date }
-      filter: { post: { featured: { eq: true }, publish: { eq: true } }, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        post: { featured: { eq: true }, publish: { eq: true } }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         id
@@ -260,7 +260,10 @@ const getPosts = graphql`
     newsUpdate: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "news-update" } } , enPost: {post: {slug: {ne: null}}}}
+      filter: {
+        category: { slug: { eq: "news-update" } }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -290,7 +293,10 @@ const getPosts = graphql`
     events: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "events" } }, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "events" } }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -320,7 +326,10 @@ const getPosts = graphql`
     furtherReading: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "further-reading" } }, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "further-reading" } }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -350,7 +359,10 @@ const getPosts = graphql`
     technology: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "technology" } }, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "technology" } }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -380,7 +392,10 @@ const getPosts = graphql`
     pressRelease: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "press-release" } }, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "press-release" } }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -410,7 +425,10 @@ const getPosts = graphql`
     useCase: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "use-case" } }, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "use-case" } }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title

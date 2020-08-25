@@ -21,16 +21,17 @@ This ReadMe needs to be updated with the following:
    ```shell
    npm install
    ```
-   
-  1. For this to build locally for development, you need to create a .env.development and add the keys to the following variables:
-   ```
-   STRAPI_USER=
-   STRAPI_PASSWORD=
-   GOOGLE_ANALYTICS=
-   HOTJAR=
-   COOKIE_HUB=
-   SITE_URL=
-  ```
+
+1. For this to build locally for development, you need to create a .env.development and add the keys to the following variables:
+
+```
+STRAPI_USER=
+STRAPI_PASSWORD=
+GOOGLE_ANALYTICS=
+HOTJAR=
+COOKIE_HUB=
+SITE_URL=
+```
 
 1. **Start developing.**
 
@@ -101,43 +102,44 @@ We used a number of helper functions while developing this site. You here's a li
 
   - **Content Position**
 
-      Use ` ${setFlex()}` to set content position within a div.
+    Use ` ${setFlex()}` to set content position within a div.
 
     _Options_
 
-   ```
-   X: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
-   Y: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
-   ```
+  ```
+  X: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+  Y: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
+  ```
 
 - **Media Query**
 
-    Use `${media.option}` to set your media queries. The Tablet option can be replaced with one of the following options. The words correspond with the pixel number listed.
-         * phone: 320
-         * smallTablet: 481
-          * portraitTablet: 641
-         * tablet: 961
-         * laptop: 1025
-         * desktop: 1281
+  Use `${media.option}` to set your media queries. The Tablet option can be replaced with one of the following options. The words correspond with the pixel number listed.
+  _ phone: 320
+  _ smallTablet: 481
+  _ portraitTablet: 641
+  _ tablet: 961
+  _ laptop: 1025
+  _ desktop: 1281
 
 - **setRem**
   Convert pixels to Rem with setRem.
 
-   Use ` ${setRem(60)}` with 60 being the number of pixels. If you leave it empty, it will default at 16 pixels, making it 1 rem.
+  Use ` ${setRem(60)}` with 60 being the number of pixels. If you leave it empty, it will default at 16 pixels, making it 1 rem.
 
 - **Letter Spacing**
   Set the CSS `letter-spacing` using Pixels that will be automatically converted to rem.
 
-   Use ` ${setLetterSpacing(60)}` with 60 being the number of pixel. If you leave it empty, it will default to 2 pixels.
+  Use ` ${setLetterSpacing(60)}` with 60 being the number of pixel. If you leave it empty, it will default to 2 pixels.
 
 - **Set a Border**
   Create a border around an item. This use the CSS `border` element.
 
-   Use ` ${setBorder()}` to create a border around an element with `2px black solid` as your defaults. You can customize these using `width="5",color="white",style="solid"`
+  Use ` ${setBorder()}` to create a border around an element with `2px black solid` as your defaults. You can customize these using `width="5",color="white",style="solid"`
 
 ## Build for Production
 
 1. To build for production locally, you'll need to create a `.env.production` file and include the following variables:
+
 ```
   STRAPI_USER=
    STRAPI_PASSWORD=
@@ -146,5 +148,6 @@ We used a number of helper functions while developing this site. You here's a li
    COOKIE_HUB=
    SITE_URL=
 ```
+
 2. Once this file is ready, run `gatsby build` in the root directory.
 3. Use `gatsby serve` to run the build locally

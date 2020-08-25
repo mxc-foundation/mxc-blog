@@ -13,7 +13,8 @@ module.exports = {
   pathPrefix: "/mxc-blog",
   siteMetadata: {
     title: "MXC Blog",
-    description: "Our blog provides the latest information about the MXC Foundation, the MXC token, and relevant industry news regarding blockchain and the internet of things (IoT).",
+    description:
+      "Our blog provides the latest information about the MXC Foundation, the MXC token, and relevant industry news regarding blockchain and the internet of things (IoT).",
     author: "MXC Foundation gGmbH",
     twitterUsername: "@mxcfoundation",
     image: "/defaultImg.png",
@@ -41,14 +42,15 @@ module.exports = {
           {
             serialize: ({ query: { site, allStrapiKoPosts } }) => {
               return allStrapiKoPosts.nodes.map(nodes => {
-                return Object.assign({}, nodes.post, {
+                return {
+                  ...nodes.post,
                   title: nodes.title,
                   description: nodes.post.metaDescription,
                   date: nodes.date,
-                  url: site.siteMetadata.siteUrl + `/ko/` + nodes.post.slug,
-                  guid: site.siteMetadata.siteUrl + `/ko/` + nodes.post.slug,
+                  url: `${site.siteMetadata.siteUrl}/ko/${nodes.post.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}/ko/${nodes.post.slug}`,
                   custom_elements: [{ "content:encoded": nodes.post.content }],
-                })
+                }
               })
             },
             query: `
@@ -73,14 +75,15 @@ module.exports = {
           {
             serialize: ({ query: { site, allStrapiPosts } }) => {
               return allStrapiPosts.nodes.map(nodes => {
-                return Object.assign({}, nodes.post, {
+                return {
+                  ...nodes.post,
                   title: nodes.title,
                   description: nodes.post.metaDescription,
                   date: nodes.date,
-                  url: site.siteMetadata.siteUrl + `/` + nodes.post.slug,
-                  guid: site.siteMetadata.siteUrl + `/` + nodes.post.slug,
+                  url: `${site.siteMetadata.siteUrl}/${nodes.post.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}/${nodes.post.slug}`,
                   custom_elements: [{ "content:encoded": nodes.post.content }],
-                })
+                }
               })
             },
             query: `
@@ -105,14 +108,15 @@ module.exports = {
           {
             serialize: ({ query: { site, allStrapiZhtwPosts } }) => {
               return allStrapiZhtwPosts.nodes.map(nodes => {
-                return Object.assign({}, nodes.post, {
+                return {
+                  ...nodes.post,
                   title: nodes.title,
                   description: nodes.post.metaDescription,
                   date: nodes.date,
-                  url: site.siteMetadata.siteUrl + `/zh-hant/` + nodes.post.slug,
-                  guid: site.siteMetadata.siteUrl + `/zh-hant` + nodes.post.slug,
+                  url: `${site.siteMetadata.siteUrl}/zh-hant/${nodes.post.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}/zh-hant${nodes.post.slug}`,
                   custom_elements: [{ "content:encoded": nodes.post.content }],
-                })
+                }
               })
             },
             query: `
@@ -137,14 +141,15 @@ module.exports = {
           {
             serialize: ({ query: { site, allStrapiZhchPosts } }) => {
               return allStrapiZhchPosts.nodes.map(nodes => {
-                return Object.assign({}, nodes.post, {
+                return {
+                  ...nodes.post,
                   title: nodes.title,
                   description: nodes.post.metaDescription,
                   date: nodes.date,
-                  url: site.siteMetadata.siteUrl + `/zh-hans/` + nodes.post.slug,
-                  guid: site.siteMetadata.siteUrl + `/zh-hans/` + nodes.post.slug,
+                  url: `${site.siteMetadata.siteUrl}/zh-hans/${nodes.post.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}/zh-hans/${nodes.post.slug}`,
                   custom_elements: [{ "content:encoded": nodes.post.content }],
-                })
+                }
               })
             },
             query: `
@@ -170,62 +175,63 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-robots-txt',
+      resolve: "gatsby-plugin-robots-txt",
       options: {
         host: process.env.SITE_URL,
         sitemap: `${process.env.SITE_URL}/sitemap.xml`,
-        policy: [{ userAgent: '*', allow: '/' }]
-      }
+        policy: [{ userAgent: "*", allow: "/" }],
+      },
     },
 
     {
-      resolve: 'gatsby-plugin-gdpr-tracking',
+      resolve: "gatsby-plugin-gdpr-tracking",
       options: {
         // logging to the console, if debug is true
-        debug: false, 
-        googleAnalytics: { 
-            // The property ID; the tracking code won't be generated without it.
-            trackingId: process.env.GOOGLE_ANALYTICS,
-            // Defines it google analytics should be started with out the cookie consent
-            autoStart: false, // <--- default
-            // Setting this parameter is optional
-            anonymize: true, // <--- default
-            // Name of the cookie, that enables the tracking if it is true
-            controlCookieName: 'gatsby-plugin-google-analytics-gdpr_cookies-enabled',
-            cookieFlags: 'secure;samesite=none' // <--- default
+        debug: false,
+        googleAnalytics: {
+          // The property ID; the tracking code won't be generated without it.
+          trackingId: process.env.GOOGLE_ANALYTICS,
+          // Defines it google analytics should be started with out the cookie consent
+          autoStart: false, // <--- default
+          // Setting this parameter is optional
+          anonymize: true, // <--- default
+          // Name of the cookie, that enables the tracking if it is true
+          controlCookieName:
+            "gatsby-plugin-google-analytics-gdpr_cookies-enabled",
+          cookieFlags: "secure;samesite=none", // <--- default
         },
         hotjar: {
           // The Hotjar ID; the tracking code won't be generated without it.
           trackingId: process.env.HOTJAR,
           // Your Hotjar snippet version
-          snippetVersion: '6', // <--- default
+          snippetVersion: "6", // <--- default
           // Name of the cookie, that enables the tracking if it is true
-          controlCookieName: 'marketing-enabled' // <--- default
+          controlCookieName: "marketing-enabled", // <--- default
         },
         // Defines the environments where the tracking should be available  - default is ["production"]
-        environments: ['production', 'development']
+        environments: ["production", "development"],
       },
     },
     {
       resolve: `gatsby-plugin-cookiehub-banner`,
       options: {
-          // The ID is part of the CookieHub URL: https://cookiehub.net/cc/YOUR_COOKIEHUB_ID.js
-          cookieHubId: process.env.COOKIE_HUB,
-          // Optional parameter (default false) - Use new v2 API.
-          cookieHubV2Api: true,
-          // Categories configured with CookieHub
-          categories: [
-          { 
-              categoryName: 'analytics', // Unique id of the category which is set by Cookiehub.
-              cookieName: 'gatsby-plugin-google-analytics-gdpr_cookies-enabled' // Your custom cookie name
+        // The ID is part of the CookieHub URL: https://cookiehub.net/cc/YOUR_COOKIEHUB_ID.js
+        cookieHubId: process.env.COOKIE_HUB,
+        // Optional parameter (default false) - Use new v2 API.
+        cookieHubV2Api: true,
+        // Categories configured with CookieHub
+        categories: [
+          {
+            categoryName: "analytics", // Unique id of the category which is set by Cookiehub.
+            cookieName: "gatsby-plugin-google-analytics-gdpr_cookies-enabled", // Your custom cookie name
           },
-          { 
-              categoryName: 'marketing',
-              cookieName: 'marketing-enabled'
-          }
-          ]
-      }
-  },
+          {
+            categoryName: "marketing",
+            cookieName: "marketing-enabled",
+          },
+        ],
+      },
+    },
 
     {
       resolve: `gatsby-source-filesystem`,
@@ -259,7 +265,7 @@ module.exports = {
           `zhch-posts`,
           `zhtw-posts`,
         ],
-        //If using single types place them in this array.
+        // If using single types place them in this array.
         // singleTypes: [`home-page`, `contact`],
         // Possibility to login with a strapi user, when content types are not publically available (optional).
         loginData: {
