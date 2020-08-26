@@ -6,11 +6,12 @@ import styles from "./Categories.module.css"
 
 import { media, setColor, setRem, setFlex } from "../styles"
 
-const Categories = () => {
-  const links = useStaticQuery(getCategories)
-
+// eslint-disable-next-line react/prop-types
+export const PureCategories = ({ data }) => {
+  const links = data
   const [isOpen, setNav] = useState(false)
   const toggleNav = () => {
+    // eslint-disable-next-line no-shadow
     setNav(isOpen => !isOpen)
   }
   const url = typeof window !== `undefined` ? window.location.href : "/"
@@ -23,7 +24,7 @@ const Categories = () => {
         </MobileMenu>
       </FlexBox>
       <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
-        {links.categories.nodes.map((item, index) => {
+        {links.categories.nodes.map(item => {
           const catList = url.includes("/ko")
             ? item.koCategory
             : url.includes("/zh-hans")
@@ -31,9 +32,10 @@ const Categories = () => {
             : url.includes("/zh-hant")
             ? item.zhtwCategory
             : item.category
+
           const catSlug = `categories/${item.slug}`
           return (
-            <MenuItem key={index}>
+            <MenuItem key={catSlug}>
               <Link to={`${catSlug}`}>{catList}</Link>
             </MenuItem>
           )
@@ -41,6 +43,26 @@ const Categories = () => {
       </StyledMenu>
     </div>
   )
+}
+export const Categories = props => {
+  const data = useStaticQuery(graphql`
+    query {
+      categories: allStrapiCategories {
+        nodes {
+          slug
+          category
+          zhtwCategory
+          zhtwSlug
+          koCategory
+          koSlug
+          zhchCategory
+          zhchSlug
+        }
+      }
+    }
+  `)
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <PureCategories {...props} data={data} />
 }
 
 export const FlexBox = styled.div`
@@ -88,22 +110,6 @@ export const StyledMenu = styled.ul`
 `
 export const MenuItem = styled.li`
   padding: 1rem 2rem;
-`
-const getCategories = graphql`
-  query {
-    categories: allStrapiCategories {
-      nodes {
-        slug
-        category
-        zhtwCategory
-        zhtwSlug
-        koCategory
-        koSlug
-        zhchCategory
-        zhchSlug
-      }
-    }
-  }
 `
 
 export default Categories
