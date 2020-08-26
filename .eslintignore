@@ -1,6 +1,4 @@
 public
 node_modules
 .cache
-test
-__mocks__
 coverage

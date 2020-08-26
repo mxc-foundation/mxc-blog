@@ -6,26 +6,9 @@ import styles from "./Categories.module.css"
 
 import { media, setColor, setRem, setFlex } from "../styles"
 
-const getCategories = graphql`
-  query {
-    categories: allStrapiCategories {
-      nodes {
-        slug
-        category
-        zhtwCategory
-        zhtwSlug
-        koCategory
-        koSlug
-        zhchCategory
-        zhchSlug
-      }
-    }
-  }
-`
-
-const Categories = () => {
-  const links = useStaticQuery(getCategories)
-
+// eslint-disable-next-line react/prop-types
+export const PureCategories = ({ data }) => {
+  const links = data
   const [isOpen, setNav] = useState(false)
   const toggleNav = () => {
     // eslint-disable-next-line no-shadow
@@ -42,8 +25,6 @@ const Categories = () => {
       </FlexBox>
       <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
         {links.categories.nodes.map(item => {
-          /* ToDo: Move checkUrl function to utils */
-
           const catList = url.includes("/ko")
             ? item.koCategory
             : url.includes("/zh-hans")
@@ -62,6 +43,26 @@ const Categories = () => {
       </StyledMenu>
     </div>
   )
+}
+export const Categories = props => {
+  const data = useStaticQuery(graphql`
+    query {
+      categories: allStrapiCategories {
+        nodes {
+          slug
+          category
+          zhtwCategory
+          zhtwSlug
+          koCategory
+          koSlug
+          zhchCategory
+          zhchSlug
+        }
+      }
+    }
+  `)
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <PureCategories {...props} data={data} />
 }
 
 export const FlexBox = styled.div`

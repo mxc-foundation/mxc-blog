@@ -13,7 +13,7 @@
     "browser": true
   },
   "rules": {
-    "valid-typeof": "error",
+    "valid-typeof": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-nested-ternary": "off"
   }
