@@ -117,15 +117,14 @@ const Index_Template = ({
           </Title>
           <Categories />
           {Tfeatured.map(item => {
+            const link =
+              lang === "en" ? item.post.slug : slug + item.enPost.post.slug
             return (
               <div key={item.id}>
                 <PostRow
                   heading={item.title}
                   text={item.post.metaDescription}
-                  slug={
-                    slug +
-                    (lang === "en" ? item.post.slug : item.enPost.post.slug)
-                  }
+                  slug={link}
                   image={
                     item.featuredImage === null
                       ? file.fluid
@@ -143,15 +142,14 @@ const Index_Template = ({
           })}
           <Category category="News Update" url="/categories/news-update">
             {TnewsUpdate.map(news => {
+              const link =
+                lang === "en" ? news.post.slug : slug + news.enPost.post.slug
               return (
                 <div key={news.id}>
                   <PostRow
                     heading={news.title}
                     text={news.post.metaDescription}
-                    slug={
-                      slug +
-                      (lang === "en" ? news.post.slug : news.enPost.post.slug)
-                    }
+                    slug={link}
                     date={news.date}
                     image={
                       news.featuredImage !== null
@@ -166,15 +164,14 @@ const Index_Template = ({
           </Category>
           <Category category="Events" url="/categories/events">
             {Tevents.map(event => {
+              const link =
+                lang === "en" ? event.post.slug : slug + event.enPost.post.slug
               return (
                 <div key={event.id}>
                   <PostRow
                     heading={event.title}
                     text={event.post.metaDescription}
-                    slug={
-                      slug +
-                      (lang === "en" ? event.post.slug : event.enPost.post.slug)
-                    }
+                    slug={link}
                     date={event.date}
                     image={
                       event.featuredImage !== null
@@ -192,17 +189,16 @@ const Index_Template = ({
             url="/categories/further-reading"
           >
             {TfurtherReading.map(article => {
+              const link =
+                lang === "en"
+                  ? article.post.slug
+                  : slug + article.enPost.post.slug
               return (
                 <div key={article.id}>
                   <PostRow
                     heading={article.title}
                     text={article.post.metaDescription}
-                    slug={
-                      slug +
-                      (lang === "en"
-                        ? article.post.slug
-                        : article.enPost.post.slug)
-                    }
+                    slug={link}
                     date={article.date}
                     image={
                       article.featuredImage !== null
@@ -217,15 +213,14 @@ const Index_Template = ({
           </Category>
           <Category category="Press Releases" url="/categories/press-release">
             {TpressRelease.map(press => {
+              const link =
+                lang === "en" ? press.post.slug : slug + press.enPost.post.slug
               return (
                 <div key={press.id}>
                   <PostRow
                     heading={press.title}
                     text={press.post.metaDescription}
-                    slug={
-                      slug +
-                      (lang === "en" ? press.post.slug : press.enPost.post.slug)
-                    }
+                    slug={link}
                     date={press.date}
                     image={
                       press.featuredImage !== null
@@ -240,15 +235,14 @@ const Index_Template = ({
           </Category>
           <Category category="Technology" url="/categories/technology">
             {Ttechnology.map(tech => {
+              const link =
+                lang === "en" ? tech.post.slug : slug + tech.enPost.post.slug
               return (
                 <div key={tech.id}>
                   <PostRow
                     heading={tech.title}
                     text={tech.post.metaDescription}
-                    slug={
-                      slug +
-                      (lang === "en" ? tech.post.slug : tech.enPost.post.slug)
-                    }
+                    slug={link}
                     date={tech.date}
                     image={
                       tech.featuredImage !== null
@@ -263,15 +257,14 @@ const Index_Template = ({
           </Category>
           <Category category="Use Cases" url="/categories/use-case">
             {TuseCase.map(use => {
+              const link =
+                lang === "en" ? use.post.slug : slug + use.enPost.post.slug
               return (
                 <div key={use.id}>
                   <PostRow
                     heading={use.title}
                     text={use.post.metaDescription}
-                    slug={
-                      slug +
-                      (lang === "en" ? use.post.slug : use.enPost.post.slug)
-                    }
+                    slug={link}
                     date={use.date}
                     image={
                       use.featuredImage !== null

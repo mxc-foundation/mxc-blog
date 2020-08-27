@@ -54,7 +54,7 @@ const LangDropdown = () => {
       offset = 1
       break
     case "ko":
-      offset = 2
+      offset = 1
       break
     default:
       offset = 0
