@@ -1,18 +1,15 @@
 import React from "react"
 import styled from "styled-components"
-import Layout from "../Layout"
 import { graphql } from "gatsby"
+import Layout from "../Layout"
 import Line from "../Globals/Line"
 import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
-import { localeSettings } from "../Globals/LocalSettings";
+import { localeSettings } from "../Globals/LocalSettings"
 
-
-
-const CategoryTemplate = ({ data, pageContext: { lang = 'en', category } }) => {
-  const locl = localeSettings[lang];
-  
+const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
+  const locl = localeSettings[lang]
 
   return (
     <Layout>
@@ -30,25 +27,30 @@ const CategoryTemplate = ({ data, pageContext: { lang = 'en', category } }) => {
                   <h1>{item[locl.categoryPropName]}</h1>
                 </Title>
                 {data[lang].edges.map(post => {
-                  let slug = "";
-                  if(data[lang].edges.length > 0){
-                    slug =lang==='en'
-                    ? post.node.post.slug
-                    : post.node.enPost 
-                      ? post.node.enPost.post.slug
-                      : "";
+                  let slug = ""
+                  if (data[lang].edges.length > 0) {
+                    slug =
+                      lang === "en"
+                        ? post.node.post.slug
+                        : post.node.enPost
+                        ? post.node.enPost.post.slug
+                        : ""
                   }
                   return (
                     <div key={post.node.id}>
                       <PostRow
                         heading={post.node.title}
-                        text={post.node.post.metaDescription?post.node.post.metaDescription:""}
+                        text={
+                          post.node.post.metaDescription
+                            ? post.node.post.metaDescription
+                            : ""
+                        }
                         image={
                           post.node.featuredImage !== null
                             ? post.node.featuredImage.childImageSharp.fluid
                             : data.file.childImageSharp.fluid
                         }
-                        slug={`${locl.relativePath}${slug}`} 
+                        slug={`${locl.relativePath}${slug}`}
                         date={post.node.post.date}
                       />
                       <Line color={setColor.lightGrey} />
@@ -75,7 +77,7 @@ const FeaturedRow = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   h1 {
     text-align: center;
     margin: 20px 0;
@@ -95,8 +97,6 @@ const FeaturedRow = styled.div`
     height: 488px;
   `}
   ${media.laptop`.img{height:100px;}`}
-  
- 
 `
 
 const Title = styled.div`
@@ -111,9 +111,9 @@ const Title = styled.div`
 export const query = graphql`
   query($category: String!) {
     en: allStrapiPosts(
-      sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $category}}}) 
-      {
+      sort: { order: DESC, fields: date }
+      filter: { category: { slug: { eq: $category } } }
+    ) {
       edges {
         node {
           id
@@ -137,9 +137,12 @@ export const query = graphql`
       }
     }
     hans: allStrapiZhchPosts(
-      sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
-      {
+      sort: { order: DESC, fields: date }
+      filter: {
+        category: { slug: { eq: $category } }
+        enPost: { post: { slug: { ne: null } } }
+      }
+    ) {
       edges {
         node {
           id
@@ -168,9 +171,12 @@ export const query = graphql`
       }
     }
     hant: allStrapiZhtwPosts(
-      sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
-      {
+      sort: { order: DESC, fields: date }
+      filter: {
+        category: { slug: { eq: $category } }
+        enPost: { post: { slug: { ne: null } } }
+      }
+    ) {
       edges {
         node {
           id
@@ -199,9 +205,12 @@ export const query = graphql`
       }
     }
     ko: allStrapiKoPosts(
-      sort: {order: DESC, fields: date}, 
-      filter: {category: {slug: {eq: $category}}, enPost: {post: {slug: {ne: null}}}}) 
-      {
+      sort: { order: DESC, fields: date }
+      filter: {
+        category: { slug: { eq: $category } }
+        enPost: { post: { slug: { ne: null } } }
+      }
+    ) {
       edges {
         node {
           id
@@ -250,6 +259,6 @@ export const query = graphql`
       }
     }
   }
-`  
+`
 
 export default CategoryTemplate

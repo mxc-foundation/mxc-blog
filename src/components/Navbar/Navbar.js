@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Image from "gatsby-image"
+import { FaBars } from "react-icons/fa"
 import {
   StyledNav,
   MobileMenu,
@@ -10,7 +11,6 @@ import {
   Grid,
   NavRight,
 } from "./Navbar.styled"
-import { FaBars } from "react-icons/fa"
 import { getTopMenu } from "../Constants/Links"
 import styles from "./Navbar.module.css"
 import LangDropdown from "./LangDropdown"
@@ -27,7 +27,6 @@ const getLogo = graphql`
   }
 `
 
-
 const Navbar = () => {
   const data = useStaticQuery(getLogo)
   const [isOpen, setNav] = useState(false)
@@ -35,10 +34,14 @@ const Navbar = () => {
     setNav(isOpen => !isOpen)
   }
 
-  const url = typeof window !== `undefined` ? window.location.href.split("/") : "/"
-  const path = url.slice(3, url.length);
-  const lang = (path[0] !== "zh-hans" && path[0] !== "zh-hant" && path[0] !== "ko") ? "" : path[0];
-  const menu = getTopMenu(lang);
+  const url =
+    typeof window !== `undefined` ? window.location.href.split("/") : "/"
+  const path = url.slice(3, url.length)
+  const lang =
+    path[0] !== "zh-hans" && path[0] !== "zh-hant" && path[0] !== "ko"
+      ? ""
+      : path[0]
+  const menu = getTopMenu(lang)
 
   return (
     <Grid>
@@ -72,13 +75,9 @@ const Navbar = () => {
       </StyledNav>
       <NavRight>
         <LangDropdown />
-
       </NavRight>
     </Grid>
   )
 }
-
-
-
 
 export default Navbar
