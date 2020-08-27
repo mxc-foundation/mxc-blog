@@ -1,4 +1,4 @@
-export function getTopMenu(lang) {
+export default function getTopMenu(lang) {
   const token = lang === "" ? "mxc-token" : "token"
   const supernode = lang === "" ? "mxc-supernode" : "supernode"
   const about = lang === "" ? "mxc-about" : "about"
