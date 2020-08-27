@@ -1,10 +1,10 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import Company from "../Constants/FooterCompany"
-import Community from "../Constants/FooterCommunity"
-import Resources from "../Constants/FooterResources"
-import { setColor, setRem, media } from "../../styles"
+import Company from "./Constants/FooterCompany"
+import Community from "./Constants/FooterCommunity"
+import Resources from "./Constants/FooterResources"
+import { setColor, setRem, media } from "../styles"
 
 const Footer = () => {
   return (
@@ -12,9 +12,9 @@ const Footer = () => {
       <Column>
         Company
         <Menu>
-          {Company.map((item, index) => {
+          {Company.map(item => {
             return (
-              <MenuItem key={index}>
+              <MenuItem key={item.text}>
                 <Link to={item.path}>{item.text}</Link>
               </MenuItem>
             )
@@ -24,9 +24,9 @@ const Footer = () => {
       <Column>
         Community
         <Menu>
-          {Community.map((item, index) => {
+          {Community.map(item => {
             return (
-              <MenuItem key={index}>
+              <MenuItem key={item.text}>
                 <Link to={item.path}>{item.text}</Link>
               </MenuItem>
             )
@@ -36,9 +36,9 @@ const Footer = () => {
       <Column>
         Resources
         <Menu>
-          {Resources.map((item, index) => {
+          {Resources.map(item => {
             return (
-              <MenuItem key={index}>
+              <MenuItem key={item.text}>
                 <Link to={item.path}>{item.text}</Link>
               </MenuItem>
             )
