@@ -2,3 +2,4 @@ public
 node_modules
 .cache
 coverage
+__tests__
