@@ -5,21 +5,62 @@ import { FaCaretDown } from "react-icons/fa"
 import styles from "./LangDropdown.module.css"
 import { setColor, setRem } from "../../styles"
 
+const getPosts = graphql`
+  query {
+    allStrapiPosts {
+      nodes {
+        hans: zhch_post {
+          post {
+            slug
+            publish
+          }
+        }
+        hant: zhtw_post {
+          post {
+            slug
+            publish
+          }
+        }
+        ko: ko_post {
+          post {
+            slug
+            publish
+          }
+        }
+        en: post {
+          slug
+          publish
+        }
+      }
+    }
+  }
+`
+
 const LangDropdown = () => {
   const posts = useStaticQuery(getPosts)
 
   /* get slug of current page x */
+  /* eslint-disable */
   const url =
     typeof window !== `undefined` ? window.location.href.split("/") : "/"
+  /* eslint-enable */
   const path = url.slice(3, url.length)
-  const offset =
-    path[0] === "zh-hans"
-      ? 1
-      : path[0] === "zh-hant"
-      ? 1
-      : path[0] === "ko"
-      ? 1
-      : 0
+  let offset = 0
+  switch (path[0]) {
+    case "zh-hans":
+      offset = 1
+      break
+    case "zh-hant":
+      offset = 1
+      break
+    case "ko":
+      offset = 2
+      break
+    default:
+      offset = 0
+      break
+  }
+
   let slug = path.slice(offset)
 
   const tempSlug = slug
@@ -44,9 +85,11 @@ const LangDropdown = () => {
 
   /* set up state */
   const [isOpen, setDropdown] = useState(false)
+  /* eslint-disable */
   const toggleDropdown = () => {
     setDropdown(isOpen => !isOpen)
   }
+  /* eslint-enable */
 
   return (
     <div>
@@ -108,37 +151,6 @@ export const MenuItem = styled.li`
 `
 const Button = styled.div`
   cursor: pointer;
-`
-
-const getPosts = graphql`
-  query {
-    allStrapiPosts {
-      nodes {
-        hans: zhch_post {
-          post {
-            slug
-            publish
-          }
-        }
-        hant: zhtw_post {
-          post {
-            slug
-            publish
-          }
-        }
-        ko: ko_post {
-          post {
-            slug
-            publish
-          }
-        }
-        en: post {
-          slug
-          publish
-        }
-      }
-    }
-  }
 `
 
 export default LangDropdown

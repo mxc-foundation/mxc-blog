@@ -9,8 +9,10 @@ import SEO from "../Globals/SEO"
 import { localeSettings } from "../Globals/LocalSettings"
 import Categories from "../Categories"
 
-/* eslint-disable */
-const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
+const CategoryTemplate = ({
+  data,
+  pageContext: { lang = "en", category, today },
+}) => {
   const locl = localeSettings[lang]
 
   return (
@@ -35,9 +37,7 @@ const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
                     slug =
                       lang === "en"
                         ? post.node.post.slug
-                        : post.node.enPost
-                        ? post.node.enPost.post.slug
-                        : ""
+                        : post.node.enPost.post.slug
                   }
                   return (
                     <div key={post.node.id}>
@@ -69,6 +69,7 @@ const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
     </Layout>
   )
 }
+
 const Grid = styled.div`
   ${media.tablet`  display: grid;
   grid-template-columns: 10vw 80vw 10vw;
@@ -112,10 +113,10 @@ const Title = styled.div`
 `
 
 export const query = graphql`
-  query($category: String!) {
+  query($category: String!, $today: Date!) {
     en: allStrapiPosts(
       sort: { order: DESC, fields: date }
-      filter: { category: { slug: { eq: $category } } }
+      filter: { category: { slug: { eq: $category } }, date: { lte: $today } }
     ) {
       edges {
         node {
@@ -144,6 +145,7 @@ export const query = graphql`
       filter: {
         category: { slug: { eq: $category } }
         enPost: { post: { slug: { ne: null } } }
+        date: { lte: $today }
       }
     ) {
       edges {
@@ -178,6 +180,7 @@ export const query = graphql`
       filter: {
         category: { slug: { eq: $category } }
         enPost: { post: { slug: { ne: null } } }
+        date: { lte: $today }
       }
     ) {
       edges {
@@ -212,6 +215,7 @@ export const query = graphql`
       filter: {
         category: { slug: { eq: $category } }
         enPost: { post: { slug: { ne: null } } }
+        date: { lte: $today }
       }
     ) {
       edges {

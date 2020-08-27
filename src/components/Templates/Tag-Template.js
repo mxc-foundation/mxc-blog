@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import React from "react"
 import styled from "styled-components"
 import { graphql } from "gatsby"
@@ -7,16 +8,23 @@ import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
-const TagTemplate = ({ data, pageContext: { lang = "en", slug } }) => {
+const TagTemplate = ({ data, pageContext: { lang = "en", slug, today } }) => {
   const lanPath = lang === "en" ? "" : `${lang}/`
-  const lanTag =
-    lang === "en"
-      ? "tag"
-      : lang === "ko"
-      ? "koTag"
-      : lang === "hans"
-      ? "zhchTag"
-      : "zhtwTag"
+  let lanTag = "tag"
+  switch (lang) {
+    case "zh-hans":
+      lanTag = "zhchTag"
+      break
+    case "zh-hant":
+      lanTag = "zhtwTag"
+      break
+    case "ko":
+      lanTag = "koTag"
+      break
+    default:
+      lanTag = "tag"
+      break
+  }
 
   return (
     <Layout>
@@ -100,11 +108,12 @@ const Title = styled.div`
 `
 
 export const query = graphql`
-  query($slug: String!) {
+  query($slug: String!, $today: Date!) {
     en: allStrapiPosts(
       filter: {
         post: { publish: { eq: true } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {
@@ -140,6 +149,7 @@ export const query = graphql`
       filter: {
         post: { publish: { eq: true } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {
@@ -175,6 +185,7 @@ export const query = graphql`
       filter: {
         post: { publish: { eq: true } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {
@@ -210,6 +221,7 @@ export const query = graphql`
       filter: {
         post: { publish: { eq: true } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {

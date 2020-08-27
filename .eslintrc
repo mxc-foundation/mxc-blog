@@ -18,7 +18,9 @@
   },
   "rules": {
     "valid-typeof": "off",
+    "camelcase": "off",
     "react/prop-types": 0,
+    "no-unused-vars": "off",
     "import/no-named-as-default": 0,
     "react/jsx-filename-extension": [
       1,
