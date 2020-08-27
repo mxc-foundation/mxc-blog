@@ -29,7 +29,7 @@
     "eslint-plugin-import": "^2.22.0",
     "gatsby": "^2.20.25",
     "gatsby-background-image": "^1.1.1",
-    "gatsby-cli": "^2.12.60",
+    "gatsby-cli": "^2.12.89",
     "gatsby-env-variables": "^2.0.0",
     "gatsby-image": "^2.3.4",
     "gatsby-plugin-cookiehub-banner": "^0.1.0",

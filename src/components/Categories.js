@@ -7,14 +7,13 @@ import styles from "./Categories.module.css"
 import { media, setColor, setRem, setFlex } from "../styles"
 
 // eslint-disable-next-line react/prop-types
-export const PureCategories = ({ data }) => {
+export const PureCategories = ({ data, url }) => {
   const links = data
   const [isOpen, setNav] = useState(false)
   const toggleNav = () => {
     // eslint-disable-next-line no-shadow
     setNav(isOpen => !isOpen)
   }
-  const url = typeof window !== `undefined` ? window.location.href : "/"
 
   return (
     <div>
@@ -33,7 +32,14 @@ export const PureCategories = ({ data }) => {
             ? item.zhtwCategory
             : item.category
 
-          const catSlug = `categories/${item.slug}`
+          const catSlug = url.includes("/ko")
+            ? `/ko/categories/${item.slug}`
+            : url.includes("/zh-hans")
+            ? `/zh-hans/categories/${item.slug}`
+            : url.includes("/zh-hant")
+            ? `/zh-hant/categories/${item.slug}`
+            : `/categories/${item.slug}`
+
           return (
             <MenuItem key={catSlug}>
               <Link to={`${catSlug}`}>{catList}</Link>
@@ -45,6 +51,7 @@ export const PureCategories = ({ data }) => {
   )
 }
 export const Categories = props => {
+  const url = typeof window !== `undefined` ? window.location.href : "/"
   const data = useStaticQuery(graphql`
     query {
       categories: allStrapiCategories {
@@ -62,7 +69,7 @@ export const Categories = props => {
     }
   `)
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <PureCategories {...props} data={data} />
+  return <PureCategories {...props} data={data} url={url} />
 }
 
 export const FlexBox = styled.div`
