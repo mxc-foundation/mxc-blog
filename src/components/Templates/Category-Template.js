@@ -7,7 +7,9 @@ import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 import { localeSettings } from "../Globals/LocalSettings"
+import Categories from "../Categories"
 
+/* eslint-disable */
 const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
   const locl = localeSettings[lang]
 
@@ -26,6 +28,7 @@ const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
                 <Title>
                   <h1>{item[locl.categoryPropName]}</h1>
                 </Title>
+                <Categories />
                 {data[lang].edges.map(post => {
                   let slug = ""
                   if (data[lang].edges.length > 0) {
