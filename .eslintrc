@@ -21,6 +21,7 @@
     "camelcase": "off",
     "react/prop-types": 0,
     "no-unused-vars": "off",
+    "react/self-closing-comp": "off",
     "import/no-named-as-default": 0,
     "react/jsx-filename-extension": [
       1,

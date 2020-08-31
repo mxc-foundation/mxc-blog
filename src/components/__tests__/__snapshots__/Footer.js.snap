@@ -1,0 +1,525 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<footer
+  className="sc-AxheI fLOlgj"
+>
+  <div
+    className="sc-AxgMl heAJuj"
+  >
+    Company
+    <ul
+      className="sc-AxhCb fPHNJ"
+    >
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          About
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/token"
+        >
+          Token
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/supernode"
+        >
+          Supernode
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/blog"
+        >
+          Blog
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Careers
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Impressum
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Privacy Policy
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Terms & Conditions
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="sc-AxgMl heAJuj"
+  >
+    Community
+    <ul
+      className="sc-AxhCb fPHNJ"
+    >
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Events
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          GitHub
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Facebook
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Twitter
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          YouTube
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Telegram
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Medium
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Reddit
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="sc-AxgMl heAJuj"
+  >
+    Resources
+    <ul
+      className="sc-AxhCb fPHNJ"
+    >
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Press Center
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Whitepapers
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          Documentation
+        </a>
+      </li>
+      <li
+        className="sc-AxhUy fRWfuv"
+      >
+        <a
+          href="/"
+        >
+          AXS Wallet
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="sc-AxgMl heAJuj"
+  >
+    <div
+      id="subscription-section"
+      style={
+        Object {
+          "maxWidth": 480,
+        }
+      }
+    >
+      <div
+        className="ml-form-embedWrapper embedForm"
+      >
+        <div
+          className="ml-form-embedBody ml-form-embedBodyDefault row-form"
+        >
+          <div
+            className="ml-form-embedContent"
+          >
+            <h4>
+              Subscribe to our newsletter
+            </h4>
+            <p
+              className="sc-AxiKw dNkQGB"
+            >
+              Receive the latest about our newest partnerships, integrations, and events by subscribing to our weekly news update.
+            </p>
+          </div>
+          <form
+            action="https://app.mailerlite.com/webforms/submit/q7h7s1"
+            className="ml-block-form"
+            data-code="q7h7s1"
+            method="post"
+            target="_blank"
+          >
+            <div
+              className="ml-form-formContent"
+            >
+              <div
+                className="ml-form-fieldRow"
+              >
+                <div
+                  className="ml-field-group ml-field-email ml-validate-email ml-validate-required"
+                  style={
+                    Object {
+                      "margin": "10px 0 5px 0",
+                    }
+                  }
+                >
+                  <input
+                    autoComplete="email"
+                    className="form-control"
+                    data-inputmask=""
+                    name="fields[email]"
+                    placeholder="Your Email address"
+                    type="email"
+                  />
+                </div>
+              </div>
+              <div
+                className="ml-form-fieldRow ml-last-item"
+              >
+                <div
+                  className="ml-field-group ml-field-name"
+                  style={
+                    Object {
+                      "margin": "10px 0 5px 0",
+                    }
+                  }
+                >
+                  <input
+                    autoComplete="name"
+                    className="form-control"
+                    data-inputmask=""
+                    name="fields[name]"
+                    placeholder="What should we call you?"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="ml-form-embedPermissions"
+            >
+              <div
+                className="ml-form-embedPermissionsContent default privacy-policy"
+              >
+                <p
+                  className="sc-AxiKw dNkQGB"
+                >
+                  You can unsubscribe anytime. For more details, review our Privacy Policy.
+                </p>
+              </div>
+            </div>
+            <div
+              className="ml-form-embedPermissions"
+            >
+              <div
+                className="ml-form-embedPermissionsContent default"
+              >
+                <h4>
+                  Marketing Permissions
+                </h4>
+                <p
+                  className="sc-AxiKw dNkQGB"
+                >
+                  The information you provide on this form will only be used to provide you with updates and personalized marketing. Your privacy is important to us! Please let us know how you would like to keep in touch:
+                </p>
+                <div
+                  className="ml-form-embedPermissionsOptions"
+                >
+                  <div
+                    className="ml-form-embedPermissionsOptionsCheckbox"
+                  >
+                    <label
+                      htmlFor="newsletter-gdpr-1"
+                    >
+                       
+                      <input
+                        id="newsletter-gdpr1"
+                        name="gdpr[]"
+                        type="checkbox"
+                        value="Email"
+                        xp-if="gdpr.title"
+                      />
+                       
+                      <span
+                        className="label-description"
+                      >
+                        Email
+                      </span>
+                       
+                    </label>
+                    <div
+                      className="sc-AxirZ dhHuIX"
+                    >
+                      We will send you occasional emails about promotions, new products and important updates to keep you in the loop.
+                    </div>
+                  </div>
+                  <div
+                    className="ml-form-embedPermissionsOptionsCheckbox"
+                  >
+                    <label
+                      htmlFor="newsletter-gdpr-2"
+                    >
+                       
+                      <input
+                        id="newsletter-gdpr-2"
+                        name="gdpr[]"
+                        type="checkbox"
+                        value="Customized online advertising"
+                        xp-if="gdpr.title"
+                      />
+                      <span
+                        className="label-description"
+                      >
+                        Customized online advertising
+                      </span>
+                       
+                    </label>
+                    <div
+                      className="sc-AxirZ dhHuIX"
+                    >
+                      We will use your information to show you ads that are more relevant to you to improve your online experience.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="ml-form-embedMailerLite-GDPR"
+              >
+                <p
+                  className="sc-AxiKw dNkQGB"
+                >
+                   
+                  By clicking below to submit this form, you acknowledge that the information you provide will be processed in accordance with our Privacy Policy.
+                   
+                </p>
+              </div>
+            </div>
+            <div
+              className="ml-form-recaptcha ml-validate-required"
+              style={
+                Object {
+                  "float": "left",
+                }
+              }
+            >
+              <style
+                type="text/css"
+              >
+                .ml-form-recaptcha{margin-bottom:20px}.ml-form-recaptcha.ml-error iframe{border:solid 1px red}@media screen and (max-width:480px){.ml-form-recaptcha{width:220px!important}.g-recaptcha{transform:scale(.78);-webkit-transform:scale(.78);transform-origin:0 0;-webkit-transform-origin:0 0}}
+              </style>
+              <script
+                src="https://www.google.com/recaptcha/api.js"
+              />
+              <div
+                className="g-recaptcha"
+                data-sitekey="6Lf1KHQUAAAAAFNKEX1hdSWCS3mRMv4FlFaNslaD"
+              >
+                <div
+                  style={
+                    Object {
+                      "height": "78px",
+                      "width": "304px",
+                    }
+                  }
+                >
+                  <div>
+                    <iframe
+                      frameBorder="0"
+                      height="78"
+                      name="a-yfd9a4yvwws"
+                      role="presentation"
+                      sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"
+                      scrolling="no"
+                      src="https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Lf1KHQUAAAAAFNKEX1hdSWCS3mRMv4FlFaNslaD&co=aHR0cHM6Ly93d3cubXhjLm9yZzo0NDM.&hl=ko&v=QVh-Tz10ahidjrORgXOS1oB0&size=normal&cb=tj37trcj5l94"
+                      width="304"
+                    />
+                  </div>
+                  <textarea
+                    className="g-recaptcha-response"
+                    id="g-recaptcha-response"
+                    name="g-recaptcha-response"
+                    style={
+                      Object {
+                        "border": "1px solid rgb(193, 193, 193)",
+                        "display": "none",
+                        "height": "40px",
+                        "margin": "10px 25px",
+                        "padding": "0px",
+                        "resize": "none",
+                        "width": "250px",
+                      }
+                    }
+                  />
+                </div>
+                <iframe
+                  style={
+                    Object {
+                      "display": "none",
+                    }
+                  }
+                  title="must-have-a-unique-title-element-for-eslint"
+                />
+              </div>
+            </div>
+            <input
+              name="ml-submit"
+              type="hidden"
+              value="1"
+            />
+            <div
+              className="ml-form-embedSubmit"
+            >
+              <button
+                className="sc-AxjAm fKrUqs primary"
+                type="submit"
+              >
+                Subscribe
+              </button>
+              <button
+                className="loading"
+                disabled="disabled"
+                style={
+                  Object {
+                    "display": "none",
+                  }
+                }
+                type="button"
+              >
+                 
+                <div
+                  className="ml-form-embedSubmitLoad"
+                >
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                </div>
+                 
+              </button>
+            </div>
+          </form>
+        </div>
+        <div
+          className="ml-form-successBody row-success"
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        >
+          <div
+            className="ml-form-successContent"
+          >
+            <h4>
+              Thank you!
+            </h4>
+            <p
+              className="sc-AxiKw dNkQGB"
+            >
+              You have successfully joined our subscriber list.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+`;

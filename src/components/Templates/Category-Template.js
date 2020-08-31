@@ -1,6 +1,9 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { graphql } from "gatsby"
+import { useHistory } from 'react-router-dom'
+import Pagination from "react-js-pagination"
+import "bootstrap/dist/css/bootstrap.min.css"
 import Layout from "../Layout"
 import Line from "../Globals/Line"
 import { setColor, setRem, setFont, media } from "../../styles"
@@ -9,11 +12,23 @@ import SEO from "../Globals/SEO"
 import { localeSettings } from "../Globals/LocalSettings"
 import Categories from "../Categories"
 
+
 const CategoryTemplate = ({
   data,
   pageContext: { lang = "en", category, today },
 }) => {
   const locl = localeSettings[lang]
+  const [activePage, setactivePage] = useState(0);
+  const [datToDisplay, setdatToDisplay] = useState(data[lang].edges.slice(0, 10));
+
+  const handlePageChange = (pageNumber) => {
+    const start = (pageNumber - 1) * 10;
+    const end = start + 10;
+    setdatToDisplay(data[lang].edges.slice(start, end));
+    setactivePage(pageNumber);
+
+  }
+  const history = useHistory();
 
   return (
     <Layout>
@@ -26,12 +41,16 @@ const CategoryTemplate = ({
             />
             <Grid>
               <div />
+
               <FeaturedRow>
-                <Title>
-                  <h1>{item[locl.categoryPropName]}</h1>
-                </Title>
+                
+                  
+                  <Title>
+                    <h1>{item[locl.categoryPropName]}</h1>
+                  </Title>
+                
                 <Categories />
-                {data[lang].edges.map(post => {
+                {datToDisplay.map(post => {
                   let slug = ""
                   if (data[lang].edges.length > 0) {
                     slug =
@@ -66,7 +85,18 @@ const CategoryTemplate = ({
           </div>
         )
       })}
-    </Layout>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Pagination
+          itemClass="page-item"
+          linkClass="page-link"
+          activePage={activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={data[lang].totalCount}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+        />
+      </div>
+    </Layout >
   )
 }
 
@@ -139,6 +169,7 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     hans: allStrapiZhchPosts(
       sort: { order: DESC, fields: date }
@@ -174,6 +205,7 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     hant: allStrapiZhtwPosts(
       sort: { order: DESC, fields: date }
@@ -209,6 +241,7 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     ko: allStrapiKoPosts(
       sort: { order: DESC, fields: date }
@@ -244,6 +277,7 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     categories: allStrapiCategories(filter: { slug: { eq: $category } }) {
       nodes {
