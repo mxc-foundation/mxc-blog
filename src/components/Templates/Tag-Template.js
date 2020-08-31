@@ -10,7 +10,10 @@ import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
-const TagTemplate = ({ data, pageContext: { lang = "en", tSlug, slug, today } }) => {
+const TagTemplate = ({
+  data,
+  pageContext: { lang = "en", tSlug, slug, today },
+}) => {
   const lanPath = lang === "en" ? "" : `${lang}/`
   let lanTag = "tag"
   switch (lang) {
@@ -27,15 +30,16 @@ const TagTemplate = ({ data, pageContext: { lang = "en", tSlug, slug, today } })
       lanTag = "tag"
       break
   }
-  const [activePage, setactivePage] = useState(0);
-  const [datToDisplay, setdatToDisplay] = useState(data[lang].nodes.slice(0, 10));
+  const [activePage, setactivePage] = useState(0)
+  const [datToDisplay, setdatToDisplay] = useState(
+    data[lang].nodes.slice(0, 10)
+  )
 
-  const handlePageChange = (pageNumber) => {
-    const start = (pageNumber - 1) * 10;
-    const end = start + 10;
-    setdatToDisplay(data[lang].nodes.slice(start, end));
-    setactivePage(pageNumber);
-
+  const handlePageChange = pageNumber => {
+    const start = (pageNumber - 1) * 10
+    const end = start + 10
+    setdatToDisplay(data[lang].nodes.slice(start, end))
+    setactivePage(pageNumber)
   }
 
   return (
@@ -54,11 +58,8 @@ const TagTemplate = ({ data, pageContext: { lang = "en", tSlug, slug, today } })
             {datToDisplay.map(post => {
               let path = ""
               if (datToDisplay.length > 0) {
-                path =
-                lang === "en"
-                    ? post.post.slug
-                    : post.enPost.post.slug
-              } 
+                path = lang === "en" ? post.post.slug : post.enPost.post.slug
+              }
               return (
                 <div key={post.id}>
                   <PostRow
@@ -179,6 +180,7 @@ export const query = graphql`
     ko: allStrapiKoPosts(
       filter: {
         post: { publish: { eq: true } }
+        enPost: { post: { slug: { ne: null } } }
         tags: { elemMatch: { slug: { eq: $slug } } }
         date: { lte: $today }
       }
@@ -221,6 +223,7 @@ export const query = graphql`
     hans: allStrapiZhchPosts(
       filter: {
         post: { publish: { eq: true } }
+        enPost: { post: { slug: { ne: null } } }
         tags: { elemMatch: { slug: { eq: $slug } } }
         date: { lte: $today }
       }
@@ -263,6 +266,7 @@ export const query = graphql`
     hant: allStrapiZhtwPosts(
       filter: {
         post: { publish: { eq: true } }
+        enPost: { post: { slug: { ne: null } } }
         tags: { elemMatch: { slug: { eq: $slug } } }
         date: { lte: $today }
       }
