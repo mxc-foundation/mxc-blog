@@ -1,21 +1,31 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import Company from "./Constants/FooterCompany"
+import getCompany from "./Constants/FooterCompany"
 import Community from "./Constants/FooterCommunity"
 import Resources from "./Constants/FooterResources"
 import { setColor, setRem, media } from "../styles"
 
+
 const Footer = () => {
+  const url =
+    typeof window !== `undefined` ? window.location.href.split("/") : "/"
+  const path = url.slice(3, url.length)
+  const lang =
+    path[0] !== "zh-hans" && path[0] !== "zh-hant" && path[0] !== "ko"
+      ? ""
+      : path[0]
+  const companies = getCompany(lang)
+
   return (
     <StyledFooter>
       <Column>
         Company
         <Menu>
-          {Company.map(item => {
+          {companies.map(company => {
             return (
-              <MenuItem key={item.text}>
-                <Link to={item.path}>{item.text}</Link>
+              <MenuItem key={company.text}>
+                <Link to={company.path}>{company.text}</Link>
               </MenuItem>
             )
           })}

@@ -1,10 +1,10 @@
 export default [
   {
-    path: "/",
+    path: "/categories/press-release",
     text: "Press Center",
   },
   {
-    path: "/",
+    path: "https://www.mxc.org/mxc-token.html",
     text: "Whitepapers",
   },
   {
@@ -12,7 +12,7 @@ export default [
     text: "Documentation",
   },
   {
-    path: "/",
+    path: "https://wallet.mxc.org",
     text: "AXS Wallet",
   },
 ]
