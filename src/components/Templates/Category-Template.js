@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { graphql } from "gatsby"
-import { useHistory } from 'react-router-dom'
 import Pagination from "react-js-pagination"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Layout from "../Layout"
@@ -28,7 +27,6 @@ const CategoryTemplate = ({
     setactivePage(pageNumber);
 
   }
-  const history = useHistory();
 
   return (
     <Layout>

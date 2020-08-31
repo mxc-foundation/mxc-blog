@@ -4,12 +4,12 @@ import Footer from "../Footer"
 import renderer from "react-test-renderer"
 
 test("Footer renders with content", () => {
-  /* const { getByText } = render(<Footer />)
-  expect(getByText("YouTube")).toBeInTheDocument */
+  const { getByText } = render(<Footer />)
+  expect(getByText("YouTube")).toBeInTheDocument
 })
 
 it("renders correctly", () => {
-  /* const tree = renderer.create(<Footer />).toJSON()
-  expect(tree).toMatchSnapshot() */
+  const tree = renderer.create(<Footer />).toJSON()
+  expect(tree).toMatchSnapshot()
 })
  

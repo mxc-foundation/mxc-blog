@@ -214,6 +214,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "en",
+        tSlug: "",
         slug: node.slug,
         today: yyyymmdd,
       },
@@ -225,6 +226,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "ko",
+        tSlug: "ko/",
         slug: node.slug,
         today: yyyymmdd,
       },
@@ -236,6 +238,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "hans",
+        tSlug: "zh-hans/",
         slug: node.slug,
         today: yyyymmdd,
       },
@@ -247,6 +250,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "hant",
+        tSlug: "zh-hant/",
         slug: node.slug,
         today: yyyymmdd,
       },
