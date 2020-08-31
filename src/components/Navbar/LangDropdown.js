@@ -83,6 +83,7 @@ const LangDropdown = () => {
     }
   })
 
+  const height = 6 + (hans?4:0)+(hant?4:0)+(ko?4:0);
   /* set up state */
   const [isOpen, setDropdown] = useState(false)
   /* eslint-disable */
@@ -90,6 +91,31 @@ const LangDropdown = () => {
     setDropdown(isOpen => !isOpen)
   }
   /* eslint-enable */
+
+  const StyledMenu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: ${setColor.mainWhite};
+  position: absolute;
+  padding: 0;
+  z-index: 1;
+  height: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  max-height: ${height}vh;
+  margin: ${setRem(23)} 0;
+  .list {
+    list-style: none;
+  }
+  a {
+    text-decoration: none;
+    color: ${setColor.mainBlack};
+  }
+  a:hover {
+    color: ${setColor.secondaryColor};
+  }
+`
 
   return (
     <div>
@@ -120,31 +146,7 @@ const LangDropdown = () => {
   )
 }
 
-const StyledMenu = styled.ul`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: ${setColor.mainWhite};
-  position: absolute;
-  padding: 0;
-  z-index: 1;
-  height: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  overflow: scroll;
-  max-height: 24vh;
-  margin: ${setRem(23)} 0;
-  .list {
-    list-style: none;
-  }
-  a {
-    text-decoration: none;
-    color: ${setColor.mainBlack};
-  }
-  a:hover {
-    color: ${setColor.secondaryColor};
-  }
-`
+
 export const MenuItem = styled.li`
   padding: ${setRem(10)} ${setRem(20)};
   text-decoration: none;
