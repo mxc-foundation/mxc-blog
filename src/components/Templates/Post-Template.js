@@ -119,9 +119,9 @@ const Post_Template = ({ data, pageContext: { lang = "en", slug } }) => {
               </Social>
             </Left>
             <Tags>
-              {data[lang].tags.map((item, index) => {
+              {data[lang].tags.map(item => {
                 return (
-                  <Link to={`/tags/${item.slug}`} key={index}>
+                  <Link to={`/tags/${item.slug}`} key={item.slug}>
                     <Tag>{item.tag}</Tag>
                   </Link>
                 )

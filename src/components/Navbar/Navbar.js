@@ -11,7 +11,7 @@ import {
   Grid,
   NavRight,
 } from "./Navbar.styled"
-import { getTopMenu } from "../Constants/Links"
+import getTopMenu from "../Constants/Links"
 import styles from "./Navbar.module.css"
 import LangDropdown from "./LangDropdown"
 
@@ -30,9 +30,11 @@ const getLogo = graphql`
 const Navbar = () => {
   const data = useStaticQuery(getLogo)
   const [isOpen, setNav] = useState(false)
+  /*eslint-disable */
   const toggleNav = () => {
     setNav(isOpen => !isOpen)
   }
+  /* eslint-enable */
 
   const url =
     typeof window !== `undefined` ? window.location.href.split("/") : "/"
@@ -57,7 +59,7 @@ const Navbar = () => {
         <StyledMenu className={isOpen ? `${styles.show}` : `${styles.hide}`}>
           {menu.map((item, index) => {
             return (
-              <MenuItem key={index}>
+              <MenuItem key={item.path}>
                 <a href={item.path}>{item.text}</a>
               </MenuItem>
             )

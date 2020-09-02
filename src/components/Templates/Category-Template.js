@@ -1,15 +1,32 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { graphql } from "gatsby"
+import Pagination from "react-js-pagination"
+import "bootstrap/dist/css/bootstrap.min.css"
 import Layout from "../Layout"
 import Line from "../Globals/Line"
 import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 import { localeSettings } from "../Globals/LocalSettings"
+import Categories from "../Categories"
 
-const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
+
+const CategoryTemplate = ({
+  data,
+  pageContext: { lang = "en", category, today },
+}) => {
   const locl = localeSettings[lang]
+  const [activePage, setactivePage] = useState(0);
+  const [datToDisplay, setdatToDisplay] = useState(data[lang].edges.slice(0, 10));
+
+  const handlePageChange = (pageNumber) => {
+    const start = (pageNumber - 1) * 10;
+    const end = start + 10;
+    setdatToDisplay(data[lang].edges.slice(start, end));
+    setactivePage(pageNumber);
+
+  }
 
   return (
     <Layout>
@@ -22,19 +39,22 @@ const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
             />
             <Grid>
               <div />
+
               <FeaturedRow>
-                <Title>
-                  <h1>{item[locl.categoryPropName]}</h1>
-                </Title>
-                {data[lang].edges.map(post => {
+                
+                  
+                  <Title>
+                    <h1>{item[locl.categoryPropName]}</h1>
+                  </Title>
+                
+                <Categories />
+                {datToDisplay.map(post => {
                   let slug = ""
                   if (data[lang].edges.length > 0) {
                     slug =
                       lang === "en"
                         ? post.node.post.slug
-                        : post.node.enPost
-                        ? post.node.enPost.post.slug
-                        : ""
+                        : post.node.enPost.post.slug
                   }
                   return (
                     <div key={post.node.id}>
@@ -63,9 +83,21 @@ const CategoryTemplate = ({ data, pageContext: { lang = "en", category } }) => {
           </div>
         )
       })}
-    </Layout>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Pagination
+          itemClass="page-item"
+          linkClass="page-link"
+          activePage={activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={data[lang].totalCount}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+        />
+      </div>
+    </Layout >
   )
 }
+
 const Grid = styled.div`
   ${media.tablet`  display: grid;
   grid-template-columns: 10vw 80vw 10vw;
@@ -109,10 +141,10 @@ const Title = styled.div`
 `
 
 export const query = graphql`
-  query($category: String!) {
+  query($category: String!, $today: Date!) {
     en: allStrapiPosts(
       sort: { order: DESC, fields: date }
-      filter: { category: { slug: { eq: $category } } }
+      filter: { category: { slug: { eq: $category } }, date: { lte: $today } }
     ) {
       edges {
         node {
@@ -135,12 +167,14 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     hans: allStrapiZhchPosts(
       sort: { order: DESC, fields: date }
       filter: {
         category: { slug: { eq: $category } }
         enPost: { post: { slug: { ne: null } } }
+        date: { lte: $today }
       }
     ) {
       edges {
@@ -169,12 +203,14 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     hant: allStrapiZhtwPosts(
       sort: { order: DESC, fields: date }
       filter: {
         category: { slug: { eq: $category } }
         enPost: { post: { slug: { ne: null } } }
+        date: { lte: $today }
       }
     ) {
       edges {
@@ -203,12 +239,14 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     ko: allStrapiKoPosts(
       sort: { order: DESC, fields: date }
       filter: {
         category: { slug: { eq: $category } }
         enPost: { post: { slug: { ne: null } } }
+        date: { lte: $today }
       }
     ) {
       edges {
@@ -237,6 +275,7 @@ export const query = graphql`
           title
         }
       }
+      totalCount
     }
     categories: allStrapiCategories(filter: { slug: { eq: $category } }) {
       nodes {

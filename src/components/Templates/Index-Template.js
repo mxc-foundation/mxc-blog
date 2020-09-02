@@ -1,15 +1,18 @@
 import React from "react"
+import { graphql } from "gatsby"
 import styled from "styled-components"
 import { setColor, setRem, setFont, media } from "../../styles"
-import SEO from '../../components/Globals/SEO'
+import SEO from "../Globals/SEO"
 import Layout from "../Layout"
-import { graphql } from "gatsby"
 import Line from "../Globals/Line"
 import Categories from "../Categories"
 import PostRow from "../Globals/PostRow"
 import Category from "../Globals/Category"
 
-const Index_Template = ({ data, pageContext: { lang='en' , today } }) => {
+const Index_Template = ({
+  data,
+  pageContext: { lang = "en", slug, today },
+}) => {
   const {
     newsUpdate: { nodes: newsUpdate },
     featured: { nodes: featured },
@@ -40,178 +43,243 @@ const Index_Template = ({ data, pageContext: { lang='en' , today } }) => {
     hantPressRelease: { nodes: hantPressRelease },
     hantUseCase: { nodes: hantUseCase },
     file: { childImageSharp: file },
-  } = data;
-  const _featured = lang === 'en' ? featured : lang === 'hans' ? hansFeatured: lang === 'hant' ? hantFeatured: koFeatured;
-  const _newsUpdate = lang === 'en' ? newsUpdate : lang === 'hans' ? hansNewsUpdate: lang === 'hant' ? hantNewsUpdate: koNewsUpdate;
-  const _events = lang === 'en' ? events : lang === 'hans' ? hansEvents: lang === 'hant' ? hantEvents: koEvents;
-  const _furtherReading = lang === 'en' ? furtherReading : lang === 'hans' ? hansFurtherReading: lang === 'hant' ? hantFurtherReading: koFurtherReading;
-  const _technology = lang === 'en' ? technology : lang === 'hans' ? hansTechnology: lang === 'hant' ? hantTechnology: koTechnology;
-  const _pressRelease = lang === 'en' ? pressRelease : lang === 'hans' ? hansPressRelease: lang === 'hant' ? hantPressRelease: koPressRelease;
-  const _useCase = lang === 'en' ? useCase : lang === 'hans' ? hansUseCase: lang === 'hant' ? hantUseCase: koUseCase;
+  } = data
+  const Tfeatured =
+    lang === "en"
+      ? featured
+      : lang === "hans"
+      ? hansFeatured
+      : lang === "hant"
+      ? hantFeatured
+      : koFeatured
+  const TnewsUpdate =
+    lang === "en"
+      ? newsUpdate
+      : lang === "hans"
+      ? hansNewsUpdate
+      : lang === "hant"
+      ? hantNewsUpdate
+      : koNewsUpdate
+  const Tevents =
+    lang === "en"
+      ? events
+      : lang === "hans"
+      ? hansEvents
+      : lang === "hant"
+      ? hantEvents
+      : koEvents
+  const TfurtherReading =
+    lang === "en"
+      ? furtherReading
+      : lang === "hans"
+      ? hansFurtherReading
+      : lang === "hant"
+      ? hantFurtherReading
+      : koFurtherReading
+  const Ttechnology =
+    lang === "en"
+      ? technology
+      : lang === "hans"
+      ? hansTechnology
+      : lang === "hant"
+      ? hantTechnology
+      : koTechnology
+  const TpressRelease =
+    lang === "en"
+      ? pressRelease
+      : lang === "hans"
+      ? hansPressRelease
+      : lang === "hant"
+      ? hantPressRelease
+      : koPressRelease
+  const TuseCase =
+    lang === "en"
+      ? useCase
+      : lang === "hans"
+      ? hansUseCase
+      : lang === "hant"
+      ? hantUseCase
+      : koUseCase
 
   return (
-      <Layout>
-        <SEO 
-        title="Home" 
-        language="en" 
-        description="Our blog provides the latest information about the MXC Foundation, the MXC token, and relevant industry news regarding blockchain and the internet of things (IoT)." 
+    <Layout>
+      <SEO
+        title="Home"
+        language="en"
+        description="Our blog provides the latest information about the MXC Foundation, the MXC token, and relevant industry news regarding blockchain and the internet of things (IoT)."
         enPost="https://blog.mxc.org"
-        />
-    <Grid>
-      <div />
-      <FeaturedRow>
-        <Title>
-          <h1>Blog</h1>
-        </Title>
-        <Categories />
-        {_featured.map(item => {
-          return (
-            <div key={item.id}>
-              <PostRow
-                heading={item.title}
-                text={item.post.metaDescription}
-                slug={item.post.slug}
-                image={
-                  item.featuredImage === null
-                  ? file.fluid :
-                  item.featuredImage === undefined ?
-                  file.fluid :
-                  item.featuredImage.childImageSharp.fluid
-                }
-                category={item.category.category}
-                date={item.date}
-                featured
-              />
-              <Line color={setColor.lightGrey} />
-            </div>
-          )
-        })}
-        <Category category="News Update" url={`/categories/news-update`}>
-          {_newsUpdate.map(data => {
+      />
+      <Grid>
+        <div />
+        <FeaturedRow>
+          <Title>
+            <h1>Blog</h1>
+          </Title>
+          <Categories />
+          {Tfeatured.map(item => {
+            const link =
+              lang === "en" ? item.post.slug : slug + item.enPost.post.slug
             return (
-              <div key={data.id}>
+              <div key={item.id}>
                 <PostRow
-                  heading={data.title}
-                  text={data.post.metaDescription}
-                  slug={data.post.slug}
-                  date={data.date}
+                  heading={item.title}
+                  text={item.post.metaDescription}
+                  slug={link}
                   image={
-                    data.featuredImage !== null
-                      ? data.featuredImage.childImageSharp.fluid
-                      : file.fluid
+                    item.featuredImage === null
+                      ? file.fluid
+                      : item.featuredImage === undefined
+                      ? file.fluid
+                      : item.featuredImage.childImageSharp.fluid
                   }
+                  category={item.category.category}
+                  date={item.date}
+                  featured
                 />
                 <Line color={setColor.lightGrey} />
               </div>
             )
           })}
-        </Category>
-        <Category category="Events" url={`/categories/events`}>
-          {_events.map(data => {
-            return (
-              <div key={data.id}>
-                <PostRow
-                  heading={data.title}
-                  text={data.post.metaDescription}
-                  slug={data.post.slug}
-                  date={data.date}
-                  image={
-                    data.featuredImage !== null
-                      ? data.featuredImage.childImageSharp.fluid
-                      : file.fluid
-                  }
-                />
-                <Line color={setColor.lightGrey} />
-              </div>
-            )
-          })}
-        </Category>
-        <Category
-          category="Further Reading"
-          url={`/categories/further-reading`}
-        >
-          {_furtherReading.map(data => {
-            return (
-              <div key={data.id}>
-                <PostRow
-                  heading={data.title}
-                  text={data.post.metaDescription}
-                  slug={data.post.slug}
-                  date={data.date}
-                  image={
-                    data.featuredImage !== null
-                      ? data.featuredImage.childImageSharp.fluid
-                      : file.fluid
-                  }
-                />
-                <Line color={setColor.lightGrey} />
-              </div>
-            )
-          })}
-        </Category>
-        <Category category="Press Releases" url={`/categories/press-release`}>
-          {_pressRelease.map(data => {
-            return (
-              <div key={data.id}>
-                <PostRow
-                  heading={data.title}
-                  text={data.post.metaDescription}
-                  slug={data.post.slug}
-                  date={data.date}
-                  image={
-                    data.featuredImage !== null
-                      ? data.featuredImage.childImageSharp.fluid
-                      : file.fluid
-                  }
-                />
-                <Line color={setColor.lightGrey} />
-              </div>
-            )
-          })}
-        </Category>
-        <Category category="Technology" url={`/categories/technology`}>
-          {_technology.map(data => {
-            return (
-              <div key={data.id}>
-                <PostRow
-                  heading={data.title}
-                  text={data.post.metaDescription}
-                  slug={data.post.slug}
-                  date={data.date}
-                  image={
-                    data.featuredImage !== null
-                      ? data.featuredImage.childImageSharp.fluid
-                      : file.fluid
-                  }
-                />
-                <Line color={setColor.lightGrey} />
-              </div>
-            )
-          })}
-        </Category>
-        <Category category="Use Cases" url={`/categories/use-case`}>
-          {_useCase.map(data => {
-            return (
-              <div key={data.id}>
-                <PostRow
-                  heading={data.title}
-                  text={data.post.metaDescription}
-                  slug={data.post.slug}
-                  date={data.date}
-                  image={
-                    data.featuredImage !== null
-                      ? data.featuredImage.childImageSharp.fluid
-                      : file.fluid
-                  }
-                />
-                <Line color={setColor.lightGrey} />
-              </div>
-            )
-          })}
-        </Category>
-      </FeaturedRow>
-      <div />
-    </Grid>
+          <Category category="News Update" url="/categories/news-update">
+            {TnewsUpdate.map(news => {
+              const link =
+                lang === "en" ? news.post.slug : slug + news.enPost.post.slug
+              return (
+                <div key={news.id}>
+                  <PostRow
+                    heading={news.title}
+                    text={news.post.metaDescription}
+                    slug={link}
+                    date={news.date}
+                    image={
+                      news.featuredImage !== null
+                        ? news.featuredImage.childImageSharp.fluid
+                        : file.fluid
+                    }
+                  />
+                  <Line color={setColor.lightGrey} />
+                </div>
+              )
+            })}
+          </Category>
+          <Category category="Events" url="/categories/events">
+            {Tevents.map(event => {
+              const link =
+                lang === "en" ? event.post.slug : slug + event.enPost.post.slug
+              return (
+                <div key={event.id}>
+                  <PostRow
+                    heading={event.title}
+                    text={event.post.metaDescription}
+                    slug={link}
+                    date={event.date}
+                    image={
+                      event.featuredImage !== null
+                        ? event.featuredImage.childImageSharp.fluid
+                        : file.fluid
+                    }
+                  />
+                  <Line color={setColor.lightGrey} />
+                </div>
+              )
+            })}
+          </Category>
+          <Category
+            category="Further Reading"
+            url="/categories/further-reading"
+          >
+            {TfurtherReading.map(article => {
+              const link =
+                lang === "en"
+                  ? article.post.slug
+                  : slug + article.enPost.post.slug
+              return (
+                <div key={article.id}>
+                  <PostRow
+                    heading={article.title}
+                    text={article.post.metaDescription}
+                    slug={link}
+                    date={article.date}
+                    image={
+                      article.featuredImage !== null
+                        ? article.featuredImage.childImageSharp.fluid
+                        : file.fluid
+                    }
+                  />
+                  <Line color={setColor.lightGrey} />
+                </div>
+              )
+            })}
+          </Category>
+          <Category category="Press Releases" url="/categories/press-release">
+            {TpressRelease.map(press => {
+              const link =
+                lang === "en" ? press.post.slug : slug + press.enPost.post.slug
+              return (
+                <div key={press.id}>
+                  <PostRow
+                    heading={press.title}
+                    text={press.post.metaDescription}
+                    slug={link}
+                    date={press.date}
+                    image={
+                      press.featuredImage !== null
+                        ? press.featuredImage.childImageSharp.fluid
+                        : file.fluid
+                    }
+                  />
+                  <Line color={setColor.lightGrey} />
+                </div>
+              )
+            })}
+          </Category>
+          <Category category="Technology" url="/categories/technology">
+            {Ttechnology.map(tech => {
+              const link =
+                lang === "en" ? tech.post.slug : slug + tech.enPost.post.slug
+              return (
+                <div key={tech.id}>
+                  <PostRow
+                    heading={tech.title}
+                    text={tech.post.metaDescription}
+                    slug={link}
+                    date={tech.date}
+                    image={
+                      tech.featuredImage !== null
+                        ? tech.featuredImage.childImageSharp.fluid
+                        : file.fluid
+                    }
+                  />
+                  <Line color={setColor.lightGrey} />
+                </div>
+              )
+            })}
+          </Category>
+          <Category category="Use Cases" url="/categories/use-case">
+            {TuseCase.map(use => {
+              const link =
+                lang === "en" ? use.post.slug : slug + use.enPost.post.slug
+              return (
+                <div key={use.id}>
+                  <PostRow
+                    heading={use.title}
+                    text={use.post.metaDescription}
+                    slug={link}
+                    date={use.date}
+                    image={
+                      use.featuredImage !== null
+                        ? use.featuredImage.childImageSharp.fluid
+                        : file.fluid
+                    }
+                  />
+                  <Line color={setColor.lightGrey} />
+                </div>
+              )
+            })}
+          </Category>
+        </FeaturedRow>
+        <div />
+      </Grid>
     </Layout>
   )
 }
@@ -227,7 +295,7 @@ const FeaturedRow = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   h1 {
     text-align: center;
     margin: 20px 0;
@@ -249,7 +317,13 @@ export const query = graphql`
   query($today: Date!) {
     featured: allStrapiPosts(
       sort: { order: DESC, fields: post___date }
-      filter: { post: { featured: { eq: true }, publish: { eq: true }, date: { lte: $today} } }
+      filter: {
+        post: {
+          featured: { eq: true }
+          publish: { eq: true }
+          date: { lte: $today }
+        }
+      }
     ) {
       nodes {
         id
@@ -287,7 +361,10 @@ export const query = graphql`
     newsUpdate: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "news-update" } }, date: { lte: $today} }
+      filter: {
+        category: { slug: { eq: "news-update" } }
+        date: { lte: $today }
+      }
     ) {
       nodes {
         title
@@ -312,7 +389,7 @@ export const query = graphql`
     events: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "events" } } , date: { lte: $today}}
+      filter: { category: { slug: { eq: "events" } }, date: { lte: $today } }
     ) {
       nodes {
         title
@@ -337,7 +414,10 @@ export const query = graphql`
     furtherReading: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "further-reading" } } , date: { lte: $today}}
+      filter: {
+        category: { slug: { eq: "further-reading" } }
+        date: { lte: $today }
+      }
     ) {
       nodes {
         title
@@ -362,7 +442,10 @@ export const query = graphql`
     technology: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "technology" } } , date: { lte: $today}}
+      filter: {
+        category: { slug: { eq: "technology" } }
+        date: { lte: $today }
+      }
     ) {
       nodes {
         title
@@ -387,7 +470,10 @@ export const query = graphql`
     pressRelease: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "press-release" } } , date: { lte: $today}}
+      filter: {
+        category: { slug: { eq: "press-release" } }
+        date: { lte: $today }
+      }
     ) {
       nodes {
         title
@@ -412,7 +498,7 @@ export const query = graphql`
     useCase: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "use-case" } } , date: { lte: $today}}
+      filter: { category: { slug: { eq: "use-case" } }, date: { lte: $today } }
     ) {
       nodes {
         title
@@ -436,7 +522,11 @@ export const query = graphql`
     }
     hansFeatured: allStrapiZhchPosts(
       sort: { order: DESC, fields: post___date }
-      filter: { post: { featured: { eq: true }, publish: { eq: true } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        post: { featured: { eq: true }, publish: { eq: true } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         id
@@ -481,7 +571,11 @@ export const query = graphql`
     hansNewsUpdate: allStrapiZhchPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "news-update" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "news-update" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -511,7 +605,11 @@ export const query = graphql`
     hansEvents: allStrapiZhchPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "events" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "events" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -541,7 +639,11 @@ export const query = graphql`
     hansFurtherReading: allStrapiZhchPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "further-reading" } }, date: { lte: $today} , enPost: {post: {slug: {ne: null}}}}
+      filter: {
+        category: { slug: { eq: "further-reading" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -571,7 +673,11 @@ export const query = graphql`
     hansTechnology: allStrapiZhchPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "technology" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "technology" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -601,7 +707,11 @@ export const query = graphql`
     hansPressRelease: allStrapiZhchPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "press-release" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "press-release" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -631,7 +741,11 @@ export const query = graphql`
     hansUseCase: allStrapiZhchPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "use-case" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "use-case" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -660,7 +774,11 @@ export const query = graphql`
     }
     hantFeatured: allStrapiZhtwPosts(
       sort: { order: DESC, fields: post___date }
-      filter: { post: { featured: { eq: true }, publish: { eq: true } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        post: { featured: { eq: true }, publish: { eq: true } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         id
@@ -705,7 +823,11 @@ export const query = graphql`
     hantNewsUpdate: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "news-update" } }, date: { lte: $today} , enPost: {post: {slug: {ne: null}}}}
+      filter: {
+        category: { slug: { eq: "news-update" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -735,7 +857,11 @@ export const query = graphql`
     hantEvents: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "events" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "events" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -765,7 +891,11 @@ export const query = graphql`
     hantFurtherReading: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "further-reading" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "further-reading" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -795,7 +925,11 @@ export const query = graphql`
     hantTechnology: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "technology" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "technology" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -825,7 +959,11 @@ export const query = graphql`
     hantPressRelease: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "press-release" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "press-release" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -855,7 +993,11 @@ export const query = graphql`
     hantUseCase: allStrapiZhtwPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "use-case" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "use-case" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -884,7 +1026,11 @@ export const query = graphql`
     }
     koFeatured: allStrapiKoPosts(
       sort: { order: DESC, fields: post___date }
-      filter: { post: { featured: { eq: true }, publish: { eq: true } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        post: { featured: { eq: true }, publish: { eq: true } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         id
@@ -927,7 +1073,11 @@ export const query = graphql`
     koNewsUpdate: allStrapiKoPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "news-update" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "news-update" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -957,7 +1107,11 @@ export const query = graphql`
     koEvents: allStrapiKoPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "events" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "events" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -987,7 +1141,11 @@ export const query = graphql`
     koFurtherReading: allStrapiKoPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "further-reading" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "further-reading" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -1017,7 +1175,11 @@ export const query = graphql`
     koTechnology: allStrapiKoPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "technology" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "technology" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -1047,7 +1209,11 @@ export const query = graphql`
     koPressRelease: allStrapiKoPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "press-release" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "press-release" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title
@@ -1077,7 +1243,11 @@ export const query = graphql`
     koUseCase: allStrapiKoPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "use-case" } }, date: { lte: $today}, enPost: {post: {slug: {ne: null}}} }
+      filter: {
+        category: { slug: { eq: "use-case" } }
+        date: { lte: $today }
+        enPost: { post: { slug: { ne: null } } }
+      }
     ) {
       nodes {
         title

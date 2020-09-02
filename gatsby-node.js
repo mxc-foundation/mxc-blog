@@ -4,10 +4,10 @@ const path = require("path")
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const today = new Date();
-  const yyyymmdd = today.toISOString().slice(0,10);
-  const LANGUAGE_SET = ['en', 'ko', 'hans', 'hant' ];
-  const ROOT_PATH = ['', 'ko', 'zh-hans', 'zh-hant' ];
+  const today = new Date()
+  const yyyymmdd = today.toISOString().slice(0, 10)
+  const LANGUAGE_SET = ["en", "ko", "hans", "hant"]
+  const ROOT_PATH = ["", "ko", "zh-hans", "zh-hant"]
 
   const { data } = await graphql(`
     query {
@@ -93,17 +93,19 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
 
   LANGUAGE_SET.forEach((lang, index) => {
+    const rootPath = ROOT_PATH[index]
     createPage({
-      path: "/"+ROOT_PATH[index],
+      path: `/${rootPath}`,
       component: path.resolve("./src/components/Templates/Index-Template.js"),
       context: {
-        lang: lang,
-        today: yyyymmdd
+        lang,
+        slug: `${rootPath}/`,
+        today: yyyymmdd,
       },
     })
   })
-  
-  /* Create Post Pages*/
+
+  /* Create Post Pages */
 
   data.allStrapiPosts.nodes.forEach(node => {
     createPage({
@@ -112,7 +114,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "en",
         slug: node.post.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -123,7 +125,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hans",
         slug: node.enPost.post.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -134,7 +136,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hant",
         slug: node.enPost.post.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -145,7 +147,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "ko",
         slug: node.enPost.post.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -161,7 +163,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "en",
         category: node.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -174,7 +176,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "ko",
         category: node.koSlug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -187,7 +189,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hans",
         category: node.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -200,7 +202,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hant",
         category: node.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -212,8 +214,9 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "en",
+        tSlug: "",
         slug: node.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -223,8 +226,9 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "ko",
+        tSlug: "ko/",
         slug: node.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -234,8 +238,9 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "hans",
+        tSlug: "zh-hans/",
         slug: node.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })
@@ -245,8 +250,9 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve("./src/components/Templates/Tag-Template.js"),
       context: {
         lang: "hant",
+        tSlug: "zh-hant/",
         slug: node.slug,
-        today: yyyymmdd
+        today: yyyymmdd,
       },
     })
   })

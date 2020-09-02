@@ -1,5 +1,8 @@
-import React from "react"
+/* eslint react/prop-types: 0 */
+import React, { useState } from "react"
 import styled from "styled-components"
+import Pagination from "react-js-pagination"
+import "bootstrap/dist/css/bootstrap.min.css"
 import { graphql } from "gatsby"
 import Layout from "../Layout"
 import Line from "../Globals/Line"
@@ -7,16 +10,37 @@ import { setColor, setRem, setFont, media } from "../../styles"
 import PostRow from "../Globals/PostRow"
 import SEO from "../Globals/SEO"
 
-const TagTemplate = ({ data, pageContext: { lang = "en", slug } }) => {
+const TagTemplate = ({
+  data,
+  pageContext: { lang = "en", tSlug, slug, today },
+}) => {
   const lanPath = lang === "en" ? "" : `${lang}/`
-  const lanTag =
-    lang === "en"
-      ? "tag"
-      : lang === "ko"
-      ? "koTag"
-      : lang === "hans"
-      ? "zhchTag"
-      : "zhtwTag"
+  let lanTag = "tag"
+  switch (lang) {
+    case "hans":
+      lanTag = "zhchTag"
+      break
+    case "hant":
+      lanTag = "zhtwTag"
+      break
+    case "ko":
+      lanTag = "koTag"
+      break
+    default:
+      lanTag = "tag"
+      break
+  }
+  const [activePage, setactivePage] = useState(0)
+  const [datToDisplay, setdatToDisplay] = useState(
+    data[lang].nodes.slice(0, 10)
+  )
+
+  const handlePageChange = pageNumber => {
+    const start = (pageNumber - 1) * 10
+    const end = start + 10
+    setdatToDisplay(data[lang].nodes.slice(start, end))
+    setactivePage(pageNumber)
+  }
 
   return (
     <Layout>
@@ -31,7 +55,11 @@ const TagTemplate = ({ data, pageContext: { lang = "en", slug } }) => {
             <Title>
               <h1>{data.tags[lanTag]}</h1>
             </Title>
-            {data[lang].nodes.map(post => {
+            {datToDisplay.map(post => {
+              let path = ""
+              if (datToDisplay.length > 0) {
+                path = lang === "en" ? post.post.slug : post.enPost.post.slug
+              }
               return (
                 <div key={post.id}>
                   <PostRow
@@ -42,7 +70,7 @@ const TagTemplate = ({ data, pageContext: { lang = "en", slug } }) => {
                         ? post.featuredImage.childImageSharp.fluid
                         : data.file.childImageSharp.fluid
                     }
-                    slug={`${lanPath}post.post.slug`}
+                    slug={`${tSlug}${path}`}
                     date={post.post.date}
                   />
                   <Line color={setColor.lightGrey} />
@@ -54,6 +82,17 @@ const TagTemplate = ({ data, pageContext: { lang = "en", slug } }) => {
         </Grid>
       </div>
       )
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Pagination
+          itemClass="page-item"
+          linkClass="page-link"
+          activePage={activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={data[lang].totalCount}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+        />
+      </div>
     </Layout>
   )
 }
@@ -100,11 +139,12 @@ const Title = styled.div`
 `
 
 export const query = graphql`
-  query($slug: String!) {
+  query($slug: String!, $today: Date!) {
     en: allStrapiPosts(
       filter: {
         post: { publish: { eq: true } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {
@@ -135,11 +175,14 @@ export const query = graphql`
           zhtwSlug
         }
       }
+      totalCount
     }
     ko: allStrapiKoPosts(
       filter: {
         post: { publish: { eq: true } }
+        enPost: { post: { slug: { ne: null } } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {
@@ -150,6 +193,11 @@ export const query = graphql`
           date(formatString: "MMMM DD, YYYY")
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         featuredImage {
           childImageSharp {
@@ -170,11 +218,14 @@ export const query = graphql`
           zhtwSlug
         }
       }
+      totalCount
     }
     hans: allStrapiZhchPosts(
       filter: {
         post: { publish: { eq: true } }
+        enPost: { post: { slug: { ne: null } } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {
@@ -185,6 +236,11 @@ export const query = graphql`
           date(formatString: "MMMM DD, YYYY")
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         featuredImage {
           childImageSharp {
@@ -205,11 +261,14 @@ export const query = graphql`
           zhtwSlug
         }
       }
+      totalCount
     }
     hant: allStrapiZhtwPosts(
       filter: {
         post: { publish: { eq: true } }
+        enPost: { post: { slug: { ne: null } } }
         tags: { elemMatch: { slug: { eq: $slug } } }
+        date: { lte: $today }
       }
       sort: { fields: date, order: DESC }
     ) {
@@ -220,6 +279,11 @@ export const query = graphql`
           date(formatString: "MMMM DD, YYYY")
           metaDescription
           slug
+        }
+        enPost {
+          post {
+            slug
+          }
         }
         featuredImage {
           childImageSharp {
@@ -240,6 +304,7 @@ export const query = graphql`
           zhtwSlug
         }
       }
+      totalCount
     }
     file(relativePath: { eq: "defaultImg.png" }) {
       childImageSharp {
