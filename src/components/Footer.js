@@ -56,7 +56,7 @@ const Footer = () => {
         </Menu>
       </Column>
       <Column>
-        <div className="html-embed w-embed">
+        <div className="html-embed w-embed" style={{ maxWidth: '20vw' }}>
           <div className="" data-account="1479110:v9j1r7r5k1" data-form="2081088:q7h7s1">
             <style type="text/css">
               &apos;@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic);&apos;
@@ -67,7 +67,7 @@ const Footer = () => {
 
             <div id="mlb2-2081088" className="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-2081088">
               <div className="ml-form-align-center">
-                <div className="ml-form-embedWrapper embedForm" style={{ maxWidth: 480 }}>
+                <div className="ml-form-embedWrapper embedForm" >
                   <div className="ml-form-embedBody ml-form-embedBodyDefault row-form">
                     <div className="ml-form-embedContent" >
                       <h4>Subscribe to our newsletter</h4>
