@@ -41,10 +41,7 @@ const SEO = ({ title, description, language, image, pageUrl, post }) => {
       <meta name="twitter:creator" content={twitterUsername} />
       <meta name="twitter:title" content={title || siteTitle} />
       <meta name="twitter:description" content={description || siteDesc} />
-      <meta
-        name="twitter:image"
-        content={`${siteUrl}${image}` || `${siteUrl}${siteImage}`}
-      />
+      <meta name="twitter:image" content={`${siteUrl}${siteImage || image}`} />
 
       {/* Facebook Card */}
 
@@ -52,10 +49,7 @@ const SEO = ({ title, description, language, image, pageUrl, post }) => {
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title || siteTitle} />
       <meta property="og:description" content={description || siteDesc} />
-      <meta
-        property="og:image"
-        content={`${siteUrl}${image}` || `${siteUrl}${siteImage}`}
-      />
+      <meta property="og:image" content={`${siteUrl}${siteImage || image}`} />
       <meta property="og:image:width" content="400" />
       <meta property="og:image:height" content="300" />
       <meta property="og:url" content={pageUrl || siteUrl} />
