@@ -1,13 +1,13 @@
 const path = require("path")
+const moment = require("moment-timezone")
 
 /* TODO: make it so that non EN posts can be present without an EN connection */
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const today = new Date()
-  const yyyymmdd = today.toISOString().slice(0, 10)
   const LANGUAGE_SET = ["en", "ko", "hans", "hant"]
   const ROOT_PATH = ["", "ko", "zh-hans", "zh-hant"]
+  const today = moment(Date.now()).tz("Europe/Berlin").format("YYYY-MM-DD")
 
   const { data } = await graphql(`
     query {
@@ -100,7 +100,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang,
         slug: `${rootPath}/`,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -114,7 +114,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "en",
         slug: node.post.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -125,7 +125,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hans",
         slug: node.enPost.post.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -136,7 +136,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hant",
         slug: node.enPost.post.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -147,7 +147,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "ko",
         slug: node.enPost.post.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -163,7 +163,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "en",
         category: node.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -176,7 +176,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "ko",
         category: node.koSlug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -189,7 +189,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hans",
         category: node.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -202,7 +202,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         lang: "hant",
         category: node.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -216,7 +216,7 @@ exports.createPages = async ({ graphql, actions }) => {
         lang: "en",
         tSlug: "",
         slug: node.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -228,7 +228,7 @@ exports.createPages = async ({ graphql, actions }) => {
         lang: "ko",
         tSlug: "ko/",
         slug: node.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -240,7 +240,7 @@ exports.createPages = async ({ graphql, actions }) => {
         lang: "hans",
         tSlug: "zh-hans/",
         slug: node.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
@@ -252,7 +252,7 @@ exports.createPages = async ({ graphql, actions }) => {
         lang: "hant",
         tSlug: "zh-hant/",
         slug: node.slug,
-        today: yyyymmdd,
+        today,
       },
     })
   })
