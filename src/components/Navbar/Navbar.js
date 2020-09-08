@@ -17,7 +17,7 @@ import LangDropdown from "./LangDropdown"
 
 const getLogo = graphql`
   {
-    logo: file(relativePath: { eq: "mxcLogoStars.png" }) {
+    logo: file(relativePath: { eq: "mxcLogo.png" }) {
       childImageSharp {
         fixed(width: 80) {
           ...GatsbyImageSharpFixed_withWebp_tracedSVG

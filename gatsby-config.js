@@ -10,7 +10,7 @@ require("dotenv").config({
 
 module.exports = {
   /* Your site config here */
-  pathPrefix: "/mxc-blog",
+  // pathPrefix: "/mxc-blog",
   siteMetadata: {
     title: "MXC Blog",
     description:
