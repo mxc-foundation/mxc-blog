@@ -35,6 +35,13 @@ const SEO = ({ title, description, language, image, pageUrl, post }) => {
       <meta name="description" content={description || siteDesc} />
       <meta name="image" content={siteImage || image} />
 
+      {/* Google Site Verification */}
+
+      <meta
+        name="google-site-verification"
+        content="yvRbfAnakydt-oCgbCjj3zY-DjdhEYc6zHgRiLUTBJM"
+      />
+
       {/* Twitter Card */}
 
       <meta name="twitter:card" content="summary_large_image" />
@@ -60,7 +67,7 @@ const SEO = ({ title, description, language, image, pageUrl, post }) => {
         href={`https://blog.mxc.org/${post}`}
         hrefLang="en"
       />
-      
+
       <script>
         {`
         (function(m,a,i,l,e,r){ m['MailerLiteObject']=e;function f(){
@@ -72,7 +79,6 @@ const SEO = ({ title, description, language, image, pageUrl, post }) => {
       var ml_account = ml('accounts', '1479110', 'v9j1r7r5k1', 'load');
           `}
       </script>
-
     </Helmet>
   )
 }
