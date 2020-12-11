@@ -241,21 +241,23 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-webfonts`,
       options: {
-        fonts: [
-          {
-            family: `Roboto`,
-            variants: [`300`, `400`, `500`, `600`, `700`],
-          },
-        ],
+        fonts: {
+          google: [
+            {
+              family: "Roboto",
+              variants: ["300", "400", "500"],
+            },
+          ],
+        },
       },
     },
     {
       resolve: `gatsby-source-strapi`,
       options: {
         apiURL: `https://cms.mxc.org:443`,
-        queryLimit: 1000, // Default to 100
+        queryLimit: 2000, // Default to 100
         contentTypes: [
           `posts`,
           `categories`,
