@@ -314,16 +314,10 @@ const Title = styled.div`
     margin-top: ${setRem(80)};`};
 `
 export const query = graphql`
-  query($today: Date!) {
+  query {
     featured: allStrapiPosts(
       sort: { order: DESC, fields: post___date }
-      filter: {
-        post: {
-          featured: { eq: true }
-          publish: { eq: true }
-          date: { lte: $today }
-        }
-      }
+      filter: { post: { featured: { eq: true }, publish: { eq: true } } }
     ) {
       nodes {
         id
@@ -361,10 +355,7 @@ export const query = graphql`
     newsUpdate: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: {
-        category: { slug: { eq: "news-update" } }
-        date: { lte: $today }
-      }
+      filter: { category: { slug: { eq: "news-update" } } }
     ) {
       nodes {
         title
@@ -389,7 +380,7 @@ export const query = graphql`
     events: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "events" } }, date: { lte: $today } }
+      filter: { category: { slug: { eq: "events" } } }
     ) {
       nodes {
         title
@@ -414,10 +405,7 @@ export const query = graphql`
     furtherReading: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: {
-        category: { slug: { eq: "further-reading" } }
-        date: { lte: $today }
-      }
+      filter: { category: { slug: { eq: "further-reading" } } }
     ) {
       nodes {
         title
@@ -442,10 +430,7 @@ export const query = graphql`
     technology: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: {
-        category: { slug: { eq: "technology" } }
-        date: { lte: $today }
-      }
+      filter: { category: { slug: { eq: "technology" } } }
     ) {
       nodes {
         title
@@ -470,10 +455,7 @@ export const query = graphql`
     pressRelease: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: {
-        category: { slug: { eq: "press-release" } }
-        date: { lte: $today }
-      }
+      filter: { category: { slug: { eq: "press-release" } } }
     ) {
       nodes {
         title
@@ -498,7 +480,7 @@ export const query = graphql`
     useCase: allStrapiPosts(
       sort: { fields: date, order: DESC }
       limit: 5
-      filter: { category: { slug: { eq: "use-case" } }, date: { lte: $today } }
+      filter: { category: { slug: { eq: "use-case" } } }
     ) {
       nodes {
         title
@@ -524,7 +506,6 @@ export const query = graphql`
       sort: { order: DESC, fields: post___date }
       filter: {
         post: { featured: { eq: true }, publish: { eq: true } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -573,7 +554,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "news-update" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -607,7 +587,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "events" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -641,7 +620,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "further-reading" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -675,7 +653,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "technology" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -709,7 +686,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "press-release" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -743,7 +719,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "use-case" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -776,7 +751,6 @@ export const query = graphql`
       sort: { order: DESC, fields: post___date }
       filter: {
         post: { featured: { eq: true }, publish: { eq: true } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -825,7 +799,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "news-update" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -859,7 +832,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "events" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -893,7 +865,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "further-reading" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -927,7 +898,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "technology" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -961,7 +931,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "press-release" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -995,7 +964,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "use-case" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -1028,7 +996,6 @@ export const query = graphql`
       sort: { order: DESC, fields: post___date }
       filter: {
         post: { featured: { eq: true }, publish: { eq: true } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -1075,7 +1042,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "news-update" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -1109,7 +1075,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "events" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -1143,7 +1108,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "further-reading" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -1177,7 +1141,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "technology" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -1211,7 +1174,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "press-release" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
@@ -1245,7 +1207,6 @@ export const query = graphql`
       limit: 5
       filter: {
         category: { slug: { eq: "use-case" } }
-        date: { lte: $today }
         enPost: { post: { slug: { ne: null } } }
       }
     ) {
