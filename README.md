@@ -1,4 +1,8 @@
-# MXC Blog - built in Gatsby ![github pages](https://github.com/mxc-foundation/mxc-blog/workflows/github%20pages/badge.svg?branch=master)
+# MXC Blog - built in Gatsby 
+
+[![Netlify Status Live](https://api.netlify.com/api/v1/badges/4efbae4a-82ae-4f37-a364-a74870534cdd/deploy-status)](https://app.netlify.com/sites/mxcblog/deploys)
+
+![github pages Test](https://github.com/mxc-foundation/mxc-blog/workflows/github%20pages/badge.svg?branch=master)
 
 This is the MXC blog, built with Gastby, and designed to be easy to work with and maintain. This blog uses Strapi for content management.
 
